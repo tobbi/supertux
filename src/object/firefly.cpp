@@ -51,6 +51,10 @@ Firefly::Firefly(const Reader& lisp) :
     if( sprite_name.find("vbell", 0) == std::string::npos ) {
       SoundManager::current()->preload("sounds/savebell_low.wav");
     }
+    else if( sprite_name.find("torch", 0) == std::string::npos )
+    {
+      SoundManager::current()->preload("sounds/torch.ogg");
+    }
     else {
       SoundManager::current()->preload("sounds/savebell2.wav");
     }
@@ -92,11 +96,15 @@ Firefly::collision(GameObject& other, const CollisionHit& )
       Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/reset.sprite", "default", ppos, ANCHOR_MIDDLE, pspeed, paccel, LAYER_OBJECTS-1));
     }
 
-    if( sprite_name.find("vbell", 0) == std::string::npos ) {
-      SoundManager::current()->play("sounds/savebell2.wav");
+    if( sprite_name.find("vbell", 0) != std::string::npos ) {
+      SoundManager::current()->play("sounds/savebell_low.wav");
+    }
+    else if( sprite_name.find("torch", 0) != std::string::npos )
+    {
+      SoundManager::current()->play("sounds/torch.ogg");
     }
     else {
-      SoundManager::current()->play("sounds/savebell_low.wav");
+      SoundManager::current()->play("sounds/savebell2.wav");
     }
 
     sprite->set_action("ringing");

@@ -1,4 +1,4 @@
-; Credits text
+﻿; Credits text
 (supertux-text
   (background "oiltux.jpg")
   (music "music/credits.ogg")
@@ -119,6 +119,7 @@
 	Paulo Morfeo
 	Christoph Sommer
 	Bastian Zapf
+	32cheeseman32
 
 
 -Voice Acting
