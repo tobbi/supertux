@@ -1105,7 +1105,12 @@ Player::set_bonus(BonusType type, bool animate)
       Vector pspeed = Vector(((dir==LEFT) ? +100 : -100), -300);
       Vector paccel = Vector(0, 1000);
       std::string action = (dir==LEFT)?"left":"right";
-      Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/firetux-helmet.sprite", action, ppos, ANCHOR_TOP, pspeed, paccel, LAYER_OBJECTS-1));
+      if (g_config->christmas_mode) {
+        Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/santatux-hat.sprite", action, ppos,ANCHOR_TOP, pspeed, paccel, LAYER_OBJECTS-1)); 
+      }
+      else {
+        Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/firetux-helmet.sprite", action, ppos, ANCHOR_TOP, pspeed, paccel, LAYER_OBJECTS-1));
+      }
       if (climbing) stop_climbing(*climbing);
     }
     if ((player_status->bonus == ICE_BONUS) && (animate)) {
@@ -1124,15 +1129,6 @@ Player::set_bonus(BonusType type, bool animate)
       Vector paccel = Vector(0, 1000);
       std::string action = (dir==LEFT)?"left":"right";
       Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/airtux-hat.sprite", action, ppos, ANCHOR_TOP, pspeed, paccel, LAYER_OBJECTS-1));
-      if (climbing) stop_climbing(*climbing);
-    }
-    if ((player_status->bonus == FIRE_BONUS) && (g_config->christmas_mode) && (animate)) {
-      // visually lose santa hat
-      Vector ppos = Vector((bbox.p1.x + bbox.p2.x) / 2, bbox.p1.y);
-      Vector pspeed = Vector(((dir==LEFT) ? +100 : -100), -300);
-      Vector paccel = Vector(0, 1000);
-      std::string action = (dir==LEFT)?"left":"right";
-      Sector::current()->add_object(std::make_shared<SpriteParticle>("images/objects/particles/santatux-hat.sprite", action, ppos, ANCHOR_TOP, pspeed, paccel, LAYER_OBJECTS-1));
       if (climbing) stop_climbing(*climbing);
     }
     if ((player_status->bonus == EARTH_BONUS) && (animate)) {
