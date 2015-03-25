@@ -315,7 +315,7 @@
        (action
          (name "santa-duck-right")
          (hitbox 16 45 32 32)
-         (images "big/duck-0.png"))
+         (images "fire/santa_cap/duck.png"))
 
        (action
          (name "santa-duck-left")
