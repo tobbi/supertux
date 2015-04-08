@@ -47,7 +47,7 @@ private:
   SoundFile& operator=(const SoundFile&) = delete;
 };
 
-std::unique_ptr<SoundFile> load_sound_file(const std::string& filename);
+std::shared_ptr<SoundFile> load_sound_file(const std::string& filename);
 
 #endif
 

@@ -44,10 +44,8 @@ StreamSoundSource::~StreamSoundSource()
 }
 
 void
-StreamSoundSource::set_sound_file(std::unique_ptr<SoundFile> newfile)
+StreamSoundSource::set_sound_file(std::shared_ptr<SoundFile> file)
 {
-  file = std::move(newfile);
-
   ALint queued;
   alGetSourcei(source, AL_BUFFERS_QUEUED, &queued);
   for(size_t i = 0; i < STREAMFRAGMENTS - queued; ++i) {

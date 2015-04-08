@@ -27,7 +27,7 @@ public:
   StreamSoundSource();
   virtual ~StreamSoundSource();
 
-  void set_sound_file(std::unique_ptr<SoundFile> newfile);
+  void set_sound_file(std::shared_ptr<SoundFile> file);
 
   enum FadeState { NoFading, FadingOn, FadingOff, FadingPause, FadingResume };
 

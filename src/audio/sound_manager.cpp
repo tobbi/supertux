@@ -119,14 +119,14 @@ SoundManager::intern_create_sound_source(const std::string& filename)
     buffer = i->second;
   } else {
     // Load sound file
-    std::unique_ptr<SoundFile> file(load_sound_file(filename));
+    std::shared_ptr<SoundFile> file(load_sound_file(filename));
 
     if(file->size < 100000) {
       buffer = load_file_into_buffer(*file);
       buffers.insert(std::make_pair(filename, buffer));
     } else {
       std::unique_ptr<StreamSoundSource> source_(new StreamSoundSource);
-      source_->set_sound_file(std::move(file));
+      source_->set_sound_file(file);
       return std::move(source_);
     }
 
@@ -162,7 +162,7 @@ SoundManager::preload(const std::string& filename)
   if(i != buffers.end())
     return;
   try {
-    std::unique_ptr<SoundFile> file (load_sound_file(filename));
+    std::shared_ptr<SoundFile> file (load_sound_file(filename));
     // only keep small files
     if(file->size >= 100000)
       return;

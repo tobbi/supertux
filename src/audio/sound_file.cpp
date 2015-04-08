@@ -34,11 +34,11 @@
 #include "util/file_system.hpp"
 #include "util/log.hpp"
 
-std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
+std::shared_ptr<SoundFile> load_music_file(const std::string& filename)
 {
   if(SoundManager::current()->sound_files.find(filename) != SoundManager::current()->sound_files.end())
   {
-    return std::move(std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files.find(filename)->second));
+    return std::shared_ptr<OggSoundFile>(SoundManager::current()->sound_files.find(filename)->second);
   }
   lisp::Parser parser(false);
   const lisp::Lisp* root = parser.parse(filename);
@@ -70,10 +70,10 @@ std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
   }
 
   SoundManager::current()->sound_files.insert(std::make_pair(filename, new OggSoundFile(file, loop_begin, loop_at)));
-  return std::move(std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files[filename]));
+  return std::shared_ptr<OggSoundFile>(SoundManager::current()->sound_files[filename]);
 }
 
-std::unique_ptr<SoundFile> load_sound_file(const std::string& filename)
+std::shared_ptr<SoundFile> load_sound_file(const std::string& filename)
 {
   if(filename.length() > 6
      && filename.compare(filename.length()-6, 6, ".music") == 0) {
@@ -99,9 +99,9 @@ std::unique_ptr<SoundFile> load_sound_file(const std::string& filename)
     }
 
     if(strncmp(magic, "RIFF", 4) == 0)
-      return std::unique_ptr<SoundFile>(new WavSoundFile(file));
+      return std::shared_ptr<SoundFile>(new WavSoundFile(file));
     else if(strncmp(magic, "OggS", 4) == 0)
-      return std::unique_ptr<SoundFile>(new OggSoundFile(file, 0, -1));
+      return std::shared_ptr<SoundFile>(new OggSoundFile(file, 0, -1));
     else
       throw SoundError("Unknown file format");
   } catch(std::exception& e) {
