@@ -20,11 +20,13 @@
 
 #include <config.h>
 
+#include <map>
 #include <stdint.h>
 #include <sstream>
 #include <physfs.h>
 
 #include "audio/sound_error.hpp"
+#include "audio/sound_manager.hpp"
 #include "audio/ogg_sound_file.hpp"
 #include "audio/wav_sound_file.hpp"
 #include "lisp/parser.hpp"
@@ -34,6 +36,10 @@
 
 std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
 {
+  if(SoundManager::current()->sound_files.find(filename) != SoundManager::current()->sound_files.end())
+  {
+    return std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files.find(filename)->second);
+  }
   lisp::Parser parser(false);
   const lisp::Lisp* root = parser.parse(filename);
   const lisp::Lisp* music = root->get_lisp("supertux-music");
@@ -56,13 +62,15 @@ std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
   raw_music_file = FileSystem::normalize(basedir + raw_music_file);
 
   PHYSFS_file* file = PHYSFS_openRead(raw_music_file.c_str());
+  log_debug << "Loading " << raw_music_file << std::endl;
   if(!file) {
     std::stringstream msg;
     msg << "Couldn't open '" << raw_music_file << "': " << PHYSFS_getLastError();
     throw SoundError(msg.str());
   }
 
-  return std::unique_ptr<SoundFile>(new OggSoundFile(file, loop_begin, loop_at));
+  SoundManager::current()->sound_files.insert(std::make_pair(filename, new OggSoundFile(file, loop_begin, loop_at)));
+  return std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files[filename]);
 }
 
 std::unique_ptr<SoundFile> load_sound_file(const std::string& filename)
@@ -73,6 +81,7 @@ std::unique_ptr<SoundFile> load_sound_file(const std::string& filename)
   }
 
   PHYSFS_file* file = PHYSFS_openRead(filename.c_str());
+  log_debug << "Loading " << filename << std::endl;
   if(!file) {
     std::stringstream msg;
     msg << "Couldn't open '" << filename << "': " << PHYSFS_getLastError() << ", using dummy sound file.";

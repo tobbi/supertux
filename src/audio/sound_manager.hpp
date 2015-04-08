@@ -25,6 +25,7 @@
 #include <al.h>
 #include <alc.h>
 
+#include "audio/ogg_sound_file.hpp"
 #include "math/vector.hpp"
 #include "util/currenton.hpp"
 
@@ -87,6 +88,8 @@ public:
    * Unsubscribe from updates for stream_sound_source.
    */
   void remove_from_update( StreamSoundSource* sss );
+
+  std::map<std::string, OggSoundFile*> sound_files;
 
 private:
   friend class OpenALSoundSource;
