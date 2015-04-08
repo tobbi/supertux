@@ -38,7 +38,7 @@ std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
 {
   if(SoundManager::current()->sound_files.find(filename) != SoundManager::current()->sound_files.end())
   {
-    return std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files.find(filename)->second);
+    return std::move(std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files.find(filename)->second));
   }
   lisp::Parser parser(false);
   const lisp::Lisp* root = parser.parse(filename);
@@ -70,7 +70,7 @@ std::unique_ptr<SoundFile> load_music_file(const std::string& filename)
   }
 
   SoundManager::current()->sound_files.insert(std::make_pair(filename, new OggSoundFile(file, loop_begin, loop_at)));
-  return std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files[filename]);
+  return std::move(std::unique_ptr<OggSoundFile>(SoundManager::current()->sound_files[filename]));
 }
 
 std::unique_ptr<SoundFile> load_sound_file(const std::string& filename)
