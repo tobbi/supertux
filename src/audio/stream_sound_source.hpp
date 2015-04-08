@@ -54,7 +54,7 @@ private:
   = STREAMBUFFERSIZE / STREAMFRAGMENTS;
 
   bool fillBufferAndQueue(ALuint buffer);
-  std::unique_ptr<SoundFile> file;
+  std::shared_ptr<SoundFile> file;
   ALuint buffers[STREAMFRAGMENTS];
 
   FadeState fade_state;
