@@ -21,6 +21,7 @@
 
 #include <assert.h>
 #include <fstream>
+#include <future>
 #include <iostream>
 #include <physfs.h>
 #include <sstream>
@@ -882,7 +883,10 @@ WorldMap::setup()
   ScreenManager::current()->set_screen_fade(std::unique_ptr<ScreenFade>(new FadeIn(1)));
 
   current_ = this;
-  load_state();
+  std::async([this_=current_]
+  {
+    this_->load_state();
+  });
 
   // if force_spawnpoint was set, move Tux there, then clear force_spawnpoint
   if (force_spawnpoint != "") {
@@ -892,15 +896,18 @@ WorldMap::setup()
 
   tux->setup();
 
-  // register worldmap_table as worldmap in scripting
-  using namespace scripting;
+  std::async([this_=current_]
+  {
+    // register worldmap_table as worldmap in scripting
+    using namespace scripting;
 
-  sq_pushroottable(global_vm);
-  sq_pushstring(global_vm, "worldmap", -1);
-  sq_pushobject(global_vm, worldmap_table);
-  if(SQ_FAILED(sq_createslot(global_vm, -3)))
-    throw SquirrelError(global_vm, "Couldn't set worldmap in roottable");
-  sq_pop(global_vm, 1);
+    sq_pushroottable(global_vm);
+    sq_pushstring(global_vm, "worldmap", -1);
+    sq_pushobject(global_vm, this_->worldmap_table);
+    if(SQ_FAILED(sq_createslot(global_vm, -3)))
+      throw SquirrelError(global_vm, "Couldn't set worldmap in roottable");
+    sq_pop(global_vm, 1);
+  });
 
   //Run default.nut just before init script
   try {
@@ -920,17 +927,20 @@ WorldMap::setup()
 void
 WorldMap::leave()
 {
-  using namespace scripting;
+  std::async([this_=current_]
+  {
+    // remove worldmap_table from roottable
+    using namespace scripting;
 
-  // save state of world and player
-  save_state();
+    // save state of world and player
+    this_->save_state();
 
-  // remove worldmap_table from roottable
-  sq_pushroottable(global_vm);
-  sq_pushstring(global_vm, "worldmap", -1);
-  if(SQ_FAILED(sq_deleteslot(global_vm, -2, SQFalse)))
-    throw SquirrelError(global_vm, "Couldn't unset worldmap in roottable");
-  sq_pop(global_vm, 1);
+    sq_pushroottable(global_vm);
+    sq_pushstring(global_vm, "worldmap", -1);
+    if(SQ_FAILED(sq_deleteslot(global_vm, -2, SQFalse)))
+      throw SquirrelError(global_vm, "Couldn't unset worldmap in roottable");
+    sq_pop(global_vm, 1);
+  });
 }
 
 void
