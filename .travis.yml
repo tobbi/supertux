@@ -98,6 +98,7 @@ addons:
     - libboost-all-dev
     - libsdl2-dev
     - libsdl2-image-dev
+    - libsdl2-ttf-dev
     - rpm
     - sshpass
   coverity_scan:
