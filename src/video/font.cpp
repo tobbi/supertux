@@ -24,7 +24,6 @@
 #include <string.h>
 #include <stdexcept>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 #include <physfs.h>
 
 #include "physfs/physfs_sdl.hpp"
@@ -37,6 +36,7 @@
 #include "video/drawing_context.hpp"
 #include "video/drawing_request.hpp"
 #include "video/font.hpp"
+#include "video/font_functions.hpp"
 #include "video/renderer.hpp"
 
 namespace {
@@ -56,15 +56,6 @@ bool vline_empty(SDL_Surface* surface, int x, int start_y, int end_y, Uint8 thre
   return true;
 }
 
-TTF_Font* load_font()
-{
-  TTF_Font* font = TTF_OpenFont("data/fonts/otf/AlexBrush-Regular-OTF.otf", 20);
-  if(font == nullptr)
-  {
-    log_debug << "Couldn't open font!" << std::endl;
-  }
-  return font;
-}
 } // namespace
 
 Font::Font(GlyphWidth glyph_width_,
