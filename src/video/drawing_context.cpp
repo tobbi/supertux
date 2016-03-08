@@ -391,6 +391,7 @@ DrawingContext::handle_drawing_requests(DrawingRequests& requests_)
             const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
             textrequest->font->draw(&renderer, textrequest->text, request.pos,
                                     textrequest->alignment, request.drawing_effect, request.color, request.alpha);
+            renderer.draw_text(request);
           }
           break;
           case FILLRECT:
@@ -423,6 +424,7 @@ DrawingContext::handle_drawing_requests(DrawingRequests& requests_)
             const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
             textrequest->font->draw(&renderer, textrequest->text, request.pos,
                                     textrequest->alignment, request.drawing_effect, request.color, request.alpha);
+            renderer.draw_text(request);
           }
           break;
           case FILLRECT:

@@ -20,6 +20,7 @@
 #include <version.h>
 
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <boost/format.hpp>
 #include <boost/optional.hpp>
 #include <array>
@@ -264,13 +265,16 @@ public:
       msg << "Couldn't initialize SDL: " << SDL_GetError();
       throw std::runtime_error(msg.str());
     }
+    TTF_Init();
     // just to be sure
     atexit(SDL_Quit);
+    atexit(TTF_Quit);
   }
 
   ~SDLSubsystem()
   {
     SDL_Quit();
+    TTF_Quit();
   }
 };
 

@@ -20,6 +20,7 @@
 
 #include "util/log.hpp"
 #include "video/drawing_request.hpp"
+#include "video/font_functions.hpp"
 #include "video/sdl/sdl_texture.hpp"
 
 namespace {
@@ -322,6 +323,59 @@ SDLPainter::draw_inverse_ellipse(SDL_Renderer* renderer, const DrawingRequest& r
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
   SDL_SetRenderDrawColor(renderer, r, g, b, a);
   SDL_RenderFillRects(renderer, rects, 2*slices+2);
+}
+
+void
+SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
+{
+  const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
+  TTF_Font* font = load_font();
+  if(font == nullptr)
+  {
+    // Can happen sometimes.
+    return;
+  }
+  SDL_Surface* text_surf = TTF_RenderText_Blended(font, textrequest->text.c_str(), {255, 255, 255, 0});
+  if(text_surf == nullptr)
+  {
+    log_fatal << "Null ptr!" << std::endl;
+    return;
+  }
+  std::shared_ptr<SDLTexture> sdltexture = std::shared_ptr<SDLTexture>(new SDLTexture(text_surf));
+  
+  // TODO: The following is shamelessly copied / modified from above. This needs refactoring and adaptation
+  SDL_Rect src_rect;
+  src_rect.x = 0;
+  src_rect.y = 0;
+  src_rect.w = text_surf->w;
+  src_rect.h = text_surf->h;
+
+  SDL_Rect dst_rect;
+  dst_rect.x = request.pos.x;
+  dst_rect.y = request.pos.y;
+  dst_rect.w = text_surf->w;
+  dst_rect.h = text_surf->h;
+
+  Uint8 r = static_cast<Uint8>(request.color.red * 255);
+  Uint8 g = static_cast<Uint8>(request.color.green * 255);
+  Uint8 b = static_cast<Uint8>(request.color.blue * 255);
+  Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
+  SDL_SetTextureColorMod(sdltexture->get_texture(), r, g, b);
+  SDL_SetTextureAlphaMod(sdltexture->get_texture(), a);
+  SDL_SetTextureBlendMode(sdltexture->get_texture(), blend2sdl(request.blend));
+
+  SDL_RendererFlip flip = SDL_FLIP_NONE;
+  if (request.drawing_effect & HORIZONTAL_FLIP)
+  {
+    flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
+  }
+
+  if (request.drawing_effect & VERTICAL_FLIP)
+  {
+    flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
+  }
+
+  SDL_RenderCopyEx(renderer, sdltexture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
 }
 
 /* EOF */
