@@ -348,9 +348,13 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   {
     return;
   }
+  SDL_Surface* shadow_surf = TTF_RenderText_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0});
 
   std::shared_ptr<SDLTexture> sdltexture = std::shared_ptr<SDLTexture>(new SDLTexture(text_surf));
   SDL_SetTextureBlendMode(sdltexture->get_texture(), blend2sdl(request.blend));
+
+  std::shared_ptr<SDLTexture> shadowtexture = std::shared_ptr<SDLTexture>(new SDLTexture(shadow_surf));
+  SDL_SetTextureBlendMode(shadowtexture->get_texture(), blend2sdl(request.blend));
 
   SDL_RendererFlip flip = SDL_FLIP_NONE;
   if (request.drawing_effect & HORIZONTAL_FLIP)
@@ -380,9 +384,15 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   else if(textrequest->alignment == ALIGN_RIGHT)
     dst_rect.x -= text_surf->w;
 
+  SDL_Rect dst_shadow_rect = dst_rect;
+  dst_shadow_rect.x += 2;
+  dst_shadow_rect.y += 2;
+
+  SDL_RenderCopyEx(renderer, shadowtexture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
   SDL_RenderCopyEx(renderer, sdltexture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
 
   // TODO: Should re-use textures instead of recreating them on each call.
+  shadowtexture.reset();
   sdltexture.reset();
 }
 
