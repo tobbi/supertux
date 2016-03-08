@@ -340,9 +340,9 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   SDL_Surface* text_surf = TTF_RenderText_Blended(Resources::example_font, textrequest->text.c_str(), {r, g, b, a});
   if(text_surf == nullptr)
   {
-    log_fatal << "Null ptr!" << std::endl;
     return;
   }
+
   std::shared_ptr<SDLTexture> sdltexture = std::shared_ptr<SDLTexture>(new SDLTexture(text_surf));
   SDL_SetTextureBlendMode(sdltexture->get_texture(), blend2sdl(request.blend));
 
@@ -375,6 +375,9 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
     dst_rect.x -= text_surf->w;
 
   SDL_RenderCopyEx(renderer, sdltexture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
+
+  // TODO: Should re-use textures instead of recreating them on each call.
+  sdltexture.reset();
 }
 
 /* EOF */
