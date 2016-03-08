@@ -343,12 +343,12 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   else
     font = Resources::example_font;
 
-  SDL_Surface* text_surf = TTF_RenderText_Blended(font, textrequest->text.c_str(), {r, g, b, a});
+  SDL_Surface* text_surf = TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {r, g, b, a});
   if(text_surf == nullptr)
   {
     return;
   }
-  SDL_Surface* shadow_surf = TTF_RenderText_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0});
+  SDL_Surface* shadow_surf = TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0});
 
   std::shared_ptr<SDLTexture> sdltexture = std::shared_ptr<SDLTexture>(new SDLTexture(text_surf));
   SDL_SetTextureBlendMode(sdltexture->get_texture(), blend2sdl(request.blend));
