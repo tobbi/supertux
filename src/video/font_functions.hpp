@@ -23,7 +23,7 @@ namespace {
 
 TTF_Font* load_font()
 {
-  TTF_Font* font = TTF_OpenFont("data/fonts/otf/AlexBrush-Regular-OTF.otf", 20);
+  TTF_Font* font = TTF_OpenFont("data/fonts/otf/AlexBrush-Regular-OTF.otf", 15);
   if(font == nullptr)
   {
     log_debug << "Couldn't open font!" << std::endl;

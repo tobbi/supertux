@@ -20,6 +20,8 @@
 
 #include <memory>
 
+#include <SDL_ttf.h>
+
 #include "video/font_ptr.hpp"
 #include "video/surface_ptr.hpp"
 
@@ -34,6 +36,7 @@ public:
   static FontPtr normal_font;
   static FontPtr small_font;
   static FontPtr big_font;
+  static TTF_Font* example_font;
 
   static SurfacePtr checkbox;
   static SurfacePtr checkbox_checked;

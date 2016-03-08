@@ -21,6 +21,7 @@
 #include "sprite/sprite_manager.hpp"
 #include "supertux/player_status.hpp"
 #include "video/font.hpp"
+#include "video/font_functions.hpp"
 
 std::unique_ptr<MouseCursor> Resources::mouse_cursor;
 
@@ -28,6 +29,7 @@ FontPtr Resources::fixed_font;
 FontPtr Resources::normal_font;
 FontPtr Resources::small_font;
 FontPtr Resources::big_font;
+TTF_Font* Resources::example_font;
 
 SurfacePtr Resources::checkbox;
 SurfacePtr Resources::checkbox_checked;
@@ -48,6 +50,8 @@ Resources::Resources()
   normal_font.reset(new Font(Font::VARIABLE, "fonts/white.stf"));
   small_font.reset(new Font(Font::VARIABLE, "fonts/white-small.stf", 1));
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
+  
+  example_font = load_font();
 
   /* Load menu images */
   checkbox = Surface::create("images/engine/menu/checkbox-unchecked.png");
@@ -71,6 +75,9 @@ Resources::~Resources()
   normal_font.reset();
   small_font.reset();
   big_font.reset();
+
+  TTF_CloseFont(example_font);
+  example_font = nullptr;
 
   mouse_cursor.reset();
 }
