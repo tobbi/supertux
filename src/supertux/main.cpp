@@ -273,6 +273,7 @@ public:
   ~SDLSubsystem()
   {
     SDL_Quit();
+    TTF_Quit();
   }
 };
 
