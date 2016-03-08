@@ -51,7 +51,7 @@ Resources::Resources()
   small_font.reset(new Font(Font::VARIABLE, "fonts/white-small.stf", 1));
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
   
-  example_font = load_font();
+  example_font = load_font("data/fonts/otf/Hanken-Book.ttf", 20);
 
   /* Load menu images */
   checkbox = Surface::create("images/engine/menu/checkbox-unchecked.png");

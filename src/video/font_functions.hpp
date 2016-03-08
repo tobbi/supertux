@@ -21,9 +21,9 @@
 
 namespace {
 
-TTF_Font* load_font()
+TTF_Font* load_font(const std::string& filename, int size)
 {
-  TTF_Font* font = TTF_OpenFont("data/fonts/otf/AlexBrush-Regular-OTF.otf", 15);
+  TTF_Font* font = TTF_OpenFont(filename.c_str(), size);
   if(font == nullptr)
   {
     log_debug << "Couldn't open font!" << std::endl;
