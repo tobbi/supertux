@@ -30,6 +30,7 @@ FontPtr Resources::normal_font;
 FontPtr Resources::small_font;
 FontPtr Resources::big_font;
 TTF_Font* Resources::example_font;
+TTF_Font* Resources::example_font_small;
 TTF_Font* Resources::console_font;
 
 SurfacePtr Resources::checkbox;
@@ -53,6 +54,7 @@ Resources::Resources()
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
 
   example_font = load_font("data/fonts/otf/Hanken-Book.ttf", 20);
+  example_font_small = load_font("data/fonts/otf/Hanken-Book.ttf", 10);
   console_font = load_font("data/fonts/otf/SourceCodePro-Regular.otf", 10);
 
   /* Load menu images */
@@ -79,8 +81,10 @@ Resources::~Resources()
   big_font.reset();
 
   TTF_CloseFont(example_font);
+  TTF_CloseFont(example_font_small);
   TTF_CloseFont(console_font);
   example_font = nullptr;
+  example_font_small = nullptr;
   console_font = nullptr;
 
   mouse_cursor.reset();
