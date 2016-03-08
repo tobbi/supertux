@@ -404,17 +404,6 @@ Font::draw_text(Renderer *renderer, const std::string& text, const Vector& pos,
                pos + Vector(shadowsize, shadowsize), drawing_effect, Color(1,1,1), alpha);
 
   draw_chars(renderer, true, rtl ? std::string(text.rbegin(), text.rend()) : text, pos, drawing_effect, color, alpha);
-
-  TTF_Font* font = load_font();
-  SDL_Surface* text_surf = TTF_RenderText_Blended(font, "This is an example text", {255, 0, 0, 0});
-  if(text_surf == nullptr)
-  {
-    log_debug << "Something went wrong when converting TTF text into a surface" << std::endl;
-    TTF_CloseFont(font);
-    return;
-  }
-  // TODO: Send drawing request for surface
-
 }
 
 void
