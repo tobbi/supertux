@@ -36,7 +36,6 @@
 #include "video/drawing_context.hpp"
 #include "video/drawing_request.hpp"
 #include "video/font.hpp"
-#include "video/font_functions.hpp"
 #include "video/renderer.hpp"
 
 namespace {
