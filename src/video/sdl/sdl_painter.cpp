@@ -369,6 +369,11 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   dst_rect.w = text_surf->w;
   dst_rect.h = text_surf->h;
 
+  if(textrequest->alignment == ALIGN_CENTER)
+    dst_rect.x -= text_surf->w / 2;
+  else if(textrequest->alignment == ALIGN_RIGHT)
+    dst_rect.x -= text_surf->w;
+
   SDL_RenderCopyEx(renderer, sdltexture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
 }
 
