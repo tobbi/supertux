@@ -80,6 +80,11 @@ public:
    * returns the given string, truncated (preferably at whitespace) to be at most "width" pixels wide
    */
   std::string wrap_to_width(const std::string& text, float width, std::string* overflow);
+  
+  /**
+   * returns the stf filename
+   */
+   std::string get_filename() const;
 
   /** Draws the given text to the screen. Also needs the position.
    * Type of alignment, drawing effect and alpha are optional. */
@@ -142,6 +147,8 @@ private:
 
   /** 65536 of glyphs */
   std::vector<Glyph> glyphs;
+  
+  const std::string filename;
 };
 
 #endif

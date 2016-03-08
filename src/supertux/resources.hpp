@@ -37,6 +37,7 @@ public:
   static FontPtr small_font;
   static FontPtr big_font;
   static TTF_Font* example_font;
+  static TTF_Font* console_font;
 
   static SurfacePtr checkbox;
   static SurfacePtr checkbox_checked;

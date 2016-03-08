@@ -337,7 +337,13 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
 
-  SDL_Surface* text_surf = TTF_RenderText_Blended(Resources::example_font, textrequest->text.c_str(), {r, g, b, a});
+  TTF_Font* font = nullptr;
+  if(textrequest->font->get_filename() == "fonts/andale12.stf")
+    font = Resources::console_font;
+  else
+    font = Resources::example_font;
+
+  SDL_Surface* text_surf = TTF_RenderText_Blended(font, textrequest->text.c_str(), {r, g, b, a});
   if(text_surf == nullptr)
   {
     return;
