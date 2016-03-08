@@ -340,6 +340,8 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   TTF_Font* font = nullptr;
   if(textrequest->font->get_filename() == "fonts/andale12.stf")
     font = Resources::console_font;
+  else if(textrequest->font->get_filename() == "fonts/white-small.stf")
+    font = Resources::example_font_small;
   else
     font = Resources::example_font;
 
