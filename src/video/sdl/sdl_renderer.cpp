@@ -166,7 +166,7 @@ SDLRenderer::draw_inverse_ellipse(const DrawingRequest& request)
 void
 SDLRenderer::draw_text(const DrawingRequest& request)
 {
-    // TODO: Implement!
+  SDLPainter::draw_text(m_renderer, request);
 }
 
 void
