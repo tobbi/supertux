@@ -67,7 +67,8 @@ Font::Font(GlyphWidth glyph_width_,
   shadowsize(shadowsize_),
   border(0),
   rtl(false),
-  glyphs(65536)
+  glyphs(65536),
+  filename(filename)
 {
   for(unsigned int i=0; i<65536;i++) glyphs[i].surface_idx = -1;
 
@@ -449,6 +450,12 @@ Font::draw_chars(Renderer *renderer, bool notshadow, const std::string& text,
       p.x += glyph.advance;
     }
   }
+}
+
+std::string
+Font::get_filename() const
+{
+  return filename;
 }
 
 /* EOF */
