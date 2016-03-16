@@ -35,15 +35,17 @@ TTF_Font* load_font(const std::string& filename, int size)
 
 class FontCache
 {
-  static std::map<TTF_Font*,
-                 std::map<std::string, SDL_Surface*>> font_glyphs;
+  typedef std::shared_ptr<SDL_Texture> SDL_TexturePtr;
+  typedef std::map<std::string, std::shared_ptr<SDL_Texture>> SDL_TextureMap;
+  typedef std::map<TTF_Font*, SDL_TextureMap> GlyphMap;
+  static GlyphMap font_glyphs;
 
-  static SDL_Surface* get_glyph(TTF_Font* font, const std::string& text)
+  static SDL_TexturePtr get_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text];
   }
 
-  static void add_glyph(TTF_Font* font, const std::string& text, SDL_Surface* glyph)
+  static void add_glyph(TTF_Font* font, const std::string& text, SDL_TexturePtr glyph)
   {
     font_glyphs[font][text] = glyph;
   }
@@ -51,5 +53,18 @@ class FontCache
   static bool has_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text] != nullptr;
+  }
+
+  static void delete_textures()
+  {
+    for(auto it = font_glyphs.begin(); it != font_glyphs.end(); ++it)
+    {
+      auto map = it->second;
+      for(auto tex_it = map.begin(); tex_it != map.end(); ++tex_it)
+      {
+        auto texturePtr = tex_it->second;
+        texturePtr.reset();
+      }
+    }
   }
 };
