@@ -345,13 +345,13 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   else
     font = Resources::example_font;
 
-  if( !FontCache::has_glyph(font, textrequest->text) )
+  if( !FontCache::has_glyph(font, textrequest->text, {r, g, b, a}) )
   {
     SDLSurfacePtr text_surf = std::shared_ptr<SDL_Surface>(TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {r, g, b, a}));
-    FontCache::add_glyph(font, textrequest->text, text_surf);
+    FontCache::add_glyph(font, textrequest->text, {r, g, b, a}, text_surf);
   }
 
-  SDLTexturePtr font_texture = FontCache::get_glyph(font, textrequest->text);
+  SDLTexturePtr font_texture = FontCache::get_glyph(font, textrequest->text, {r, g, b, a});
   if(font_texture == nullptr)
   {
     return;
