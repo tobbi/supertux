@@ -22,10 +22,12 @@
 
 namespace {
 typedef std::shared_ptr<SDL_Surface> SDLSurfacePtr;
-typedef std::map<std::string, SDLSurfacePtr> SDLSurfaceMap;
-typedef std::map<TTF_Font*, SDLSurfaceMap> GlyphMap;
+typedef std::shared_ptr<SDLTexture> SDLTexturePtr;
+typedef std::map<std::string, SDLTexturePtr> SDLTextureMap;
+typedef std::map<TTF_Font*, SDLTextureMap> GlyphMap;
 
 GlyphMap font_glyphs;
+GlyphMap shadow_glyphs;
 } // namespace
 
 class FontCache
@@ -41,19 +43,42 @@ public:
     return font;
   }
 
-  static SDLSurfacePtr get_glyph(TTF_Font* font, const std::string& text)
+  static SDLTexturePtr get_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text];
   }
 
-  static void add_glyph(TTF_Font* font, const std::string& text, SDLSurfacePtr glyph)
+  static SDLTexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
   {
-    font_glyphs[font][text] = glyph;
+    return shadow_glyphs[font][text];
+  }
+
+  static void add_glyph(TTF_Font* font, const std::string& text,
+                        SDLSurfacePtr glyph)
+  {
+    if(glyph.get() == nullptr)
+      return;
+
+    font_glyphs[font][text] = std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
+  }
+
+  static void add_shadow_glyph(TTF_Font* font, const std::string& text,
+                               SDLSurfacePtr glyph)
+  {
+    if(glyph.get() == nullptr)
+      return;
+
+    shadow_glyphs[font][text] = std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
   }
 
   static bool has_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text] != nullptr;
+  }
+
+  static bool has_shadow_glyph(TTF_Font* font, const std::string& text)
+  {
+    return shadow_glyphs[font][text] != nullptr;
   }
 
   static void delete_textures()
