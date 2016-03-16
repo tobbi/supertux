@@ -61,23 +61,22 @@ public:
   }
 
   static void add_glyph(TTF_Font* font, const std::string& text,
-                        const SDL_Color& color, SDLSurfacePtr glyph)
+                        const SDL_Color& color)
   {
-    if(glyph.get() == nullptr)
-      return;
+    SDLSurfacePtr text_surf = std::shared_ptr<SDL_Surface>(
+      TTF_RenderUTF8_Blended(font, text.c_str(), color));
 
     font_glyphs[font][color_to_string(color) + text] =
-                      std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
+                      std::shared_ptr<SDLTexture>(new SDLTexture(text_surf.get()));
   }
 
-  static void add_shadow_glyph(TTF_Font* font, const std::string& text,
-                               SDLSurfacePtr glyph)
+  static void add_shadow_glyph(TTF_Font* font, const std::string& text)
   {
-    if(glyph.get() == nullptr)
-      return;
+    SDLSurfacePtr shadow_surf = std::shared_ptr<SDL_Surface>(
+      TTF_RenderUTF8_Blended(font, text.c_str(), {0, 0, 0, 0}));
 
     shadow_glyphs[font][text] =
-                      std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
+                      std::shared_ptr<SDLTexture>(new SDLTexture(shadow_surf.get()));
   }
 
   static bool has_glyph(TTF_Font* font, const std::string& text,
