@@ -66,6 +66,9 @@ public:
     SDLSurfacePtr text_surf = std::shared_ptr<SDL_Surface>(
       TTF_RenderUTF8_Blended(font, text.c_str(), color));
 
+    if(text_surf == nullptr)
+      return;
+
     font_glyphs[font][color_to_string(color) + text] =
                       std::shared_ptr<SDLTexture>(new SDLTexture(text_surf.get()));
   }
@@ -74,6 +77,9 @@ public:
   {
     SDLSurfacePtr shadow_surf = std::shared_ptr<SDL_Surface>(
       TTF_RenderUTF8_Blended(font, text.c_str(), {0, 0, 0, 0}));
+
+    if(shadow_surf == nullptr)
+      return;
 
     shadow_glyphs[font][text] =
                       std::shared_ptr<SDLTexture>(new SDLTexture(shadow_surf.get()));
