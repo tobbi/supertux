@@ -347,8 +347,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 
   if( !FontCache::has_glyph(font, textrequest->text, {r, g, b, a}) )
   {
-    SDLSurfacePtr text_surf = std::shared_ptr<SDL_Surface>(TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {r, g, b, a}));
-    FontCache::add_glyph(font, textrequest->text, {r, g, b, a}, text_surf);
+    FontCache::add_glyph(font, textrequest->text, {r, g, b, a});
   }
 
   SDLTexturePtr font_texture = FontCache::get_glyph(font, textrequest->text, {r, g, b, a});
@@ -360,8 +359,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 
   if( !FontCache::has_shadow_glyph(font, textrequest->text) )
   {
-    SDLSurfacePtr shadow_surf = std::shared_ptr<SDL_Surface>(TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0}));
-    FontCache::add_shadow_glyph(font, textrequest->text, shadow_surf);
+    FontCache::add_shadow_glyph(font, textrequest->text);
   }
 
   SDLTexturePtr shadow_texture = FontCache::get_shadow_glyph(font, textrequest->text);
