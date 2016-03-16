@@ -32,6 +32,12 @@ GlyphMap shadow_glyphs;
 
 class FontCache
 {
+private:
+  static std::string color_to_string(const SDL_Color& c)
+  {
+    return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.r);
+  }
+
 public:
   static TTF_Font* load_font(const std::string& filename, int size)
   {
@@ -43,9 +49,10 @@ public:
     return font;
   }
 
-  static SDLTexturePtr get_glyph(TTF_Font* font, const std::string& text)
+  static SDLTexturePtr get_glyph(TTF_Font* font, const std::string& text,
+                                 const SDL_Color& color)
   {
-    return font_glyphs[font][text];
+    return font_glyphs[font][color_to_string(color) + text];
   }
 
   static SDLTexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
@@ -54,12 +61,13 @@ public:
   }
 
   static void add_glyph(TTF_Font* font, const std::string& text,
-                        SDLSurfacePtr glyph)
+                        const SDL_Color& color, SDLSurfacePtr glyph)
   {
     if(glyph.get() == nullptr)
       return;
 
-    font_glyphs[font][text] = std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
+    font_glyphs[font][color_to_string(color) + text] =
+                      std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
   }
 
   static void add_shadow_glyph(TTF_Font* font, const std::string& text,
@@ -68,12 +76,14 @@ public:
     if(glyph.get() == nullptr)
       return;
 
-    shadow_glyphs[font][text] = std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
+    shadow_glyphs[font][text] =
+                      std::shared_ptr<SDLTexture>(new SDLTexture(glyph.get()));
   }
 
-  static bool has_glyph(TTF_Font* font, const std::string& text)
+  static bool has_glyph(TTF_Font* font, const std::string& text,
+                        const SDL_Color& color)
   {
-    return font_glyphs[font][text] != nullptr;
+    return font_glyphs[font][color_to_string(color) + text] != nullptr;
   }
 
   static bool has_shadow_glyph(TTF_Font* font, const std::string& text)
