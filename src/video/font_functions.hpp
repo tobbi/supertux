@@ -17,7 +17,8 @@
 #include <SDL_ttf.h>
 
 #include "util/log.hpp"
-
+#include "video/sdl/sdl_texture.hpp"
+#include "video/texture.hpp"
 
 namespace {
 
@@ -31,21 +32,22 @@ TTF_Font* load_font(const std::string& filename, int size)
   return font;
 }
 
+typedef std::shared_ptr<SDL_Surface> SDLSurfacePtr;
+typedef std::map<std::string, SDLSurfacePtr> SDLSurfaceMap;
+typedef std::map<TTF_Font*, SDLSurfaceMap> GlyphMap;
+
+GlyphMap font_glyphs;
 } // namespace
 
 class FontCache
 {
-  typedef std::shared_ptr<SDL_Texture> SDL_TexturePtr;
-  typedef std::map<std::string, std::shared_ptr<SDL_Texture>> SDL_TextureMap;
-  typedef std::map<TTF_Font*, SDL_TextureMap> GlyphMap;
-  static GlyphMap font_glyphs;
-
-  static SDL_TexturePtr get_glyph(TTF_Font* font, const std::string& text)
+public:
+  static SDLSurfacePtr get_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text];
   }
 
-  static void add_glyph(TTF_Font* font, const std::string& text, SDL_TexturePtr glyph)
+  static void add_glyph(TTF_Font* font, const std::string& text, SDLSurfacePtr glyph)
   {
     font_glyphs[font][text] = glyph;
   }

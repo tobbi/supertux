@@ -19,9 +19,9 @@
 #include "SDL.h"
 
 #include "supertux/resources.hpp"
-
 #include "util/log.hpp"
 #include "video/drawing_request.hpp"
+#include "video/font_functions.hpp"
 #include "video/sdl/sdl_texture.hpp"
 
 namespace {
@@ -345,15 +345,21 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   else
     font = Resources::example_font;
 
-  SDL_Surface* text_surf = TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {r, g, b, a});
-  if(text_surf == nullptr)
+  if( !FontCache::has_glyph(font, textrequest->text) )
+  {
+    std::shared_ptr<SDL_Surface> text_surf = std::shared_ptr<SDL_Surface>(TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {r, g, b, a}));
+    FontCache::add_glyph(font, textrequest->text, text_surf);
+  }
+
+  SDL_Surface* font_surface = FontCache::get_glyph(font, textrequest->text).get();
+  if(font_surface == nullptr)
   {
     return;
   }
-  SDL_Surface* shadow_surf = TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0});
+  std::shared_ptr<SDLTexture> texture = std::shared_ptr<SDLTexture>(new SDLTexture(font_surface));
+  SDL_SetTextureBlendMode(texture->get_texture(), blend2sdl(request.blend));
 
-  std::shared_ptr<SDLTexture> sdltexture = std::shared_ptr<SDLTexture>(new SDLTexture(text_surf));
-  SDL_SetTextureBlendMode(sdltexture->get_texture(), blend2sdl(request.blend));
+  SDL_Surface* shadow_surf = TTF_RenderUTF8_Blended(font, textrequest->text.c_str(), {0, 0, 0, 0});
 
   std::shared_ptr<SDLTexture> shadowtexture = std::shared_ptr<SDLTexture>(new SDLTexture(shadow_surf));
   SDL_SetTextureBlendMode(shadowtexture->get_texture(), blend2sdl(request.blend));
@@ -372,30 +378,30 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   SDL_Rect src_rect;
   src_rect.x = 0;
   src_rect.y = 0;
-  src_rect.w = text_surf->w;
-  src_rect.h = text_surf->h;
+  src_rect.w = font_surface->w;
+  src_rect.h = font_surface->h;
 
   SDL_Rect dst_rect;
   dst_rect.x = request.pos.x;
   dst_rect.y = request.pos.y;
-  dst_rect.w = text_surf->w;
-  dst_rect.h = text_surf->h;
+  dst_rect.w = font_surface->w;
+  dst_rect.h = font_surface->h;
 
   if(textrequest->alignment == ALIGN_CENTER)
-    dst_rect.x -= text_surf->w / 2;
+    dst_rect.x -= font_surface->w / 2;
   else if(textrequest->alignment == ALIGN_RIGHT)
-    dst_rect.x -= text_surf->w;
+    dst_rect.x -= font_surface->w;
 
   SDL_Rect dst_shadow_rect = dst_rect;
   dst_shadow_rect.x += 2;
   dst_shadow_rect.y += 2;
 
   SDL_RenderCopyEx(renderer, shadowtexture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
-  SDL_RenderCopyEx(renderer, sdltexture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
+  SDL_RenderCopyEx(renderer, texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
 
   // TODO: Should re-use textures instead of recreating them on each call.
   shadowtexture.reset();
-  sdltexture.reset();
+  texture.reset();
 }
 
 /* EOF */
