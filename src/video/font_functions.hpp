@@ -21,17 +21,6 @@
 #include "video/texture.hpp"
 
 namespace {
-
-TTF_Font* load_font(const std::string& filename, int size)
-{
-  TTF_Font* font = TTF_OpenFont(filename.c_str(), size);
-  if(font == nullptr)
-  {
-    log_debug << "Couldn't open font!" << std::endl;
-  }
-  return font;
-}
-
 typedef std::shared_ptr<SDL_Surface> SDLSurfacePtr;
 typedef std::map<std::string, SDLSurfacePtr> SDLSurfaceMap;
 typedef std::map<TTF_Font*, SDLSurfaceMap> GlyphMap;
@@ -42,6 +31,16 @@ GlyphMap font_glyphs;
 class FontCache
 {
 public:
+  static TTF_Font* load_font(const std::string& filename, int size)
+  {
+    TTF_Font* font = TTF_OpenFont(filename.c_str(), size);
+    if(font == nullptr)
+    {
+      log_debug << "Couldn't open font!" << std::endl;
+    }
+    return font;
+  }
+
   static SDLSurfacePtr get_glyph(TTF_Font* font, const std::string& text)
   {
     return font_glyphs[font][text];

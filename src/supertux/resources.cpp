@@ -53,9 +53,9 @@ Resources::Resources()
   small_font.reset(new Font(Font::VARIABLE, "fonts/white-small.stf", 1));
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
 
-  example_font = load_font("data/fonts/otf/Hanken-Book.ttf", 20);
-  example_font_small = load_font("data/fonts/otf/Hanken-Book.ttf", 10);
-  console_font = load_font("data/fonts/otf/SourceCodePro-Regular.otf", 10);
+  example_font = FontCache::load_font("data/fonts/otf/Hanken-Book.ttf", 20);
+  example_font_small = FontCache::load_font("data/fonts/otf/Hanken-Book.ttf", 10);
+  console_font = FontCache::load_font("data/fonts/otf/SourceCodePro-Regular.otf", 10);
 
   /* Load menu images */
   checkbox = Surface::create("images/engine/menu/checkbox-unchecked.png");
