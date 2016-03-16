@@ -32,3 +32,39 @@ TTF_Font* load_font(const std::string& filename, int size)
 }
 
 } // namespace
+
+class FontCache
+{
+  typedef std::shared_ptr<SDL_Texture> SDL_TexturePtr;
+  typedef std::map<std::string, std::shared_ptr<SDL_Texture>> SDL_TextureMap;
+  typedef std::map<TTF_Font*, SDL_TextureMap> GlyphMap;
+  static GlyphMap font_glyphs;
+
+  static SDL_TexturePtr get_glyph(TTF_Font* font, const std::string& text)
+  {
+    return font_glyphs[font][text];
+  }
+
+  static void add_glyph(TTF_Font* font, const std::string& text, SDL_TexturePtr glyph)
+  {
+    font_glyphs[font][text] = glyph;
+  }
+
+  static bool has_glyph(TTF_Font* font, const std::string& text)
+  {
+    return font_glyphs[font][text] != nullptr;
+  }
+
+  static void delete_textures()
+  {
+    for(auto it = font_glyphs.begin(); it != font_glyphs.end(); ++it)
+    {
+      auto map = it->second;
+      for(auto tex_it = map.begin(); tex_it != map.end(); ++tex_it)
+      {
+        auto texturePtr = tex_it->second;
+        texturePtr.reset();
+      }
+    }
+  }
+};
