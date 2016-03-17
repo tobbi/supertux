@@ -148,7 +148,7 @@ private:
   /** 65536 of glyphs */
   std::vector<Glyph> glyphs;
   
-  const std::string filename;
+  const std::string file_name;
 };
 
 #endif
