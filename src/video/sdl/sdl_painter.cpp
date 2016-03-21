@@ -414,6 +414,8 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       dst_shadow_rect.x += 2;
       dst_shadow_rect.y += 2;
 
+      SDL_SetTextureAlphaMod(font_texture->get_texture(), a);
+      SDL_SetTextureAlphaMod(shadow_texture->get_texture(), a);
       SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
       SDL_RenderCopyEx(renderer, font_texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
       last_y += 10; // TODO: Constant, should use values depending on font size
