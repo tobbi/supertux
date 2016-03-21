@@ -345,63 +345,80 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   else
     font = Resources::example_font;
 
-  if( !FontCache::has_glyph(font, textrequest->text, {r, g, b, a}) )
+  int last_pos = 0;
+  int last_y = request.pos.y;
+  for(size_t i = 0; i < textrequest->text.length(); i++)
   {
-    FontCache::add_glyph(font, textrequest->text, {r, g, b, a});
+    if(textrequest->text[i] == '\n' /* new line */ || i == textrequest->text.length() - 1 /* end of string */)
+    {
+      std::string str;
+      if(textrequest->text[i] == '\n')
+        str = textrequest->text.substr(last_pos, i - last_pos);
+      else
+        str = textrequest->text.substr(last_pos, i + 1);
+
+      last_pos = i + 1;
+
+      if( !FontCache::has_glyph(font, str, {r, g, b, a}) )
+      {
+         FontCache::add_glyph(font, str, {r, g, b, a});
+      }
+
+      SDLTexturePtr font_texture = FontCache::get_glyph(font, str, {r, g, b, a});
+      if(font_texture == nullptr)
+      {
+        return;
+      }
+      SDL_SetTextureBlendMode(font_texture.get()->get_texture(), blend2sdl(request.blend));
+
+      if( !FontCache::has_shadow_glyph(font, str) )
+      {
+        FontCache::add_shadow_glyph(font, str);
+      }
+
+      SDLTexturePtr shadow_texture = FontCache::get_shadow_glyph(font, str);
+      if(shadow_texture != nullptr)
+      {
+        SDL_SetTextureBlendMode(shadow_texture->get_texture(), blend2sdl(request.blend));
+      }
+
+      SDL_RendererFlip flip = SDL_FLIP_NONE;
+      if (request.drawing_effect & HORIZONTAL_FLIP)
+      {
+        flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
+      }
+
+      if (request.drawing_effect & VERTICAL_FLIP)
+      {
+        flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
+      }
+
+      SDL_Rect src_rect;
+      src_rect.x = 0;
+      src_rect.y = 0;
+      src_rect.w = font_texture->get_texture_width();
+      src_rect.h = font_texture->get_texture_height();
+
+      SDL_Rect dst_rect;
+      dst_rect.x = request.pos.x;
+      dst_rect.y = last_y;
+      dst_rect.w = font_texture->get_texture_width();
+      dst_rect.h = font_texture->get_texture_height();
+
+      if(textrequest->alignment == ALIGN_CENTER)
+        dst_rect.x -= font_texture->get_texture_width() / 2;
+      else if(textrequest->alignment == ALIGN_RIGHT)
+        dst_rect.x -= font_texture->get_texture_width();
+
+      SDL_Rect dst_shadow_rect = dst_rect;
+      dst_shadow_rect.x += 2;
+      dst_shadow_rect.y += 2;
+
+      SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
+      SDL_RenderCopyEx(renderer, font_texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
+      last_y += 10; // TODO: Constant, should use values depending on font size
+    }
   }
-
-  SDLTexturePtr font_texture = FontCache::get_glyph(font, textrequest->text, {r, g, b, a});
-  if(font_texture == nullptr)
-  {
-    return;
-  }
-  SDL_SetTextureBlendMode(font_texture.get()->get_texture(), blend2sdl(request.blend));
-
-  if( !FontCache::has_shadow_glyph(font, textrequest->text) )
-  {
-    FontCache::add_shadow_glyph(font, textrequest->text);
-  }
-
-  SDLTexturePtr shadow_texture = FontCache::get_shadow_glyph(font, textrequest->text);
-  if(shadow_texture != nullptr)
-  {
-    SDL_SetTextureBlendMode(shadow_texture->get_texture(), blend2sdl(request.blend));
-  }
-
-  SDL_RendererFlip flip = SDL_FLIP_NONE;
-  if (request.drawing_effect & HORIZONTAL_FLIP)
-  {
-    flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
-  }
-
-  if (request.drawing_effect & VERTICAL_FLIP)
-  {
-    flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
-  }
-
-  SDL_Rect src_rect;
-  src_rect.x = 0;
-  src_rect.y = 0;
-  src_rect.w = font_texture->get_texture_width();
-  src_rect.h = font_texture->get_texture_height();
-
-  SDL_Rect dst_rect;
-  dst_rect.x = request.pos.x;
-  dst_rect.y = request.pos.y;
-  dst_rect.w = font_texture->get_texture_width();
-  dst_rect.h = font_texture->get_texture_height();
-
-  if(textrequest->alignment == ALIGN_CENTER)
-    dst_rect.x -= font_texture->get_texture_width() / 2;
-  else if(textrequest->alignment == ALIGN_RIGHT)
-    dst_rect.x -= font_texture->get_texture_width();
-
-  SDL_Rect dst_shadow_rect = dst_rect;
-  dst_shadow_rect.x += 2;
-  dst_shadow_rect.y += 2;
-
-  SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
-  SDL_RenderCopyEx(renderer, font_texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
 }
 
 /* EOF */
