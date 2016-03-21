@@ -35,7 +35,7 @@ class FontCache
 private:
   static std::string color_to_string(const SDL_Color& c)
   {
-    return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.r);
+    return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.b);
   }
 
 public:
