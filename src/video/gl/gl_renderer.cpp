@@ -427,7 +427,7 @@ GLRenderer::draw_inverse_ellipse(const DrawingRequest& request)
 void
 GLRenderer::draw_text(const DrawingRequest& request)
 {
-    // TODO: Implement
+  GLPainter::draw_text(request);
 }
 
 Vector
