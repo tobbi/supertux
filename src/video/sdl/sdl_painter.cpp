@@ -329,6 +329,7 @@ SDLPainter::draw_inverse_ellipse(SDL_Renderer* renderer, const DrawingRequest& r
 void
 SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 {
+/*
   const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
 
   // TODO: The following is shamelessly copied / modified from above. This needs refactoring and adaptation
@@ -349,7 +350,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   int last_y = request.pos.y;
   for(size_t i = 0; i < textrequest->text.length(); i++)
   {
-    if(textrequest->text[i] == '\n' /* new line */ || i == textrequest->text.length() - 1 /* end of string */)
+    if(textrequest->text[i] == '\n' || i == textrequest->text.length() - 1)
     {
       std::string str;
       if(textrequest->text[i] == '\n')
@@ -364,12 +365,12 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
          FontCache::add_glyph(font, str, {r, g, b, a});
       }
 
-      SDLTexturePtr font_texture = FontCache::get_glyph(font, str, {r, g, b, a});
+      std::shared_ptr<Texture> font_texture = FontCache::get_glyph(font, str, {r, g, b, a});
       if(font_texture == nullptr)
       {
         return;
       }
-      SDL_SetTextureBlendMode(font_texture.get()->get_texture(), blend2sdl(request.blend));
+      //SDL_SetTextureBlendMode(font_texture, blend2sdl(request.blend));
 
       if( !FontCache::has_shadow_glyph(font, str) )
       {
@@ -420,7 +421,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       SDL_RenderCopyEx(renderer, font_texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
       last_y += 10; // TODO: Constant, should use values depending on font size
     }
-  }
+  }*/
 }
 
 /* EOF */

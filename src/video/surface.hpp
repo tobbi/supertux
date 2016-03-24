@@ -17,6 +17,8 @@
 #ifndef HEADER_SUPERTUX_VIDEO_SURFACE_HPP
 #define HEADER_SUPERTUX_VIDEO_SURFACE_HPP
 
+#include <SDL_ttf.h>
+
 #include <string>
 #include <memory>
 
@@ -35,6 +37,7 @@ class Surface
 public:
   static SurfacePtr create(const std::string& file);
   static SurfacePtr create(const std::string& file, const Rect& rect);
+  static SurfacePtr create(const TTF_Font* font, const std::string& text, const SDL_Color color);
 
 private:
   TexturePtr texture;
@@ -45,6 +48,7 @@ private:
 private:
   Surface(const std::string& file);
   Surface(const std::string& file, const Rect& rect);
+  Surface(TTF_Font* font, const std::string text, const SDL_Color& color);
   Surface(const Surface&);
 
 public:

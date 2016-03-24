@@ -26,6 +26,7 @@
 #include "physfs/physfs_sdl.hpp"
 #include "util/file_system.hpp"
 #include "util/log.hpp"
+#include "video/font_functions.hpp"
 #include "video/sdl_surface_ptr.hpp"
 #include "video/texture.hpp"
 #include "video/video_system.hpp"
@@ -103,6 +104,12 @@ TextureManager::get(const std::string& _filename, const Rect& rect)
   }
 
   return texture;
+}
+
+TexturePtr
+TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color color)
+{
+  return create_text_texture(font, text, color);
 }
 
 void
@@ -211,6 +218,25 @@ TextureManager::create_image_texture_raw(const std::string& filename)
   {
     std::ostringstream msg;
     msg << "Couldn't load image '" << filename << "' :" << SDL_GetError();
+    throw std::runtime_error(msg.str());
+  }
+  else
+  {
+    TexturePtr texture = VideoSystem::current()->new_texture(image.get());
+    image.reset(NULL);
+    return texture;
+  }
+}
+
+TexturePtr
+TextureManager::create_text_texture(TTF_Font* font, const std::string& text,
+                                    const SDL_Color& color)
+{
+  SDLSurfacePtr image(TTF_RenderUTF8_Blended(font, text.c_str(), color));
+  if (!image)
+  {
+    std::ostringstream msg;
+    msg << "Couldn't load image '" << text << "' :" << SDL_GetError();
     throw std::runtime_error(msg.str());
   }
   else
