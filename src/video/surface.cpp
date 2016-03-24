@@ -35,6 +35,12 @@ Surface::create(const std::string& file, const Rect& rect)
   return SurfacePtr(new Surface(file, rect));
 }
 
+SurfacePtr
+Surface::create(TexturePtr texture)
+{
+  return SurfacePtr(new Surface(texture));
+}
+
 Surface::Surface(const std::string& file) :
   texture(TextureManager::current()->get(file)),
   surface_data(),
