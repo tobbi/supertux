@@ -394,8 +394,6 @@ void
 GLPainter::draw_text(const DrawingRequest& request)
 {
   const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
-
-  // TODO: The following is shamelessly copied / modified from above. This needs refactoring and adaptation
   Uint8 r = static_cast<Uint8>(request.color.red * 255);
   Uint8 g = static_cast<Uint8>(request.color.green * 255);
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
@@ -410,6 +408,7 @@ GLPainter::draw_text(const DrawingRequest& request)
     font = Resources::example_font;
 
   int last_pos = 0;
+  int last_x = request.pos.x;
   int last_y = request.pos.y;
   for(size_t i = 0; i < textrequest->text.length(); i++)
   {
@@ -423,20 +422,21 @@ GLPainter::draw_text(const DrawingRequest& request)
 
       last_pos = i + 1;
 
-      if( !FontCache::has_glyph(font, str, {r, g, b, a}) )
-      {
-         FontCache::add_glyph(font, str, {r, g, b, a});
-      }
-
-      auto surface = FontCache::get_glyph(font, textrequest->text, {r, g, b, a});
+      auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
       GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
       if(surface_data == NULL)
       {
         return;
       }
-      intern_draw(request.pos.x, request.pos.y,
-                  request.pos.x + surface->get_width(),
-                  request.pos.y + surface->get_height(),
+
+      if(textrequest->alignment == ALIGN_CENTER)
+        last_x -= surface->get_width() / 2;
+      else if(textrequest->alignment == ALIGN_RIGHT)
+        last_x -= surface->get_width();
+
+      intern_draw(last_x, last_y,
+                  last_x + surface->get_width(),
+                  last_y + surface->get_height(),
                   surface_data->get_uv_left(),
                   surface_data->get_uv_top(),
                   surface_data->get_uv_right(),
@@ -446,62 +446,8 @@ GLPainter::draw_text(const DrawingRequest& request)
                   request.color,
                   request.blend,
                   request.drawing_effect);
-      /*
-      SDLTexturePtr font_texture = FontCache::get_glyph(font, str, {r, g, b, a});
-      if(font_texture == nullptr)
-      {
-        return;
-      }
-      SDL_SetTextureBlendMode(font_texture.get()->get_texture(), blend2sdl(request.blend));
 
-      if( !FontCache::has_shadow_glyph(font, str) )
-      {
-        FontCache::add_shadow_glyph(font, str);
-      }
-
-      SDLTexturePtr shadow_texture = FontCache::get_shadow_glyph(font, str);
-      if(shadow_texture != nullptr)
-      {
-        SDL_SetTextureBlendMode(shadow_texture->get_texture(), blend2sdl(request.blend));
-      }
-
-      SDL_RendererFlip flip = SDL_FLIP_NONE;
-      if (request.drawing_effect & HORIZONTAL_FLIP)
-      {
-        flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_HORIZONTAL);
-      }
-
-      if (request.drawing_effect & VERTICAL_FLIP)
-      {
-        flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
-      }
-
-      SDL_Rect src_rect;
-      src_rect.x = 0;
-      src_rect.y = 0;
-      src_rect.w = font_texture->get_texture_width();
-      src_rect.h = font_texture->get_texture_height();
-
-      SDL_Rect dst_rect;
-      dst_rect.x = request.pos.x;
-      dst_rect.y = last_y;
-      dst_rect.w = font_texture->get_texture_width();
-      dst_rect.h = font_texture->get_texture_height();
-
-      if(textrequest->alignment == ALIGN_CENTER)
-        dst_rect.x -= font_texture->get_texture_width() / 2;
-      else if(textrequest->alignment == ALIGN_RIGHT)
-        dst_rect.x -= font_texture->get_texture_width();
-
-      SDL_Rect dst_shadow_rect = dst_rect;
-      dst_shadow_rect.x += 2;
-      dst_shadow_rect.y += 2;
-
-      SDL_SetTextureAlphaMod(font_texture->get_texture(), a);
-      SDL_SetTextureAlphaMod(shadow_texture->get_texture(), a);
-      SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), &src_rect, &dst_shadow_rect, request.angle, NULL, flip);
-      SDL_RenderCopyEx(renderer, font_texture->get_texture(), &src_rect, &dst_rect, request.angle, NULL, flip);
-      last_y += 10; // TODO: Constant, should use values depending on font size*/
+      last_y += 10;
     }
   }
 }
