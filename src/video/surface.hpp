@@ -37,7 +37,7 @@ class Surface
 public:
   static SurfacePtr create(const std::string& file);
   static SurfacePtr create(const std::string& file, const Rect& rect);
-  static SurfacePtr create(const TTF_Font* font, const std::string& text, const SDL_Color color);
+  static SurfacePtr create(TexturePtr texture);
 
 private:
   TexturePtr texture;
@@ -48,7 +48,7 @@ private:
 private:
   Surface(const std::string& file);
   Surface(const std::string& file, const Rect& rect);
-  Surface(TTF_Font* font, const std::string text, const SDL_Color& color);
+  Surface(TexturePtr texture);
   Surface(const Surface&);
 
 public:

@@ -46,8 +46,8 @@ Surface::Surface(const std::string& file) :
   surface_data = VideoSystem::current()->new_surface_data(*this);
 }
 
-Surface::Surface(TTF_Font* font, const std::string text, const SDL_Color& color) :
-  texture(TextureManager::current()->get(font, text, color)),
+Surface::Surface(TexturePtr texture) :
+  texture(texture),
   surface_data(),
   rect(0, 0,
       Size(texture->get_image_width(),
