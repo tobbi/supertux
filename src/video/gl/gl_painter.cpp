@@ -412,43 +412,43 @@ GLPainter::draw_text(const DrawingRequest& request)
   int last_y = request.pos.y;
   for(size_t i = 0; i < textrequest->text.length(); i++)
   {
-    if(textrequest->text[i] == '\n' /* new line */ || i == textrequest->text.length() - 1 /* end of string */)
+    if(textrequest->text[i] != '\n' /* new line */ || i != textrequest->text.length() - 1 /* end of string */)
     {
-      std::string str;
-      if(textrequest->text[i] == '\n')
-        str = textrequest->text.substr(last_pos, i - last_pos);
-      else
-        str = textrequest->text.substr(last_pos, i + 1);
-
-      last_pos = i + 1;
-
-      auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
-      GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
-      if(surface_data == NULL)
-      {
-        return;
-      }
-
-      if(textrequest->alignment == ALIGN_CENTER)
-        last_x -= surface->get_width() / 2;
-      else if(textrequest->alignment == ALIGN_RIGHT)
-        last_x -= surface->get_width();
-
-      intern_draw(last_x, last_y,
-                  last_x + surface->get_width(),
-                  last_y + surface->get_height(),
-                  surface_data->get_uv_left(),
-                  surface_data->get_uv_top(),
-                  surface_data->get_uv_right(),
-                  surface_data->get_uv_bottom(),
-                  request.angle,
-                  request.alpha,
-                  request.color,
-                  request.blend,
-                  request.drawing_effect);
-
-      last_y += 10;
+      continue;
     }
+    std::string str;
+    if(textrequest->text[i] == '\n')
+      str = textrequest->text.substr(last_pos, i - last_pos);
+    else
+      str = textrequest->text.substr(last_pos, i + 1);
+
+    last_pos = i + 1;
+
+    auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
+    GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
+    if(surface_data == NULL)
+    {
+      return;
+    }
+
+    if(textrequest->alignment == ALIGN_CENTER)
+      last_x -= surface->get_width() / 2;
+    else if(textrequest->alignment == ALIGN_RIGHT)
+      last_x -= surface->get_width();
+
+    intern_draw(last_x, last_y,
+                last_x + surface->get_width(),
+                last_y + surface->get_height(),
+                surface_data->get_uv_left(),
+                surface_data->get_uv_top(),
+                surface_data->get_uv_right(),
+                surface_data->get_uv_bottom(),
+                request.angle,
+                request.alpha,
+                request.color,
+                request.blend,
+                request.drawing_effect);
+    last_y += 10;
   }
 }
 
