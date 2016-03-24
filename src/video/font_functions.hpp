@@ -56,57 +56,8 @@ public:
     return Surface::create(TextureManager::current()->get(font, text, color));
   }
 
-  static TexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
+  static SurfacePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
   {
-    return TextureManager::current()->get(font, text, {0, 0, 0, 0});
-  }
-
-  static void add_glyph(TTF_Font* font, const std::string& text,
-                        const SDL_Color& color)
-  {
-    //SDLSurface_Ptr text_surf = std::shared_ptr<SDL_Surface>(
-    //  TTF_RenderUTF8_Blended(font, text.c_str(), color));
-
-    //if(text_surf == nullptr)
-    //  return;
-
-    //font_glyphs[font][color_to_string(color) + text] =
-    //                  std::shared_ptr<SDLTexture>(new SDLTexture(text_surf.get()));
-  }
-
-  static void add_shadow_glyph(TTF_Font* font, const std::string& text)
-  {
-    /*SDLSurface_Ptr shadow_surf = std::shared_ptr<SDL_Surface>(
-      TTF_RenderUTF8_Blended(font, text.c_str(), {0, 0, 0, 0}));
-
-    if(shadow_surf == nullptr)
-      return;
-
-    shadow_glyphs[font][text] =
-                      std::shared_ptr<SDLTexture>(new SDLTexture(shadow_surf.get()));*/
-  }
-
-  static bool has_glyph(TTF_Font* font, const std::string& text,
-                        const SDL_Color& color)
-  {
-    return font_glyphs[font][color_to_string(color) + text] != nullptr;
-  }
-
-  static bool has_shadow_glyph(TTF_Font* font, const std::string& text)
-  {
-    return shadow_glyphs[font][text] != nullptr;
-  }
-
-  static void delete_textures()
-  {
-    for(auto it = font_glyphs.begin(); it != font_glyphs.end(); ++it)
-    {
-      auto map = it->second;
-      for(auto tex_it = map.begin(); tex_it != map.end(); ++tex_it)
-      {
-        auto texturePtr = tex_it->second;
-        texturePtr.reset();
-      }
-    }
+    return Surface::create(TextureManager::current()->get(font, text, {0, 0, 0, 0}));
   }
 };
