@@ -376,6 +376,13 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       else if(textrequest->alignment == ALIGN_RIGHT)
         dst_rect.x -= surface->get_width();
 
+      auto shadow_surface = FontCache::get_shadow_glyph(font, str);
+      std::shared_ptr<SDLTexture> shadow_texture = std::dynamic_pointer_cast<SDLTexture>(shadow_surface->get_texture());
+
+      SDL_Rect dst_shadow_rect = dst_rect;
+      dst_shadow_rect.x += 2;
+      dst_shadow_rect.y += 2;
+
       SDL_RendererFlip flip = SDL_FLIP_NONE;
       if (request.drawing_effect & HORIZONTAL_FLIP)
       {
@@ -386,6 +393,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       {
         flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
       }
+      SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), NULL, &dst_shadow_rect, request.angle, NULL, flip);
       SDL_RenderCopyEx(renderer, sdltexture->get_texture(), NULL, &dst_rect, request.angle, NULL, flip);
       last_y += 10;
     }
