@@ -340,7 +340,6 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   TTF_Font* font = FontCache::font_from_filename(textrequest->font->get_filename());
 
     int last_pos = 0;
-    int last_x = request.pos.x;
     int last_y = request.pos.y;
     for(size_t i = 0; i < textrequest->text.length(); i++)
     {
