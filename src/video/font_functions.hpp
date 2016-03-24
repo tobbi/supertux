@@ -34,13 +34,12 @@ GlyphMap shadow_glyphs;
 
 class FontCache
 {
-private:
+public:
   static std::string color_to_string(const SDL_Color& c)
   {
     return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.b);
   }
 
-public:
   static TTF_Font* font_from_filename(const std::string& filename)
   {
     if(filename == "fonts/andale12.stf")

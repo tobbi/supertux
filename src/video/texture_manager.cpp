@@ -109,7 +109,20 @@ TextureManager::get(const std::string& _filename, const Rect& rect)
 TexturePtr
 TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color color)
 {
-  return create_text_texture(font, text, color);
+  std::string key = FontCache::color_to_string(color) + text;
+  ImageTextures::iterator i = m_image_textures.find(key);
+
+  TexturePtr texture;
+  if(i != m_image_textures.end())
+    texture = i->second.lock();
+
+  if(!texture) {
+    texture = create_text_texture(font, text, color);
+    texture->cache_filename = key;
+    m_image_textures[key] = texture;
+  }
+
+  return texture;
 }
 
 void
