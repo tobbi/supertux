@@ -424,6 +424,12 @@ GLPainter::draw_text(const DrawingRequest& request)
 
     last_pos = i + 1;
 
+    auto shadow_surface = FontCache::get_shadow_glyph(font, str);
+    GLSurfaceData *shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
+    if(shadow_surface_data == NULL)
+    {
+      return;
+    }
     auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
     GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
     if(surface_data == NULL)
@@ -435,6 +441,20 @@ GLPainter::draw_text(const DrawingRequest& request)
       last_x -= surface->get_width() / 2;
     else if(textrequest->alignment == ALIGN_RIGHT)
       last_x -= surface->get_width();
+
+
+    intern_draw(last_x + 2, last_y + 2,
+                last_x + 2 + shadow_surface->get_width(),
+                last_y + 2 + shadow_surface->get_height(),
+                shadow_surface_data->get_uv_left(),
+                shadow_surface_data->get_uv_top(),
+                shadow_surface_data->get_uv_right(),
+                shadow_surface_data->get_uv_bottom(),
+                request.angle,
+                request.alpha,
+                Color(0, 0, 0),
+                request.blend,
+                request.drawing_effect);
 
     intern_draw(last_x, last_y,
                 last_x + surface->get_width(),
