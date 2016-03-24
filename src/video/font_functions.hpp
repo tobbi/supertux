@@ -53,12 +53,11 @@ public:
                                  const SDL_Color& color)
   {
     return TextureManager::current()->get(font, text, color);
-    //return font_glyphs[font][color_to_string(color) + text];
   }
 
-  static SDLTexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
+  static TexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
   {
-    return shadow_glyphs[font][text];
+    return TextureManager::current()->get(font, text, {0, 0, 0, 0});
   }
 
   static void add_glyph(TTF_Font* font, const std::string& text,
