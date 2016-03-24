@@ -21,7 +21,7 @@
 #include "video/texture.hpp"
 
 namespace {
-typedef std::shared_ptr<SDL_Surface> SDLSurfacePtr;
+typedef std::shared_ptr<SDL_Surface> SDLSurface_Ptr;
 typedef std::shared_ptr<SDLTexture> SDLTexturePtr;
 typedef std::map<std::string, SDLTexturePtr> SDLTextureMap;
 typedef std::map<TTF_Font*, SDLTextureMap> GlyphMap;
@@ -49,10 +49,11 @@ public:
     return font;
   }
 
-  static SDLTexturePtr get_glyph(TTF_Font* font, const std::string& text,
+  static TexturePtr get_glyph(TTF_Font* font, const std::string& text,
                                  const SDL_Color& color)
   {
-    return font_glyphs[font][color_to_string(color) + text];
+    return TextureManager::current()->get(font, text, color);
+    //return font_glyphs[font][color_to_string(color) + text];
   }
 
   static SDLTexturePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
@@ -63,7 +64,7 @@ public:
   static void add_glyph(TTF_Font* font, const std::string& text,
                         const SDL_Color& color)
   {
-    SDLSurfacePtr text_surf = std::shared_ptr<SDL_Surface>(
+    SDLSurface_Ptr text_surf = std::shared_ptr<SDL_Surface>(
       TTF_RenderUTF8_Blended(font, text.c_str(), color));
 
     if(text_surf == nullptr)
@@ -75,7 +76,7 @@ public:
 
   static void add_shadow_glyph(TTF_Font* font, const std::string& text)
   {
-    SDLSurfacePtr shadow_surf = std::shared_ptr<SDL_Surface>(
+    SDLSurface_Ptr shadow_surf = std::shared_ptr<SDL_Surface>(
       TTF_RenderUTF8_Blended(font, text.c_str(), {0, 0, 0, 0}));
 
     if(shadow_surf == nullptr)

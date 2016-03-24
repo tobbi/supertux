@@ -17,6 +17,7 @@
 #ifndef HEADER_SUPERTUX_VIDEO_TEXTURE_MANAGER_HPP
 #define HEADER_SUPERTUX_VIDEO_TEXTURE_MANAGER_HPP
 
+#include <SDL_ttf.h>
 #include <SDL_video.h>
 
 #include <config.h>
@@ -43,6 +44,7 @@ public:
 
   TexturePtr get(const std::string& filename);
   TexturePtr get(const std::string& filename, const Rect& rect);
+  TexturePtr get(TTF_Font* font, const std::string& text, const SDL_Color color);
 
 #ifdef HAVE_OPENGL
   void register_texture(GLTexture* texture);
@@ -72,6 +74,8 @@ private:
   /** throw an exception on error */
   TexturePtr create_image_texture_raw(const std::string& filename);
   TexturePtr create_image_texture_raw(const std::string& filename, const Rect& rect);
+  
+  TexturePtr create_text_texture(TTF_Font* font, const std::string& text, const SDL_Color& color);
 
   TexturePtr create_dummy_texture();
 
