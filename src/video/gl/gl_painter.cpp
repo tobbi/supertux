@@ -398,14 +398,8 @@ GLPainter::draw_text(const DrawingRequest& request)
   Uint8 g = static_cast<Uint8>(request.color.green * 255);
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
-
-  TTF_Font* font = nullptr;
-  if(textrequest->font->get_filename() == "fonts/andale12.stf")
-    font = Resources::console_font;
-  else if(textrequest->font->get_filename() == "fonts/white-small.stf")
-    font = Resources::example_font_small;
-  else
-    font = Resources::example_font;
+  
+  TTF_Font* font = FontCache::font_from_filename(textrequest->font->get_filename());
 
   int last_pos = 0;
   int last_x = request.pos.x;
