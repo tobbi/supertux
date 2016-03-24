@@ -356,7 +356,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 
       last_pos = i + 1;
 
-      auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
+      auto surface = Surface::create(TextureManager::current()->get(font, str, {r, g, b, a}));
       std::shared_ptr<SDLTexture> sdltexture = std::dynamic_pointer_cast<SDLTexture>(surface->get_texture());
 
       SDL_Rect dst_rect;
@@ -370,7 +370,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       else if(textrequest->alignment == ALIGN_RIGHT)
         dst_rect.x -= surface->get_width();
 
-      auto shadow_surface = FontCache::get_shadow_glyph(font, str);
+      auto shadow_surface = Surface::create(TextureManager::current()->get(font, str, {0, 0, 0, 0}));
       std::shared_ptr<SDLTexture> shadow_texture = std::dynamic_pointer_cast<SDLTexture>(shadow_surface->get_texture());
 
       SDL_Rect dst_shadow_rect = dst_rect;

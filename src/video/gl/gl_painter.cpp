@@ -398,7 +398,7 @@ GLPainter::draw_text(const DrawingRequest& request)
   Uint8 g = static_cast<Uint8>(request.color.green * 255);
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
-  
+
   TTF_Font* font = FontCache::font_from_filename(textrequest->font->get_filename());
 
   int last_pos = 0;
@@ -418,13 +418,13 @@ GLPainter::draw_text(const DrawingRequest& request)
 
     last_pos = i + 1;
 
-    auto shadow_surface = FontCache::get_shadow_glyph(font, str);
+    auto shadow_surface = Surface::create(TextureManager::current()->get(font, str, {0, 0, 0, 0}));
     GLSurfaceData *shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
     if(shadow_surface_data == NULL)
     {
       return;
     }
-    auto surface = FontCache::get_glyph(font, str, {r, g, b, a});
+    auto surface = Surface::create(TextureManager::current()->get(font, str, {r, g, b, a}));
     GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
     if(surface_data == NULL)
     {

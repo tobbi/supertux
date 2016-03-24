@@ -59,15 +59,4 @@ public:
     }
     return font;
   }
-
-  static SurfacePtr get_glyph(TTF_Font* font, const std::string& text,
-                                 const SDL_Color& color)
-  {
-    return Surface::create(TextureManager::current()->get(font, text, color));
-  }
-
-  static SurfacePtr get_shadow_glyph(TTF_Font* font, const std::string& text)
-  {
-    return Surface::create(TextureManager::current()->get(font, text, {0, 0, 0, 0}));
-  }
 };
