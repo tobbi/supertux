@@ -428,6 +428,24 @@ GLPainter::draw_text(const DrawingRequest& request)
          FontCache::add_glyph(font, str, {r, g, b, a});
       }
 
+      auto surface = FontCache::get_glyph(font, textrequest->text, {r, g, b, a});
+      GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
+      if(surface_data == NULL)
+      {
+        return;
+      }
+      intern_draw(request.pos.x, request.pos.y,
+                  request.pos.x + surface->get_width(),
+                  request.pos.y + surface->get_height(),
+                  surface_data->get_uv_left(),
+                  surface_data->get_uv_top(),
+                  surface_data->get_uv_right(),
+                  surface_data->get_uv_bottom(),
+                  request.angle,
+                  request.alpha,
+                  request.color,
+                  request.blend,
+                  request.drawing_effect);
       /*
       SDLTexturePtr font_texture = FontCache::get_glyph(font, str, {r, g, b, a});
       if(font_texture == nullptr)
