@@ -350,7 +350,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
     int last_y = request.pos.y;
     for(size_t i = 0; i < textrequest->text.length(); i++)
     {
-      if(textrequest->text[i] != '\n' /* new line */ || i != textrequest->text.length() - 1 /* end of string */)
+      if(textrequest->text[i] != '\n' /* new line */ && i != textrequest->text.length() - 1 /* end of string */)
       {
         continue;
       }
