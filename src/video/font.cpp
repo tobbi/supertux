@@ -28,6 +28,7 @@
 
 #include "physfs/physfs_sdl.hpp"
 #include "supertux/screen.hpp"
+#include "supertux/resources.hpp"
 #include "util/file_system.hpp"
 #include "util/log.hpp"
 #include "util/reader_document.hpp"
@@ -456,6 +457,17 @@ std::string
 Font::get_filename() const
 {
   return file_name;
+}
+
+TTF_Font*
+Font::get_ttf_font() const
+{
+  if(file_name == "fonts/andale12.stf")
+    return Resources::console_font;
+  if(file_name == "fonts/white-small.stf")
+    return Resources::example_font_small;
+
+  return Resources::example_font;
 }
 
 /* EOF */

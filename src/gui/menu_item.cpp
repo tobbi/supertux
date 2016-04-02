@@ -87,7 +87,7 @@ MenuItem::recalculate_width() {
     width = 0;
     return;
   }
-  auto font = FontCache::font_from_filename(Resources::normal_font->get_filename());
+  auto font = Resources::normal_font->get_ttf_font();
   Uint8 r = static_cast<Uint8>(get_color().red * 255);
   Uint8 g = static_cast<Uint8>(get_color().green * 255);
   Uint8 b = static_cast<Uint8>(get_color().blue * 255);
