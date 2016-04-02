@@ -345,6 +345,10 @@ Font::get_text_height(const std::string& text) const
 float
 Font::get_height() const
 {
+  if(fontsize != 0)
+  {
+    return fontsize + 2; // Adding a 2 pixel margin so that it looks better!
+  }
   return char_height;
 }
 
@@ -497,8 +501,6 @@ Font::get_ttf_font() const
   if(ttf_font != nullptr)
     return ttf_font;
 
-  if(file_name == "fonts/andale12.stf")
-    return Resources::console_font->get_ttf_font();
   if(file_name == "fonts/white-small.stf")
     return Resources::example_font_small->get_ttf_font();
 
