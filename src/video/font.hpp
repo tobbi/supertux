@@ -81,11 +81,6 @@ public:
    */
   std::string wrap_to_width(const std::string& text, float width, std::string* overflow);
 
-  /**
-   * returns the stf filename
-   */
-   std::string get_filename() const;
-
    /**
     * returns the equivalent TrueTypeFont
     */
