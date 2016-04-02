@@ -69,7 +69,8 @@ Font::Font(GlyphWidth glyph_width_,
   border(0),
   rtl(false),
   glyphs(65536),
-  file_name(filename)
+  file_name(filename),
+  ttf_font()
 {
   for(unsigned int i=0; i<65536;i++) glyphs[i].surface_idx = -1;
 
@@ -85,6 +86,27 @@ Font::Font(GlyphWidth glyph_width_,
     }
   }
   PHYSFS_freeList(rc);
+}
+
+Font::Font(const std::string& filename,
+           int font_size,
+           int shadowsize_):
+  glyph_width(Font::VARIABLE),
+  glyph_surfaces(),
+  shadow_surfaces(),
+  char_height(),
+  shadowsize(shadowsize_),
+  border(0),
+  rtl(false),
+  glyphs(65536),
+  file_name(filename),
+  ttf_font()
+{
+  ttf_font = TTF_OpenFont(filename.c_str(), font_size);
+  if(ttf_font == nullptr)
+  {
+    log_debug << "Couldn't open font!" << std::endl;
+  }
 }
 
 void
@@ -261,6 +283,11 @@ abort:
 
 Font::~Font()
 {
+  if(ttf_font != nullptr)
+  {
+    TTF_CloseFont(ttf_font);
+    ttf_font = nullptr;
+  }
 }
 
 float
@@ -456,12 +483,15 @@ Font::draw_chars(Renderer *renderer, bool notshadow, const std::string& text,
 TTF_Font*
 Font::get_ttf_font() const
 {
-  if(file_name == "fonts/andale12.stf")
-    return Resources::console_font;
-  if(file_name == "fonts/white-small.stf")
-    return Resources::example_font_small;
+  if(ttf_font != nullptr)
+    return ttf_font;
 
-  return Resources::example_font;
+  if(file_name == "fonts/andale12.stf")
+    return Resources::console_font->get_ttf_font();
+  if(file_name == "fonts/white-small.stf")
+    return Resources::example_font_small->get_ttf_font();
+
+  return Resources::example_font->get_ttf_font();
 }
 
 /* EOF */

@@ -51,6 +51,7 @@ public:
    *  @param sgadowsize   offset of shadow
    */
   Font(GlyphWidth glyph_width, const std::string& fontfile, int shadowsize = 2);
+  Font(const std::string& fontfile, int font_size, int shadowsize = 2);
   ~Font();
 
   /** returns the width of a given text. (Note that I won't add a normal
@@ -149,6 +150,7 @@ private:
   std::vector<Glyph> glyphs;
 
   const std::string file_name;
+  TTF_Font* ttf_font;
 };
 
 #endif
