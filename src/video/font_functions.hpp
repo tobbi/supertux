@@ -22,16 +22,6 @@
 #include "video/sdl/sdl_texture.hpp"
 #include "video/texture.hpp"
 
-namespace {
-typedef std::shared_ptr<SDL_Surface> SDLSurface_Ptr;
-typedef std::shared_ptr<SDLTexture> SDLTexturePtr;
-typedef std::map<std::string, SDLTexturePtr> SDLTextureMap;
-typedef std::map<TTF_Font*, SDLTextureMap> GlyphMap;
-
-GlyphMap font_glyphs;
-GlyphMap shadow_glyphs;
-} // namespace
-
 class FontCache
 {
 public:
