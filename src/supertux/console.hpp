@@ -104,6 +104,7 @@ private:
   int m_offset; /**< decrease to scroll text up */
   bool m_focused; /**< true if console has input focus */
   FontPtr m_font;
+  unsigned int m_character_width;
 
   float m_stayOpen;
 

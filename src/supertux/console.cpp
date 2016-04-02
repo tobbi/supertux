@@ -24,6 +24,7 @@
 #include "scripting/squirrel_util.hpp"
 #include "supertux/gameconfig.hpp"
 #include "supertux/globals.hpp"
+#include "supertux/resources.hpp"
 #include "video/drawing_context.hpp"
 
 /// speed (pixels/s) the console closes
@@ -118,6 +119,7 @@ Console::Console(ConsoleBuffer& buffer) :
   m_offset(0),
   m_focused(false),
   m_font(new Font(Font::FIXED, "fonts/andale12.stf", 1)),
+  m_character_width(6), // TODO: Determine width of X character dynamically!
   m_stayOpen(0)
 {
   buffer.set_console(this);
@@ -553,7 +555,7 @@ Console::draw(DrawingContext& context) const
     context.draw_text(m_font, "> "+m_inputBuffer, Vector(4, py), ALIGN_LEFT, layer);
     if (SDL_GetTicks() % 1000 < 750) {
       int cursor_px = 2 + m_inputBufferPosition;
-      context.draw_text(m_font, "_", Vector(4 + (cursor_px * m_font->get_text_width("X")), py), ALIGN_LEFT, layer);
+      context.draw_text(m_font, "_", Vector(4 + (cursor_px * m_character_width), py), ALIGN_LEFT, layer);
     }
   }
 
