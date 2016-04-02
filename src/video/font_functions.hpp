@@ -29,14 +29,4 @@ public:
   {
     return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.b);
   }
-
-  static TTF_Font* load_font(const std::string& filename, int size)
-  {
-    TTF_Font* font = TTF_OpenFont(filename.c_str(), size);
-    if(font == nullptr)
-    {
-      log_debug << "Couldn't open font!" << std::endl;
-    }
-    return font;
-  }
 };
