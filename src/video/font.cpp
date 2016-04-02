@@ -453,12 +453,6 @@ Font::draw_chars(Renderer *renderer, bool notshadow, const std::string& text,
   }
 }
 
-std::string
-Font::get_filename() const
-{
-  return file_name;
-}
-
 TTF_Font*
 Font::get_ttf_font() const
 {
