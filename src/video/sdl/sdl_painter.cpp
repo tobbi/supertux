@@ -337,7 +337,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
 
-  TTF_Font* font = FontCache::font_from_filename(textrequest->font->get_filename());
+  TTF_Font* font = textrequest->font->get_ttf_font();;
 
     int last_pos = 0;
     int last_y = request.pos.y;

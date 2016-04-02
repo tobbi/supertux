@@ -40,16 +40,6 @@ public:
     return std::to_string(c.r) + "|" + std::to_string(c.g) + "|" + std::to_string(c.b);
   }
 
-  static TTF_Font* font_from_filename(const std::string& filename)
-  {
-    if(filename == "fonts/andale12.stf")
-      return Resources::console_font;
-    if(filename == "fonts/white-small.stf")
-      return Resources::example_font_small;
-
-    return Resources::example_font;
-  }
-
   static TTF_Font* load_font(const std::string& filename, int size)
   {
     TTF_Font* font = TTF_OpenFont(filename.c_str(), size);
