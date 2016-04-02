@@ -336,7 +336,8 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   Uint8 b = static_cast<Uint8>(request.color.blue * 255);
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
 
-  TTF_Font* font = textrequest->font->get_ttf_font();;
+  TTF_Font* font = textrequest->font->get_ttf_font();
+  int line_height = textrequest->font->get_height() * 1.1;
 
     int last_pos = 0;
     int last_y = request.pos.y;
@@ -387,7 +388,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       }
       SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), NULL, &dst_shadow_rect, request.angle, NULL, flip);
       SDL_RenderCopyEx(renderer, texture->get_texture(), NULL, &dst_rect, request.angle, NULL, flip);
-      last_y += 10;
+      last_y += line_height;
     }
 }
 

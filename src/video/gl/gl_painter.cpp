@@ -399,6 +399,7 @@ GLPainter::draw_text(const DrawingRequest& request)
   Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
 
   TTF_Font* font = textrequest->font->get_ttf_font();
+  int line_height = textrequest->font->get_height() * 1.1;
 
   int last_pos = 0;
   int last_x = request.pos.x;
@@ -461,7 +462,7 @@ GLPainter::draw_text(const DrawingRequest& request)
                 request.color,
                 request.blend,
                 request.drawing_effect);
-    last_y += 10;
+    last_y += line_height;
   }
 }
 
