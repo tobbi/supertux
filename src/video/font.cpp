@@ -70,6 +70,7 @@ Font::Font(GlyphWidth glyph_width_,
   rtl(false),
   glyphs(65536),
   file_name(filename),
+  fontsize(),
   ttf_font()
 {
   for(unsigned int i=0; i<65536;i++) glyphs[i].surface_idx = -1;
@@ -100,6 +101,7 @@ Font::Font(const std::string& filename,
   rtl(false),
   glyphs(65536),
   file_name(filename),
+  fontsize(font_size),
   ttf_font()
 {
   ttf_font = TTF_OpenFont(filename.c_str(), font_size);

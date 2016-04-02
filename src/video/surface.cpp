@@ -19,6 +19,7 @@
 #include <config.h>
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 #include "video/texture.hpp"
 #include "video/video_system.hpp"
@@ -62,7 +63,6 @@ Surface::Surface(TexturePtr texture) :
 {
   surface_data = VideoSystem::current()->new_surface_data(*this);
 }
-
 
 Surface::Surface(const std::string& file, const Rect& rect_) :
   texture(TextureManager::current()->get(file, rect_)),
