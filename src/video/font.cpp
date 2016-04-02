@@ -295,6 +295,15 @@ Font::~Font()
 float
 Font::get_text_width(const std::string& text) const
 {
+  if(get_ttf_font() != nullptr)
+  {
+    if(text.length() == 0)
+      return 0;
+
+    auto texture_manager = TextureManager::current();
+    auto texture = texture_manager->get(get_ttf_font(), text, {0, 0, 0, 0});
+    return texture->get_texture_width();
+  }
   float curr_width = 0;
   float last_width = 0;
 
