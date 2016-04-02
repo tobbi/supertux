@@ -28,6 +28,7 @@
 #include "video/color.hpp"
 #include "video/drawing_context.hpp"
 #include "video/font.hpp"
+#include "video/font_functions.hpp"
 #include "video/renderer.hpp"
 #include "video/video_system.hpp"
 
@@ -42,6 +43,7 @@ MenuItem::MenuItem(const std::string& text_, int _id) :
   text(text_),
   help()
 {
+  recalculate_width();
 }
 
 MenuItem::~MenuItem() {
@@ -52,6 +54,7 @@ void
 MenuItem::change_text(const  std::string& text_)
 {
   text = text_;
+  recalculate_width();
 }
 
 void
@@ -78,9 +81,23 @@ MenuItem::get_color() const {
   return ColorScheme::Menu::default_color;
 }
 
+void
+MenuItem::recalculate_width() {
+  if(text.length() == 0) {
+    width = 0;
+    return;
+  }
+  auto font = FontCache::font_from_filename(Resources::normal_font->get_filename());
+  Uint8 r = static_cast<Uint8>(get_color().red * 255);
+  Uint8 g = static_cast<Uint8>(get_color().green * 255);
+  Uint8 b = static_cast<Uint8>(get_color().blue * 255);
+  Uint8 a = static_cast<Uint8>(get_color().alpha * 255);
+  width = TextureManager::current()->get(font, text, {r, g, b, a})->get_texture_width() + 16;
+}
+
 int
 MenuItem::get_width() const {
-  return Resources::normal_font->get_text_width(text) + 16;
+  return width;
 }
 
 /* EOF */
