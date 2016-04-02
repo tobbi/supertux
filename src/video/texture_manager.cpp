@@ -26,7 +26,6 @@
 #include "physfs/physfs_sdl.hpp"
 #include "util/file_system.hpp"
 #include "util/log.hpp"
-#include "video/font_functions.hpp"
 #include "video/sdl_surface_ptr.hpp"
 #include "video/texture.hpp"
 #include "video/video_system.hpp"
@@ -109,7 +108,9 @@ TextureManager::get(const std::string& _filename, const Rect& rect)
 TexturePtr
 TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color color)
 {
-  std::string key = FontCache::color_to_string(color) + text;
+  std::string key = std::to_string(color.r) + "|" +
+                    std::to_string(color.g) + "|" +
+                    std::to_string(color.b) + text;
   ImageTextures::iterator i = m_image_textures.find(key);
 
   TexturePtr texture;

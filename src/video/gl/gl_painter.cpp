@@ -20,7 +20,6 @@
 
 #include "supertux/resources.hpp"
 #include "video/drawing_request.hpp"
-#include "video/font_functions.hpp"
 #include "video/gl/gl_surface_data.hpp"
 #include "video/gl/gl_texture.hpp"
 

@@ -20,8 +20,6 @@
 
 #include <memory>
 
-#include <SDL_ttf.h>
-
 #include "video/font_ptr.hpp"
 #include "video/surface_ptr.hpp"
 
