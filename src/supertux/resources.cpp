@@ -21,7 +21,6 @@
 #include "sprite/sprite_manager.hpp"
 #include "supertux/player_status.hpp"
 #include "video/font.hpp"
-#include "video/font_functions.hpp"
 
 std::unique_ptr<MouseCursor> Resources::mouse_cursor;
 

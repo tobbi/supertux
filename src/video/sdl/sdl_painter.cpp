@@ -21,7 +21,6 @@
 #include "supertux/resources.hpp"
 #include "util/log.hpp"
 #include "video/drawing_request.hpp"
-#include "video/font_functions.hpp"
 #include "video/sdl/sdl_texture.hpp"
 
 namespace {

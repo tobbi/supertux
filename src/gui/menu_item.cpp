@@ -28,7 +28,6 @@
 #include "video/color.hpp"
 #include "video/drawing_context.hpp"
 #include "video/font.hpp"
-#include "video/font_functions.hpp"
 #include "video/renderer.hpp"
 #include "video/video_system.hpp"
 
