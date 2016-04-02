@@ -369,7 +369,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
         dst_rect.x -= texture->get_texture_width();
 
       auto shadow_texture = std::dynamic_pointer_cast<SDLTexture>(
-        TextureManager::current()->get(font, str, {0, 0, 0, 0}));
+        TextureManager::current()->get(font, str));
 
       SDL_Rect dst_shadow_rect = dst_rect;
       dst_shadow_rect.x += 2;

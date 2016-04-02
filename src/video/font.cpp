@@ -301,7 +301,7 @@ Font::get_text_width(const std::string& text) const
       return 0;
 
     auto texture_manager = TextureManager::current();
-    auto texture = texture_manager->get(get_ttf_font(), text, {0, 0, 0, 0});
+    auto texture = texture_manager->get(get_ttf_font(), text);
     return texture->get_texture_width();
   }
   float curr_width = 0;

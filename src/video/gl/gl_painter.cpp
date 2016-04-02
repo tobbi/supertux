@@ -417,7 +417,7 @@ GLPainter::draw_text(const DrawingRequest& request)
 
     last_pos = i + 1;
 
-    auto shadow_surface = Surface::create(TextureManager::current()->get(font, str, {0, 0, 0, 0}));
+    auto shadow_surface = Surface::create(TextureManager::current()->get(font, str));
     GLSurfaceData *shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
     if(shadow_surface_data == NULL)
     {
