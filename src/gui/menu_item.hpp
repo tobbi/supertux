@@ -63,9 +63,6 @@ class MenuItem
     int id; //item ID
     std::string text;
     std::string help;
-private:
-    int width;
-    void recalculate_width();
 
   private:
     MenuItem(const MenuItem&);
