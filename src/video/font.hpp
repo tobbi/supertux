@@ -150,6 +150,7 @@ private:
   std::vector<Glyph> glyphs;
 
   const std::string file_name;
+  int fontsize;
   TTF_Font* ttf_font;
 };
 
