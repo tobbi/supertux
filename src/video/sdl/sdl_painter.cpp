@@ -370,13 +370,14 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
         dst_rect.x -= texture->get_texture_width();
 
       auto shadow_texture = std::dynamic_pointer_cast<SDLTexture>(
-        TextureManager::current()->get(font, str, {0, 0, 0, static_cast<Uint8>(0.6)}));
+        TextureManager::current()->get(font, str));
+      SDL_SetTextureAlphaMod(shadow_texture->get_texture(), 0.6 * 255);
 
       SDL_Rect dst_shadow_rect = dst_rect;
-      dst_shadow_rect.x += 2;
-      dst_shadow_rect.y += 2;
-      dst_shadow_rect.w += 2;
-      dst_shadow_rect.h += 2;
+      dst_shadow_rect.x += 1;
+      dst_shadow_rect.y += 1;
+      dst_shadow_rect.w += 1;
+      dst_shadow_rect.h += 1;
 
       SDL_RendererFlip flip = SDL_FLIP_NONE;
       if (request.drawing_effect & HORIZONTAL_FLIP)
