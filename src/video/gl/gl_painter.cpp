@@ -421,7 +421,7 @@ GLPainter::draw_text(const DrawingRequest& request)
     auto shadow_texture = TextureManager::current()->get(font, str);
     auto shadow_gltexture = std::dynamic_pointer_cast<GLTexture>(shadow_texture);
     auto shadow_surface = Surface::create(shadow_texture);
-    GLSurfaceData *shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
+    auto shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
     if(shadow_surface_data == NULL)
     {
       return;
@@ -429,7 +429,7 @@ GLPainter::draw_text(const DrawingRequest& request)
     auto texture = TextureManager::current()->get(font, str, {r, g, b, a});
     auto gltexture = std::dynamic_pointer_cast<GLTexture>(texture);
     auto surface = Surface::create(texture);
-    GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
+    auto surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
     if(surface_data == NULL)
     {
       return;
