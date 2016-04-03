@@ -418,14 +418,10 @@ GLPainter::draw_text(const DrawingRequest& request)
 
     last_pos = i + 1;
 
-    auto shadow_surface = Surface::create(TextureManager::current()->get(font, str));
-    GLSurfaceData *shadow_surface_data = static_cast<GLSurfaceData*>(shadow_surface->get_surface_data());
-    if(shadow_surface_data == NULL)
-    {
-      return;
-    }
-    auto surface = Surface::create(TextureManager::current()->get(font, str, {r, g, b, a}));
-    GLSurfaceData *surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
+    auto texture = TextureManager::current()->get(font, str, {r, g, b, a});
+    auto gltexture = std::dynamic_pointer_cast<GLTexture>(texture);
+    auto surface = Surface::create(texture);
+    auto surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
     if(surface_data == NULL)
     {
       return;
@@ -436,14 +432,19 @@ GLPainter::draw_text(const DrawingRequest& request)
     else if(textrequest->alignment == ALIGN_RIGHT)
       last_x -= surface->get_width();
 
+    GLuint th = gltexture->get_handle();
+    if (th != s_last_texture) {
+      s_last_texture = th;
+      glBindTexture(GL_TEXTURE_2D, th);
+    }
 
     intern_draw(last_x + 2, last_y + 2,
-                last_x + 2 + shadow_surface->get_width(),
-                last_y + 2 + shadow_surface->get_height(),
-                shadow_surface_data->get_uv_left(),
-                shadow_surface_data->get_uv_top(),
-                shadow_surface_data->get_uv_right(),
-                shadow_surface_data->get_uv_bottom(),
+                last_x + 2 + surface->get_width(),
+                last_y + 2 + surface->get_height(),
+                surface_data->get_uv_left(),
+                surface_data->get_uv_top(),
+                surface_data->get_uv_right(),
+                surface_data->get_uv_bottom(),
                 request.angle,
                 request.alpha,
                 Color(0, 0, 0),
