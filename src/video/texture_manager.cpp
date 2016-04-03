@@ -119,7 +119,6 @@ TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color col
 
   if(!texture) {
     texture = create_text_texture(font, text, color);
-    texture->cache_filename = key;
     m_font_textures[key] = texture;
   }
 
