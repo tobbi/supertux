@@ -111,16 +111,16 @@ TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color col
   std::string key = std::to_string(color.r) + "|" +
                     std::to_string(color.g) + "|" +
                     std::to_string(color.b) + text;
-  ImageTextures::iterator i = m_image_textures.find(key);
+  FontTextures::iterator i = m_font_textures.find(key);
 
   TexturePtr texture;
-  if(i != m_image_textures.end())
-    texture = i->second.lock();
+  if(i != m_font_textures.end())
+    texture = i->second;
 
   if(!texture) {
     texture = create_text_texture(font, text, color);
     texture->cache_filename = key;
-    m_image_textures[key] = texture;
+    m_font_textures[key] = texture;
   }
 
   return texture;
