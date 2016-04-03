@@ -59,6 +59,8 @@ private:
 
   typedef std::map<std::string, std::weak_ptr<Texture> > ImageTextures;
   ImageTextures m_image_textures;
+  typedef std::map<std::string, std::shared_ptr<Texture> > FontTextures;
+  FontTextures m_font_textures;
 
   typedef std::map<std::string, SDL_Surface*> Surfaces;
   Surfaces m_surfaces;
@@ -74,7 +76,7 @@ private:
   /** throw an exception on error */
   TexturePtr create_image_texture_raw(const std::string& filename);
   TexturePtr create_image_texture_raw(const std::string& filename, const Rect& rect);
-  
+
   TexturePtr create_text_texture(TTF_Font* font, const std::string& text, const SDL_Color& color);
 
   TexturePtr create_dummy_texture();
