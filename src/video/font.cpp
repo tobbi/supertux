@@ -528,4 +528,10 @@ Font::get_ttf_font() const
   return Resources::normal_font->get_ttf_font();
 }
 
+unsigned int
+Font::get_shadow_size() const
+{
+  return shadowsize;
+}
+
 /* EOF */

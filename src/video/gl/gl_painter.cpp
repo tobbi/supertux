@@ -400,6 +400,7 @@ GLPainter::draw_text(const DrawingRequest& request)
 
   TTF_Font* font = textrequest->font->get_ttf_font();
   int line_height = textrequest->font->get_height();
+  int shadow_size = textrequest->font->get_shadow_size();
 
   int last_pos = 0;
   int last_x = request.pos.x;
@@ -438,9 +439,9 @@ GLPainter::draw_text(const DrawingRequest& request)
       glBindTexture(GL_TEXTURE_2D, th);
     }
 
-    intern_draw(last_x + 2, last_y + 2,
-                last_x + 2 + surface->get_width(),
-                last_y + 2 + surface->get_height(),
+    intern_draw(last_x + shadow_size, last_y + shadow_size,
+                last_x + shadow_size + surface->get_width(),
+                last_y + shadow_size + surface->get_height(),
                 surface_data->get_uv_left(),
                 surface_data->get_uv_top(),
                 surface_data->get_uv_right(),
