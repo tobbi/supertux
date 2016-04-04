@@ -58,37 +58,6 @@ bool vline_empty(SDL_Surface* surface, int x, int start_y, int end_y, Uint8 thre
 
 } // namespace
 
-Font::Font(GlyphWidth glyph_width_,
-           const std::string& filename,
-           int shadowsize_) :
-  glyph_width(glyph_width_),
-  glyph_surfaces(),
-  shadow_surfaces(),
-  char_height(),
-  shadowsize(shadowsize_),
-  border(0),
-  rtl(false),
-  glyphs(65536),
-  file_name(filename),
-  fontsize(),
-  ttf_font()
-{
-  for(unsigned int i=0; i<65536;i++) glyphs[i].surface_idx = -1;
-
-  const std::string fontdir = FileSystem::dirname(filename);
-  const std::string fontname = FileSystem::basename(filename);
-
-  // scan for prefix-filename in addons search path
-  char **rc = PHYSFS_enumerateFiles(fontdir.c_str());
-  for (char **i = rc; *i != NULL; i++) {
-    std::string filename_(*i);
-    if( filename_.rfind(fontname) != std::string::npos ) {
-      loadFontFile(fontdir + filename_);
-    }
-  }
-  PHYSFS_freeList(rc);
-}
-
 Font::Font(const std::string& filename,
            int font_size,
            int shadowsize_):
