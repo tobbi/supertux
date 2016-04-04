@@ -50,7 +50,6 @@ public:
    *  @param fontfile     file in format supertux-font
    *  @param sgadowsize   offset of shadow
    */
-  Font(GlyphWidth glyph_width, const std::string& fontfile, int shadowsize = 2);
   Font(const std::string& fontfile, int font_size, int shadowsize = 2);
   ~Font();
 
