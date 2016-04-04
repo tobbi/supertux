@@ -368,9 +368,11 @@ Font::get_text_height(const std::string& text) const
 float
 Font::get_height() const
 {
-  if(fontsize != 0)
+  if(get_ttf_font() != nullptr)
   {
-    return fontsize + 2; // Adding a 2 pixel margin so that it looks better!
+    // Ugly workaround. See if there's a better one.
+    // Adding a 2 pixel margin so that it looks better!
+    return get_text_height("A") + 2;
   }
   return char_height;
 }
