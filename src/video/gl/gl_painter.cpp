@@ -403,7 +403,6 @@ GLPainter::draw_text(const DrawingRequest& request)
   int shadow_size = textrequest->font->get_shadow_size();
 
   int last_pos = 0;
-  int last_x = request.pos.x;
   int last_y = request.pos.y;
   for(size_t i = 0; i < textrequest->text.length(); i++)
   {
@@ -428,6 +427,7 @@ GLPainter::draw_text(const DrawingRequest& request)
       return;
     }
 
+    int last_x = request.pos.x;
     if(textrequest->alignment == ALIGN_CENTER)
       last_x -= surface->get_width() / 2;
     else if(textrequest->alignment == ALIGN_RIGHT)
