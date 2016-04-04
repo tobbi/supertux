@@ -152,6 +152,9 @@ private:
   const std::string file_name;
   int fontsize;
   TTF_Font* ttf_font;
+
+  Font(const Font&);
+  Font operator=(const Font&);
 };
 
 #endif
