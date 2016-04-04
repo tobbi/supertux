@@ -87,6 +87,11 @@ public:
     */
    TTF_Font* get_ttf_font() const;
 
+   /**
+    * Returns the shadow size for the current font
+    */
+  unsigned int get_shadow_size() const;
+
   /** Draws the given text to the screen. Also needs the position.
    * Type of alignment, drawing effect and alpha are optional. */
   void draw(Renderer *renderer, const std::string& text, const Vector& pos,

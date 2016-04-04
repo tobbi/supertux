@@ -338,6 +338,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 
   TTF_Font* font = textrequest->font->get_ttf_font();
   int line_height = textrequest->font->get_height();
+  int shadow_size = textrequest->font->get_shadow_size();
 
     int last_pos = 0;
     int last_y = request.pos.y;
@@ -370,10 +371,10 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
         dst_rect.x -= texture->get_texture_width();
 
       SDL_Rect dst_shadow_rect = dst_rect;
-      dst_shadow_rect.x += 1;
-      dst_shadow_rect.y += 1;
-      dst_shadow_rect.w += 1;
-      dst_shadow_rect.h += 1;
+      dst_shadow_rect.x += shadow_size;
+      dst_shadow_rect.y += shadow_size;
+      dst_shadow_rect.w += shadow_size;
+      dst_shadow_rect.h += shadow_size;
 
       SDL_RendererFlip flip = SDL_FLIP_NONE;
       if (request.drawing_effect & HORIZONTAL_FLIP)

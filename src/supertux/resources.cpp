@@ -46,7 +46,7 @@ Resources::Resources()
   // Load global images:
   fixed_font.reset(new Font(Font::FIXED, "fonts/white.stf"));
   normal_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 20));
-  small_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10));
+  small_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10, 1));
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
 
   /* Load menu images */
