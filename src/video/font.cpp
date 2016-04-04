@@ -329,14 +329,37 @@ Font::get_text_width(const std::string& text) const
 float
 Font::get_text_height(const std::string& text) const
 {
-  std::string::size_type text_height = char_height;
+  if(text.length() == 0)
+    return 0;
+
+  std::string::size_type text_height;
+  auto texture_manager = TextureManager::current();
+  auto texture = texture_manager->get(get_ttf_font(), text);
+
+  if(get_ttf_font() != nullptr)
+  {
+    text_height = texture->get_texture_height();
+  }
+  else
+  {
+    text_height = char_height;
+  }
 
   for(std::string::const_iterator it = text.begin(); it != text.end(); ++it)
   { // since UTF8 multibyte characters are decoded with values
     // outside the ASCII range there is no risk of overlapping and
     // thus we don't need to decode the utf-8 string
     if (*it == '\n')
-      text_height += char_height + 2;
+    {
+      if(get_ttf_font() != nullptr)
+      {
+        text_height += texture->get_texture_height() + 2;
+      }
+      else
+      {
+        text_height += char_height + 2;
+      }
+    }
   }
 
   return text_height;
