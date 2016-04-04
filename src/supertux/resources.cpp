@@ -28,8 +28,6 @@ FontPtr Resources::fixed_font;
 FontPtr Resources::normal_font;
 FontPtr Resources::small_font;
 FontPtr Resources::big_font;
-FontPtr Resources::example_font;
-FontPtr Resources::example_font_small;
 
 SurfacePtr Resources::checkbox;
 SurfacePtr Resources::checkbox_checked;
@@ -47,12 +45,9 @@ Resources::Resources()
 
   // Load global images:
   fixed_font.reset(new Font(Font::FIXED, "fonts/white.stf"));
-  normal_font.reset(new Font(Font::VARIABLE, "fonts/white.stf"));
-  small_font.reset(new Font(Font::VARIABLE, "fonts/white-small.stf", 1));
+  normal_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 20));
+  small_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10));
   big_font.reset(new Font(Font::VARIABLE, "fonts/white-big.stf", 3));
-
-  example_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 20));
-  example_font_small.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10));
 
   /* Load menu images */
   checkbox = Surface::create("images/engine/menu/checkbox-unchecked.png");
@@ -76,9 +71,6 @@ Resources::~Resources()
   normal_font.reset();
   small_font.reset();
   big_font.reset();
-
-  example_font.reset();
-  example_font_small.reset();
 
   mouse_cursor.reset();
 }
