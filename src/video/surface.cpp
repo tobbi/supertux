@@ -53,12 +53,12 @@ Surface::Surface(const std::string& file) :
   surface_data = VideoSystem::current()->new_surface_data(*this);
 }
 
-Surface::Surface(TexturePtr texture) :
-  texture(texture),
+Surface::Surface(TexturePtr texture_) :
+  texture(texture_),
   surface_data(),
   rect(0, 0,
-      Size(texture->get_image_width(),
-           texture->get_image_height())),
+      Size(texture_->get_image_width(),
+           texture_->get_image_height())),
   flipx(false)
 {
   surface_data = VideoSystem::current()->new_surface_data(*this);
