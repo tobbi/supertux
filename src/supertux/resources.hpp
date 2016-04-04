@@ -34,8 +34,6 @@ public:
   static FontPtr normal_font;
   static FontPtr small_font;
   static FontPtr big_font;
-  static FontPtr example_font;
-  static FontPtr example_font_small;
 
   static SurfacePtr checkbox;
   static SurfacePtr checkbox_checked;

@@ -370,9 +370,8 @@ Font::get_height() const
 {
   if(get_ttf_font() != nullptr)
   {
-    // Ugly workaround. See if there's a better one.
     // Adding a 2 pixel margin so that it looks better!
-    return get_text_height("A") + 2;
+    return fontsize + 2;
   }
   return char_height;
 }
@@ -526,10 +525,7 @@ Font::get_ttf_font() const
   if(ttf_font != nullptr)
     return ttf_font;
 
-  if(file_name == "fonts/white-small.stf")
-    return Resources::example_font_small->get_ttf_font();
-
-  return Resources::example_font->get_ttf_font();
+  return Resources::normal_font->get_ttf_font();
 }
 
 /* EOF */
