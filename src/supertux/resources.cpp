@@ -44,7 +44,7 @@ Resources::Resources()
   MouseCursor::set_current(mouse_cursor.get());
 
   // Load global images:
-  fixed_font.reset(new Font(Font::FIXED, "fonts/white.stf"));
+  fixed_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 18));
   normal_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 20));
   small_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10, 1));
   big_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 25, 3));
