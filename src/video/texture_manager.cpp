@@ -36,6 +36,7 @@
 
 TextureManager::TextureManager() :
   m_image_textures()
+  ,m_font_textures()
   ,m_surfaces()
 #ifdef HAVE_OPENGL
   ,m_textures(),
