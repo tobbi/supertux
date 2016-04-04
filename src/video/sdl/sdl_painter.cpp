@@ -369,10 +369,6 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       else if(textrequest->alignment == ALIGN_RIGHT)
         dst_rect.x -= texture->get_texture_width();
 
-      auto shadow_texture = std::dynamic_pointer_cast<SDLTexture>(
-        TextureManager::current()->get(font, str));
-      SDL_SetTextureAlphaMod(shadow_texture->get_texture(), 0.6 * 255);
-
       SDL_Rect dst_shadow_rect = dst_rect;
       dst_shadow_rect.x += 1;
       dst_shadow_rect.y += 1;
@@ -389,8 +385,15 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
       {
         flip = static_cast<SDL_RendererFlip>(flip | SDL_FLIP_VERTICAL);
       }
-      SDL_RenderCopyEx(renderer, shadow_texture->get_texture(), NULL, &dst_shadow_rect, request.angle, NULL, flip);
+
+      SDL_SetTextureColorMod(texture->get_texture(), 0, 0, 0);
+      SDL_SetTextureAlphaMod(texture->get_texture(), 0.6 * 255);
+      SDL_RenderCopyEx(renderer, texture->get_texture(), NULL, &dst_shadow_rect, request.angle, NULL, flip);
+
+      SDL_SetTextureColorMod(texture->get_texture(), 255, 255, 255);
+      SDL_SetTextureAlphaMod(texture->get_texture(), 255);
       SDL_RenderCopyEx(renderer, texture->get_texture(), NULL, &dst_rect, request.angle, NULL, flip);
+
       last_y += line_height;
     }
 }
