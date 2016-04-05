@@ -339,8 +339,7 @@ Font::get_height() const
 {
   if(get_ttf_font() != nullptr)
   {
-    // Adding a 2 pixel margin so that it looks better!
-    return fontsize + 2;
+    return fontsize;
   }
   return char_height;
 }
@@ -435,9 +434,31 @@ void
 Font::draw_text(Renderer *renderer, const std::string& text, const Vector& pos,
                 DrawingEffect drawing_effect, Color color, float alpha) const
 {
+  if(text.empty())
+    return;
+
+  /*Uint8 r = static_cast<Uint8>(color.red * 255);
+  Uint8 g = static_cast<Uint8>(color.green * 255);
+  Uint8 b = static_cast<Uint8>(color.blue * 255);
+  Uint8 a = static_cast<Uint8>(color.alpha * alpha * 255);
+  auto texture = TextureManager::current()->get(get_ttf_font(), text, {r, g, b, a});
+  if(texture == nullptr)
+    return;
+  auto surface = Surface::create(texture);
+
+  DrawingRequest request;
+  request.pos = pos;
+  request.drawing_effect = drawing_effect;
+  request.color = color;
+  request.alpha = alpha;
+
+  SurfaceRequest surfacerequest;
+  surfacerequest.surface = surface.get();
+  request.request_data = &surfacerequest;
+  renderer->draw_surface(request);*/
   if(shadowsize > 0)
     draw_chars(renderer, false, rtl ? std::string(text.rbegin(), text.rend()) : text,
-               pos + Vector(shadowsize, shadowsize), drawing_effect, Color(1,1,1), alpha);
+               pos + Vector(shadowsize, shadowsize), drawing_effect, Color(0,0,0,0.6), alpha);
 
   draw_chars(renderer, true, rtl ? std::string(text.rbegin(), text.rend()) : text, pos, drawing_effect, color, alpha);
 }
@@ -447,45 +468,55 @@ Font::draw_chars(Renderer *renderer, bool notshadow, const std::string& text,
                  const Vector& pos, DrawingEffect drawing_effect, Color color,
                  float alpha) const
 {
+  int last_pos = 0;
+  int i = 0;
   Vector p = pos;
+  Uint8 r = static_cast<Uint8>(color.red * 255);
+  Uint8 g = static_cast<Uint8>(color.green * 255);
+  Uint8 b = static_cast<Uint8>(color.blue * 255);
+  Uint8 a = static_cast<Uint8>(color.alpha * alpha * 255);
+
+  TexturePtr texture;
+  SurfacePtr surface;
+  DrawingRequest request;
+  request.drawing_effect = drawing_effect;
+  request.color = color;
+  request.alpha = alpha;
+
+  SurfaceRequest surfacerequest;
 
   for(UTF8Iterator it(text); !it.done(); ++it)
   {
     if(*it == '\n')
     {
+      std::string line = text.substr(last_pos, i - last_pos);
+      texture = TextureManager::current()->get(get_ttf_font(), line, {r, g, b, a});
+      if(texture == nullptr)
+        continue;
+      surface = Surface::create(texture);
+      surfacerequest.surface = surface.get();
+
+      request.pos = p;
+      request.request_data = &surfacerequest;
+      renderer->draw_surface(request);
+
       p.x = pos.x;
-      p.y += char_height + 2;
+      p.y += get_height() + 2;
+      last_pos = i + 1;
     }
-    else if(*it == ' ')
-    {
-      p.x += glyphs[0x20].advance;
-    }
-    else
-    {
-      Glyph glyph;
-      if( glyphs.at(*it).surface_idx != -1 )
-        glyph = glyphs[*it];
-      else
-        glyph = glyphs[0x20];
-
-      DrawingRequest request;
-
-      request.pos = p + glyph.offset;
-      request.drawing_effect = drawing_effect;
-      request.color = color;
-      request.alpha = alpha;
-
-      SurfacePartRequest surfacepartrequest;
-      surfacepartrequest.srcrect = glyph.rect;
-      surfacepartrequest.dstsize = glyph.rect.get_size();
-      surfacepartrequest.surface = notshadow ? glyph_surfaces[glyph.surface_idx].get() : shadow_surfaces[glyph.surface_idx].get();
-
-      request.request_data = &surfacepartrequest;
-      renderer->draw_surface_part(request);
-
-      p.x += glyph.advance;
-    }
+    i++;
   }
+  std::string line = text.substr(last_pos, i + 1);
+  texture = TextureManager::current()->get(get_ttf_font(), line, {r, g, b, a});
+  if(texture == nullptr)
+    return;
+
+  surface = Surface::create(texture);
+  surfacerequest.surface = surface.get();
+
+  request.pos = p;
+  request.request_data = &surfacerequest;
+  renderer->draw_surface(request);
 }
 
 TTF_Font*
