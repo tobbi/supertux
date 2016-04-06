@@ -340,6 +340,10 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
   int line_height = textrequest->font->get_height();
   int shadow_size = textrequest->font->get_shadow_size();
 
+  // 2 pixel shadow looks "weird" on the menu items, but only in SDL renderer
+  if(shadow_size > 1)
+    shadow_size -= 1;
+
   int last_pos = 0;
   int last_y = request.pos.y;
   for(size_t i = 0; i < textrequest->text.length(); i++)
