@@ -45,9 +45,9 @@ Resources::Resources()
 
   // Load global images:
   fixed_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 18));
-  normal_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 20));
-  small_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 10, 1));
-  big_font.reset(new Font("data/fonts/otf/Hanken-Book.ttf", 25, 3));
+  normal_font.reset(new Font("data/fonts/otf/PatrickHand-Regular.ttf", 20));
+  small_font.reset(new Font("data/fonts/otf/PatrickHand-Regular.ttf", 10, 1));
+  big_font.reset(new Font("data/fonts/otf/PatrickHand-Regular.ttf", 25, 3));
 
   /* Load menu images */
   checkbox = Surface::create("images/engine/menu/checkbox-unchecked.png");
