@@ -388,7 +388,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
     }
 
     SDL_SetTextureColorMod(texture->get_texture(), 0, 0, 0);
-    SDL_SetTextureAlphaMod(texture->get_texture(), 0.6 * 255);
+    SDL_SetTextureAlphaMod(texture->get_texture(), 0.45 * 255);
     SDL_RenderCopyEx(renderer, texture->get_texture(), NULL, &dst_shadow_rect, request.angle, NULL, flip);
 
     SDL_SetTextureColorMod(texture->get_texture(), 255, 255, 255);

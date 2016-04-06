@@ -448,7 +448,7 @@ GLPainter::draw_text(const DrawingRequest& request)
                 surface_data->get_uv_bottom(),
                 request.angle,
                 request.alpha,
-                Color(0, 0, 0, 0.6),
+                Color(0, 0, 0, 0.45),
                 request.blend,
                 request.drawing_effect);
 
