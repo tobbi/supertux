@@ -42,10 +42,6 @@
 Font::Font(const std::string& filename,
            int font_size,
            int shadowsize_):
-  glyph_width(Font::VARIABLE),
-  glyph_surfaces(),
-  shadow_surfaces(),
-  char_height(),
   shadowsize(shadowsize_),
   border(0),
   rtl(false),

@@ -38,12 +38,6 @@ enum FontAlignment {
 class Font
 {
 public:
-  enum GlyphWidth {
-    FIXED,
-    VARIABLE
-  };
-
-public:
   /** Construct a fixed-width font
    *
    *  @param glyph_width  VARIABLE for proportional fonts, VARIABLE for monospace ones
@@ -92,11 +86,6 @@ public:
   unsigned int get_shadow_size() const;
 
 private:
-  GlyphWidth glyph_width;
-
-  std::vector<SurfacePtr>  glyph_surfaces;
-  std::vector<SurfacePtr>  shadow_surfaces;
-  int char_height;
   int shadowsize;
   int border;
   bool rtl;
