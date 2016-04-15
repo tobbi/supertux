@@ -92,29 +92,6 @@ public:
   unsigned int get_shadow_size() const;
 
 private:
-  struct Glyph {
-    /** How many pixels should the cursor advance after printing the
-        glyph */
-    float advance;
-
-    /** Offset that is used when drawing the glyph */
-    Vector offset;
-
-    /** index of containing surface */
-    int surface_idx;
-
-    /** Position of the glyph inside the surface */
-    Rectf rect;
-
-    Glyph() :
-      advance(),
-      offset(),
-      surface_idx(),
-      rect()
-    {}
-  };
-
-private:
   GlyphWidth glyph_width;
 
   std::vector<SurfacePtr>  glyph_surfaces;
@@ -123,9 +100,6 @@ private:
   int shadowsize;
   int border;
   bool rtl;
-
-  /** 65536 of glyphs */
-  std::vector<Glyph> glyphs;
 
   const std::string file_name;
   int fontsize;

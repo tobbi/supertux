@@ -49,7 +49,6 @@ Font::Font(const std::string& filename,
   shadowsize(shadowsize_),
   border(0),
   rtl(false),
-  glyphs(65536),
   file_name(filename),
   fontsize(font_size),
   ttf_font()
@@ -73,35 +72,15 @@ Font::~Font()
 float
 Font::get_text_width(const std::string& text) const
 {
-  if(get_ttf_font() != nullptr)
-  {
-    if(text.length() == 0)
-      return 0;
+  if(get_ttf_font() == nullptr)
+    return 0;
 
-    auto texture_manager = TextureManager::current();
-    auto texture = texture_manager->get(get_ttf_font(), text);
-    return texture->get_texture_width();
-  }
-  float curr_width = 0;
-  float last_width = 0;
+  if(text.length() == 0)
+    return 0;
 
-  for(UTF8Iterator it(text); !it.done(); ++it)
-  {
-    if (*it == '\n')
-    {
-      last_width = std::max(last_width, curr_width);
-      curr_width = 0;
-    }
-    else
-    {
-      if( glyphs.at(*it).surface_idx != -1 )
-        curr_width += glyphs[*it].advance;
-      else
-        curr_width += glyphs[0x20].advance;
-    }
-  }
-
-  return std::max(curr_width, last_width);
+  auto texture_manager = TextureManager::current();
+  auto texture = texture_manager->get(get_ttf_font(), text);
+  return texture->get_texture_width();
 }
 
 float
@@ -113,15 +92,7 @@ Font::get_text_height(const std::string& text) const
   std::string::size_type text_height;
   auto texture_manager = TextureManager::current();
   auto texture = texture_manager->get(get_ttf_font(), text);
-
-  if(get_ttf_font() != nullptr)
-  {
-    text_height = texture->get_texture_height();
-  }
-  else
-  {
-    text_height = char_height;
-  }
+  text_height = texture->get_texture_height();
 
   for(std::string::const_iterator it = text.begin(); it != text.end(); ++it)
   { // since UTF8 multibyte characters are decoded with values
@@ -129,14 +100,7 @@ Font::get_text_height(const std::string& text) const
     // thus we don't need to decode the utf-8 string
     if (*it == '\n')
     {
-      if(get_ttf_font() != nullptr)
-      {
-        text_height += texture->get_texture_height() + 2;
-      }
-      else
-      {
-        text_height += char_height + 2;
-      }
+      text_height += texture->get_texture_height() + 2;
     }
   }
 
@@ -146,12 +110,8 @@ Font::get_text_height(const std::string& text) const
 float
 Font::get_height() const
 {
-  if(get_ttf_font() != nullptr)
-  {
-    // Adding a 2 pixel margin so that it looks better!
-    return fontsize + 2;
-  }
-  return char_height;
+  // Adding a 2 pixel margin so that it looks better!
+  return fontsize + 2;
 }
 
 std::string
