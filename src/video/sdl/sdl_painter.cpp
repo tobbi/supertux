@@ -330,7 +330,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 {
   const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
 
-  TTF_Font* font = textrequest->font->get_ttf_font();
+  auto font = textrequest->font->get_ttf_font();
   int line_height = textrequest->font->get_height();
   int shadow_size = textrequest->font->get_shadow_size();
 
