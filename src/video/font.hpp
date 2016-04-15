@@ -91,26 +91,6 @@ public:
     */
   unsigned int get_shadow_size() const;
 
-  /** Draws the given text to the screen. Also needs the position.
-   * Type of alignment, drawing effect and alpha are optional. */
-  void draw(Renderer *renderer, const std::string& text, const Vector& pos,
-            FontAlignment alignment = ALIGN_LEFT,
-            DrawingEffect drawing_effect = NO_EFFECT,
-            Color color = Color(1.0,1.0,1.0),
-            float alpha = 1.0f) const;
-
-private:
-  friend class DrawingContext;
-
-  void draw_text(Renderer *renderer, const std::string& text, const Vector& pos,
-                 DrawingEffect drawing_effect = NO_EFFECT,
-                 Color color = Color(1.0,1.0,1.0),
-                 float alpha = 1.0f) const;
-
-  void draw_chars(Renderer *renderer, bool nonshadow, const std::string& text,
-                  const Vector& position, DrawingEffect drawing_effect, Color color,
-                  float alpha) const;
-
 private:
   struct Glyph {
     /** How many pixels should the cursor advance after printing the
