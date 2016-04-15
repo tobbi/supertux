@@ -111,12 +111,6 @@ private:
                   const Vector& position, DrawingEffect drawing_effect, Color color,
                   float alpha) const;
 
-  void loadFontFile(const std::string &filename);
-  void loadFontSurface(const std::string &glyphimage,
-                       const std::string &shadowimage,
-                       const std::vector<std::string> &chars,
-                       GlyphWidth glyph_width,
-                       int char_width);
 private:
   struct Glyph {
     /** How many pixels should the cursor advance after printing the
