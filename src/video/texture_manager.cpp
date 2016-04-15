@@ -107,11 +107,11 @@ TextureManager::get(const std::string& _filename, const Rect& rect)
 }
 
 TexturePtr
-TextureManager::get(TTF_Font* font, const std::string& text, const SDL_Color color)
+TextureManager::get(TTF_Font* font, const std::string& text, const Color& color)
 {
-  std::string key = std::to_string(color.r) + "|" +
-                    std::to_string(color.g) + "|" +
-                    std::to_string(color.b) + text;
+  std::string key = std::to_string(color.red) + "|" +
+                    std::to_string(color.green) + "|" +
+                    std::to_string(color.blue) + text;
   FontTextures::iterator i = m_font_textures.find(key);
 
   TexturePtr texture;
@@ -244,9 +244,13 @@ TextureManager::create_image_texture_raw(const std::string& filename)
 
 TexturePtr
 TextureManager::create_text_texture(TTF_Font* font, const std::string& text,
-                                    const SDL_Color& color)
+                                    const Color& color)
 {
-  SDLSurfacePtr image(TTF_RenderUTF8_Blended(font, text.c_str(), color));
+  Uint8 r = static_cast<Uint8>(color.red * 255);
+  Uint8 g = static_cast<Uint8>(color.green * 255);
+  Uint8 b = static_cast<Uint8>(color.blue * 255);
+  Uint8 a = static_cast<Uint8>(color.alpha * 255);
+  SDLSurfacePtr image(TTF_RenderUTF8_Blended(font, text.c_str(), {r, g, b, a}));
   if (!image)
   {
     std::ostringstream msg;

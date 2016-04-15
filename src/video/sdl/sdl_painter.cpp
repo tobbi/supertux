@@ -330,12 +330,6 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
 {
   const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
 
-  // TODO: The following is shamelessly copied / modified from above. This needs refactoring and adaptation
-  Uint8 r = static_cast<Uint8>(request.color.red * 255);
-  Uint8 g = static_cast<Uint8>(request.color.green * 255);
-  Uint8 b = static_cast<Uint8>(request.color.blue * 255);
-  Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
-
   TTF_Font* font = textrequest->font->get_ttf_font();
   int line_height = textrequest->font->get_height();
   int shadow_size = textrequest->font->get_shadow_size();
@@ -361,7 +355,7 @@ SDLPainter::draw_text(SDL_Renderer* renderer, const DrawingRequest& request)
     last_pos = i + 1;
 
     auto texture = std::dynamic_pointer_cast<SDLTexture>(
-      TextureManager::current()->get(font, str, {r, g, b, a}));
+      TextureManager::current()->get(font, str, request.color));
 
     SDL_Rect dst_rect;
     dst_rect.x = request.pos.x;

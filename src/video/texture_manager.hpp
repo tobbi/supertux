@@ -29,6 +29,7 @@
 #include <vector>
 
 #include "util/currenton.hpp"
+#include "video/color.hpp"
 #include "video/glutil.hpp"
 #include "video/texture_ptr.hpp"
 
@@ -44,7 +45,7 @@ public:
 
   TexturePtr get(const std::string& filename);
   TexturePtr get(const std::string& filename, const Rect& rect);
-  TexturePtr get(TTF_Font* font, const std::string& text, const SDL_Color color = {0, 0, 0, 0});
+  TexturePtr get(TTF_Font* font, const std::string& text, const Color& color = Color::BLACK);
 
 #ifdef HAVE_OPENGL
   void register_texture(GLTexture* texture);
@@ -77,7 +78,7 @@ private:
   TexturePtr create_image_texture_raw(const std::string& filename);
   TexturePtr create_image_texture_raw(const std::string& filename, const Rect& rect);
 
-  TexturePtr create_text_texture(TTF_Font* font, const std::string& text, const SDL_Color& color);
+  TexturePtr create_text_texture(TTF_Font* font, const std::string& text, const Color& color);
 
   TexturePtr create_dummy_texture();
 

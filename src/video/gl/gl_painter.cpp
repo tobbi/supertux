@@ -393,10 +393,6 @@ void
 GLPainter::draw_text(const DrawingRequest& request)
 {
   const TextRequest* textrequest = static_cast<TextRequest*>(request.request_data);
-  Uint8 r = static_cast<Uint8>(request.color.red * 255);
-  Uint8 g = static_cast<Uint8>(request.color.green * 255);
-  Uint8 b = static_cast<Uint8>(request.color.blue * 255);
-  Uint8 a = static_cast<Uint8>(request.color.alpha * request.alpha * 255);
 
   TTF_Font* font = textrequest->font->get_ttf_font();
   int line_height = textrequest->font->get_height();
@@ -418,7 +414,7 @@ GLPainter::draw_text(const DrawingRequest& request)
 
     last_pos = i + 1;
 
-    auto texture = TextureManager::current()->get(font, str, {r, g, b, a});
+    auto texture = TextureManager::current()->get(font, str, request.color);
     auto gltexture = std::dynamic_pointer_cast<GLTexture>(texture);
     auto surface = Surface::create(texture);
     auto surface_data = static_cast<GLSurfaceData*>(surface->get_surface_data());
