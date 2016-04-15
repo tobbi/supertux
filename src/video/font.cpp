@@ -85,10 +85,9 @@ Font::get_text_height(const std::string& text) const
   if(text.length() == 0)
     return 0;
 
-  std::string::size_type text_height;
   auto texture_manager = TextureManager::current();
   auto texture = texture_manager->get(get_ttf_font(), text);
-  text_height = texture->get_texture_height();
+  std::string::size_type text_height = texture->get_texture_height();
 
   for(std::string::const_iterator it = text.begin(); it != text.end(); ++it)
   { // since UTF8 multibyte characters are decoded with values
