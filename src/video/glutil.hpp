@@ -37,8 +37,8 @@ using namespace gl;
 #endif
 
 #if defined(MACOSX)
-#  include <OpenGL/gl.h>
-#  include <OpenGL/glext.h>
+//#  include <OpenGL/gl.h>
+//#  include <OpenGL/glext.h>
 #elif defined(GL_VERSION_ES_CM_1_0)
 #  include <GLES/gl.h>
 #  include <GLES/glext.h>

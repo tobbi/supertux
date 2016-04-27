@@ -58,8 +58,8 @@ SET(APPDATADIR "${CMAKE_INSTALL_PREFIX}/share/games/supertux2")
 
 ## Check endianess
 
-INCLUDE(TestBigEndian)
-TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
+#INCLUDE(TestBigEndian)
+#TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
 
 ## Add definitions
 IF(CMAKE_BUILD_TYPE MATCHES Release)
