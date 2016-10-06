@@ -35,6 +35,7 @@ class Surface
 public:
   static SurfacePtr create(const std::string& file);
   static SurfacePtr create(const std::string& file, const Rect& rect);
+  static SurfacePtr create(const TexturePtr& tex);
 
 private:
   TexturePtr texture;
@@ -46,6 +47,7 @@ private:
   Surface(const std::string& file);
   Surface(const std::string& file, const Rect& rect);
   Surface(const Surface&);
+  Surface(const TexturePtr&);
 
 public:
   ~Surface();

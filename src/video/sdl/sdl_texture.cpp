@@ -51,4 +51,17 @@ SDLTexture::~SDLTexture()
   SDL_DestroyTexture(m_texture);
 }
 
+void
+SDLTexture::blit_texture(const TexturePtr& other, const Vector& position)
+{
+  auto renderer = static_cast<SDLRenderer&>(VideoSystem::current()->get_renderer())
+                  .get_sdl_renderer();
+  std::shared_ptr<SDLTexture> other_tex = std::dynamic_pointer_cast<SDLTexture>(other);
+  SDL_SetRenderTarget(renderer, m_texture);
+  SDL_Rect dest_rect = {static_cast<int>(position.x), static_cast<int>(position.y),
+                        static_cast<int>(other_tex->get_texture_width()),
+                        static_cast<int>(other_tex->get_texture_height())};
+  SDL_RenderCopy(renderer, other_tex->get_texture(), NULL, &dest_rect);
+}
+
 /* EOF */

@@ -30,11 +30,14 @@
 #include "util/reader.hpp"
 #include "util/reader_document.hpp"
 #include "util/reader_mapping.hpp"
+#include "video/video_system.hpp"
 
 TileMap::TileMap(const TileSet *new_tileset) :
   ExposedObject<TileMap, scripting::TileMap>(this),
   editor_active(true),
   tileset(new_tileset),
+  tilemap_image(),
+  tilemap_surface(),
   tiles(),
   real_solid(false),
   effective_solid(false),
@@ -65,6 +68,8 @@ TileMap::TileMap(const TileSet *tileset_, const ReaderMapping& reader) :
   ExposedObject<TileMap, scripting::TileMap>(this),
   editor_active(true),
   tileset(tileset_),
+  tilemap_image(),
+  tilemap_surface(),
   tiles(),
   real_solid(false),
   effective_solid(false),
@@ -154,6 +159,9 @@ TileMap::TileMap(const TileSet *tileset_, const ReaderMapping& reader) :
 
   bool empty = true;
 
+  tilemap_image = VideoSystem::current()->new_texture(
+              SDL_CreateRGBSurface(0, width * 32, height * 32, 8, 0, 0, 0, 0));
+
   // make sure all tiles used on the tilemap are loaded and tilemap isn't empty
   for(const auto& tile : tiles) {
     if(tile != 0) {
@@ -166,6 +174,24 @@ TileMap::TileMap(const TileSet *tileset_, const ReaderMapping& reader) :
   if(empty)
   {
     log_info << "Tilemap '" << name << "', z-pos '" << z_pos << "' is empty." << std::endl;
+  }
+  else
+  {
+    for(int x = 0; x < width; x++) {
+      for(int y = 0; y < height; y++) {
+        int index = y * width + x;
+
+        auto tile = tiles[index];
+        if(tile == 0)
+          continue;
+
+        assert (index >= 0);
+        assert (index < (width * height));
+        auto texture = tileset->get(tile)->get_current_image()->get_texture();
+        tilemap_image->blit_texture(texture, Vector(x * 32, y * 32));
+      }
+    }
+    tilemap_surface = Surface::create(tilemap_image);
   }
 }
 
@@ -334,7 +360,11 @@ TileMap::draw(DrawingContext& context)
         context.get_translation() + Vector(SCREEN_WIDTH, SCREEN_HEIGHT));
   Rect t_draw_rect = get_tiles_overlapping(draw_rect);
 
+
+  auto size = tilemap_surface->get_size();
+  context.draw_surface(tilemap_surface, Vector(0, 0), z_pos);
   // Make sure the tilemap is within draw view
+  #if(0)
   if (t_draw_rect.is_valid()) {
     Vector start = get_tile_position(t_draw_rect.left, t_draw_rect.top);
 
@@ -408,6 +438,7 @@ TileMap::draw(DrawingContext& context)
       }
     }
   }
+  #endif
 
   if(draw_target != DrawingContext::NORMAL) {
     context.pop_target();

@@ -76,6 +76,12 @@ public:
     m_image_height = height;
   }
 
+  void blit_texture(const TexturePtr& other, const Vector& position)
+  {
+    std::shared_ptr<GLTexture> other_tex = std::dynamic_pointer_cast<GLTexture>(other);
+    
+  }
+
 private:
   void set_texture_params();
 };

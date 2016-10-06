@@ -35,6 +35,23 @@ Surface::create(const std::string& file, const Rect& rect)
   return SurfacePtr(new Surface(file, rect));
 }
 
+SurfacePtr
+Surface::create(const TexturePtr& tex)
+{
+  return SurfacePtr(new Surface(tex));
+}
+
+Surface::Surface(const TexturePtr& tex) :
+  texture(tex),
+  surface_data(),
+  rect(0, 0,
+      Size(texture->get_image_width(),
+           texture->get_image_height())),
+  flipx(false)
+{
+  surface_data = VideoSystem::current()->new_surface_data(*this);
+}
+
 Surface::Surface(const std::string& file) :
   texture(TextureManager::current()->get(file)),
   surface_data(),

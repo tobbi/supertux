@@ -66,6 +66,11 @@ public:
   virtual unsigned int get_image_width() const = 0;
   virtual unsigned int get_image_height() const = 0;
 
+  /**
+   * Blits another texture at position onto this texture.
+   */
+  virtual void blit_texture(const TexturePtr& other, const Vector& position) = 0;
+
 private:
   Texture(const Texture&);
   Texture& operator=(const Texture&);

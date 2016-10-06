@@ -25,6 +25,7 @@
 #include "supertux/game_object.hpp"
 #include "video/color.hpp"
 #include "video/drawing_context.hpp"
+#include "video/sdl_surface_ptr.hpp"
 
 class Tile;
 class TileSet;
@@ -192,6 +193,8 @@ public:
 
 private:
   const TileSet *tileset;
+  TexturePtr tilemap_image;
+  SurfacePtr tilemap_surface;
 
   typedef std::vector<uint32_t> Tiles;
   Tiles tiles;

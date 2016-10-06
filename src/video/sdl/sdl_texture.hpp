@@ -23,7 +23,9 @@
 #include <SDL.h>
 
 #include "video/color.hpp"
+#include "video/sdl/sdl_renderer.hpp"
 #include "video/texture.hpp"
+#include "video/video_system.hpp"
 
 class SDLTexture : public Texture
 {
@@ -60,6 +62,8 @@ public:
   {
     return m_height;
   }
+
+  void blit_texture(const TexturePtr& other, const Vector& position);
 
 private:
   SDLTexture(const SDLTexture&);
