@@ -83,7 +83,11 @@ script:
   - ./test_supertux2
 
   # Update translation templates (only once per commit)
-  - if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$BUILD_TYPE" = "Release" ] && [ "$USE_GLBINDING" = "OFF" ]; then
+  - echo $TRAVIS_OS_NAME
+  - echo $BUILD_TYPE
+  - echo $USE_GLBINDING
+  - if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$BUILD_TYPE" = "Release" ] && [ "$USE_GLBINDING" != "ON" ]; then
+      echo "Updating translation templates...";
       git config --global user.email "noreply@supertux.org";
       git config --global user.name "SuperTux Translation Template Updater";
       git remote add upstream https://${GH_TOKEN}@github.com/tobbi/translations.git > /dev/null 2>&1;
