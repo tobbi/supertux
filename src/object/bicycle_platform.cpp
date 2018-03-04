@@ -26,7 +26,7 @@
 #include "util/log.hpp"
 
 BicyclePlatform::BicyclePlatform(const ReaderMapping& reader) :
-  MovingSprite(reader, "images/objects/platforms/small.sprite", LAYER_OBJECTS, COLGROUP_STATIC),
+  MovingSprite(reader, LAYER_OBJECTS, COLGROUP_STATIC),
   master(0),
   slave(0),
   center(get_pos()),

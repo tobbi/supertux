@@ -45,6 +45,9 @@ public:
   std::string get_display_name() const {
     return _("Coin");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/coin/coin.sprite";
+  }
 
   ObjectSettings get_settings();
   void after_editor_set();

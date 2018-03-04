@@ -20,13 +20,13 @@
 #include "supertux/object_factory.hpp"
 
 SnowBall::SnowBall(const ReaderMapping& reader)
-  : WalkingBadguy(reader, "images/creatures/snowball/snowball.sprite", "left", "right")
+  : WalkingBadguy(reader, "left", "right")
 {
   walk_speed = 80;
 }
 
 SnowBall::SnowBall(const Vector& pos, Direction d, std::string script)
-  : WalkingBadguy(pos, d, "images/creatures/snowball/snowball.sprite", "left", "right")
+  : WalkingBadguy(pos, d, "left", "right")
 {
   walk_speed = 80;
   dead_script = script;

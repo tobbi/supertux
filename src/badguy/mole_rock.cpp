@@ -21,7 +21,7 @@
 #include "supertux/object_factory.hpp"
 
 MoleRock::MoleRock(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/mole/mole_rock.sprite", LAYER_TILES - 2),
+  BadGuy(reader, LAYER_TILES - 2),
   parent(0),
   initial_velocity(Vector(0, -400))
 {
@@ -32,7 +32,7 @@ MoleRock::MoleRock(const ReaderMapping& reader) :
 }
 
 MoleRock::MoleRock(const Vector& pos, const Vector& velocity, const BadGuy* parent_ = 0) :
-  BadGuy(pos, LEFT, "images/creatures/mole/mole_rock.sprite", LAYER_TILES - 2),
+  BadGuy(pos, LEFT, LAYER_TILES - 2),
   parent(parent_),
   initial_velocity(velocity)
 {

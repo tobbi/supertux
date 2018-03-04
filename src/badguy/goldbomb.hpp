@@ -50,6 +50,9 @@ public:
   std::string get_display_name() const {
     return _("Golden bomb");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/gold_bomb/gold_bomb.sprite";
+  }
 
   void stop_looping_sounds();
   void play_looping_sounds();

@@ -32,14 +32,14 @@ namespace{
 }
 
 KamikazeSnowball::KamikazeSnowball(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/snowball/kamikaze-snowball.sprite")
+  BadGuy(reader)
 {
   SoundManager::current()->preload(SPLAT_SOUND);
   set_action (dir == LEFT ? "left" : "right", /* loops = */ -1);
 }
 
 KamikazeSnowball::KamikazeSnowball(const Vector& pos, Direction d)
-  : BadGuy(pos, d, "images/creatures/snowball/kamikaze-snowball.sprite")
+  : BadGuy(pos, d)
 {
   SoundManager::current()->preload(SPLAT_SOUND);
   set_action (dir == LEFT ? "left" : "right", /* loops = */ -1);
@@ -107,7 +107,7 @@ KamikazeSnowball::after_editor_set()
 LeafShot::LeafShot(const ReaderMapping& reader) :
   KamikazeSnowball(reader)
 {
-  sprite = SpriteManager::current()->create("images/creatures/leafshot/leafshot.sprite");
+  // sprite = SpriteManager::current()->create("images/creatures/leafshot/leafshot.sprite");
 }
 
 void

@@ -30,6 +30,9 @@ public:
   std::string get_display_name() const {
     return _("Snowball");
   }
+  virtual std::string get_default_sprite_name() const override {
+    return "images/creatures/snowball/snowball.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

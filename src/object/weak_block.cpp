@@ -31,7 +31,7 @@
 #include <math.h>
 
 WeakBlock::WeakBlock(const ReaderMapping& lisp)
-: MovingSprite(lisp, "images/objects/weak_block/strawbox.sprite", LAYER_TILES, COLGROUP_STATIC), state(STATE_NORMAL),
+: MovingSprite(lisp, LAYER_TILES, COLGROUP_STATIC), state(STATE_NORMAL),
   linked(true),
   light(0.0f,0.0f,0.0f),
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light-small.sprite"))

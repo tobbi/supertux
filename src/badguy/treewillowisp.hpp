@@ -49,6 +49,10 @@ public:
   virtual void stop_looping_sounds();
   virtual void play_looping_sounds();
 
+  std::string get_default_sprite_name() const {
+    return "images/creatures/willowisp/willowisp.sprite";
+  }
+
 protected:
   virtual bool collides(GameObject& other, const CollisionHit& hit) const;
   HitResponse collision_player(Player& player, const CollisionHit& hit);

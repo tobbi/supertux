@@ -32,7 +32,7 @@ static const Color TORCH_LIGHT_COLOR = Color(0.87, 0.64, 0.12); /** Color of the
 static const Vector TORCH_LIGHT_OFFSET = Vector(0, 12); /** Offset of the light specific to the torch firefly sprite */
 
 Firefly::Firefly(const ReaderMapping& lisp) :
-   MovingSprite(lisp, "images/objects/resetpoints/default-resetpoint.sprite", LAYER_TILES, COLGROUP_TOUCHABLE),
+   MovingSprite(lisp, LAYER_TILES, COLGROUP_TOUCHABLE),
    m_sprite_light(),
    activated(false),
    initial_position(get_pos())

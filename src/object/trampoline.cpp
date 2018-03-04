@@ -35,7 +35,7 @@ const float VY_INITIAL = -500;
 }
 
 Trampoline::Trampoline(const ReaderMapping& lisp) :
-  Rock(lisp, "images/objects/trampoline/trampoline.sprite"),
+  Rock(lisp),
   portable(true)
 {
   lisp.get("name", name, "");
@@ -53,7 +53,7 @@ Trampoline::Trampoline(const ReaderMapping& lisp) :
 }
 
 Trampoline::Trampoline(const Vector& pos, bool port) :
-  Rock(pos, "images/objects/trampoline/trampoline.sprite"),
+  Rock(pos),
   portable(port)
 {
   SoundManager::current()->preload(TRAMPOLINE_SOUND);

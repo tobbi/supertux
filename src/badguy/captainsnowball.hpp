@@ -35,6 +35,9 @@ public:
   std::string get_display_name() const {
     return _("Captain snowball");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/snowball/cpt-snowball.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

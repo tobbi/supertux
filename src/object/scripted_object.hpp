@@ -59,6 +59,9 @@ public:
   std::string get_display_name() const {
     return _("Scripted object");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/bonus_block/brick.sprite";
+  }
 
   virtual ObjectSettings get_settings();
 

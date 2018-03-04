@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Reset point");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/resetpoints/default-resetpoint.sprite";
+  }
 
 private:
   SpritePtr m_sprite_light;

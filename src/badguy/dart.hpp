@@ -48,6 +48,9 @@ public:
   std::string get_display_name() const {
     return _("Dart");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/dart/dart.sprite";
+  }
 
   bool is_flammable() const;
 

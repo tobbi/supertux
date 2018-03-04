@@ -39,6 +39,9 @@ public:
   virtual std::string get_display_name() const override {
     return _("Live fire");
   }
+  virtual std::string get_default_sprite_name() const override {
+    return "images/creatures/livefire/livefire.sprite";
+  }
 
 private:
   std::string death_sound;

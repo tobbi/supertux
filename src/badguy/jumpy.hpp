@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Jumpy");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/snowjumpy/snowjumpy.sprite";
+  }
 
 private:
   HitResponse hit(const CollisionHit& hit);

@@ -29,7 +29,7 @@ static const float STUMPY_SPEED = 120;
 static const float INVINCIBLE_TIME = 1;
 
 Stumpy::Stumpy(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/mr_tree/stumpy.sprite","left","right", LAYER_OBJECTS,
+  WalkingBadguy(reader, "left", "right", LAYER_OBJECTS,
                 "images/objects/lightmap_light/lightmap_light-large.sprite"),
   mystate(STATE_NORMAL),
   invincible_timer()
@@ -40,7 +40,7 @@ Stumpy::Stumpy(const ReaderMapping& reader) :
 }
 
 Stumpy::Stumpy(const Vector& pos, Direction d) :
-  WalkingBadguy(pos, d, "images/creatures/mr_tree/stumpy.sprite","left","right"),
+  WalkingBadguy(pos, d, "left", "right"),
   mystate(STATE_INVINCIBLE),
   invincible_timer()
 {

@@ -30,7 +30,7 @@
 #define EXPLOSION_FORCE 1000.0f
 
 ShortFuse::ShortFuse(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/short_fuse/short_fuse.sprite", "left", "right")
+  WalkingBadguy(reader, "left", "right")
 {
   walk_speed = 100;
   max_drop_height = -1;

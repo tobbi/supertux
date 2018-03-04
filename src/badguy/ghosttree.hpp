@@ -47,6 +47,9 @@ public:
   std::string get_display_name() const {
     return _("Ghost tree");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/ghosttree/ghosttree.sprite";
+  }
 
 private:
   enum MyState {

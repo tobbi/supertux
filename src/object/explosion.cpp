@@ -31,7 +31,7 @@
 #include <math.h>
 
 Explosion::Explosion(const Vector& pos) :
-  MovingSprite(pos, "images/objects/explosion/explosion.sprite", LAYER_OBJECTS+40, COLGROUP_MOVING),
+  MovingSprite(pos, LAYER_OBJECTS+40, COLGROUP_MOVING),
   hurt(true),
   push(false),
   state(STATE_WAITING),
@@ -46,7 +46,7 @@ Explosion::Explosion(const Vector& pos) :
 }
 
 Explosion::Explosion(const ReaderMapping& reader) :
-  MovingSprite(reader, "images/objects/explosion/explosion.sprite", LAYER_OBJECTS+40, COLGROUP_MOVING),
+  MovingSprite(reader, LAYER_OBJECTS+40, COLGROUP_MOVING),
   hurt(true),
   push(false),
   state(STATE_WAITING),

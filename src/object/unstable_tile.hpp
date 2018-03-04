@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Unstable tile");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/unstable_tile/snow.sprite";
+  }
 
 private:
   enum State {

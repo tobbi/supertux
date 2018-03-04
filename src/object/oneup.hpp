@@ -28,6 +28,9 @@ public:
   virtual bool do_save() const {
     return false;
   }
+  std::string get_default_sprite_name() const {
+    return "images/powerups/1up/1up.sprite";
+  }
 
   virtual void update(float elapsed_time);
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit);

@@ -30,15 +30,10 @@ class MovingSprite : public MovingObject
 {
 public:
   MovingSprite(const Vector& pos,
-               const std::string& sprite_name,
                int layer = LAYER_OBJECTS,
                CollisionGroup collision_group = COLGROUP_MOVING);
   MovingSprite(const ReaderMapping& reader,
                const Vector& pos,
-               int layer = LAYER_OBJECTS,
-               CollisionGroup collision_group = COLGROUP_MOVING);
-  MovingSprite(const ReaderMapping& reader,
-               const std::string& sprite_name,
                int layer = LAYER_OBJECTS,
                CollisionGroup collision_group = COLGROUP_MOVING);
   MovingSprite(const ReaderMapping& reader,
@@ -53,6 +48,7 @@ public:
   virtual std::string get_class() const override {
     return "moving-sprite";
   }
+  virtual std::string get_default_sprite_name() const;
 
   virtual ObjectSettings get_settings() override;
   virtual void after_editor_set() override;

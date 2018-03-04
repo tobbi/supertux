@@ -40,6 +40,9 @@ public:
   std::string get_display_name() const {
     return _("Weak block");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/weak_block/strawbox.sprite";
+  }
 
   virtual ObjectSettings get_settings();
 

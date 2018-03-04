@@ -28,7 +28,7 @@ static const std::string SKULLYHOP_SOUND = "sounds/hop.ogg";
 }
 
 SkullyHop::SkullyHop(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/skullyhop/skullyhop.sprite"),
+  BadGuy(reader),
   recover_timer(),
   state()
 {
@@ -36,7 +36,7 @@ SkullyHop::SkullyHop(const ReaderMapping& reader) :
 }
 
 SkullyHop::SkullyHop(const Vector& pos, Direction d) :
-  BadGuy(pos, d, "images/creatures/skullyhop/skullyhop.sprite"),
+  BadGuy(pos, d),
   recover_timer(),
   state()
 {

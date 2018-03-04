@@ -31,6 +31,9 @@ public:
   std::string get_display_name() const {
     return _("Mr. Tree");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mr_tree/mr_tree.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

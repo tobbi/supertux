@@ -29,8 +29,7 @@ static const std::string TREEWILLOSOUND = "sounds/willowisp.wav";
 
 TreeWillOWisp::TreeWillOWisp(GhostTree* tree_, const Vector& pos,
                              float radius_, float speed_) :
-  BadGuy(tree_->get_pos() + pos, "images/creatures/willowisp/willowisp.sprite",
-         LAYER_OBJECTS - 20),
+  BadGuy(tree_->get_pos() + pos, LAYER_OBJECTS - 20),
   was_sucked(false),
   mystate(STATE_DEFAULT),
   color(),

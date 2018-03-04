@@ -44,6 +44,9 @@ public:
   std::string get_display_name() const {
     return _("Mr. Candle");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mr_candle/mr-candle.sprite";
+  }
 
 private:
 

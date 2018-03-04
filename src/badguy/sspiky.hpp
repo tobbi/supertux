@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Sleeping spiky");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/spiky/sleepingspiky.sprite";
+  }
 
 protected:
   enum SSpikyState {

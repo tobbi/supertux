@@ -23,7 +23,7 @@
 #include "util/reader_mapping.hpp"
 
 Candle::Candle(const ReaderMapping& lisp)
-  : MovingSprite(lisp, "images/objects/candle/candle.sprite", LAYER_BACKGROUNDTILES+1, COLGROUP_DISABLED),
+  : MovingSprite(lisp, LAYER_BACKGROUNDTILES+1, COLGROUP_DISABLED),
     ExposedObject<Candle, scripting::Candle>(this),
     burning(true),
     flicker(true),

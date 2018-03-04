@@ -30,7 +30,6 @@ class Platform : public MovingSprite,
 {
 public:
   Platform(const ReaderMapping& reader);
-  Platform(const ReaderMapping& reader, const std::string& default_sprite);
   Platform(const Platform& platform);
   virtual void save(Writer& writer);
   virtual ObjectSettings get_settings();
@@ -71,6 +70,9 @@ public:
   }
   std::string get_display_name() const {
     return _("Platform");
+  }
+  std::string get_default_sprite_name() const {
+    return "images/objects/flying_platform/flying_platform.sprite";
   }
 
 private:

@@ -31,6 +31,9 @@ public:
   virtual bool do_save() const {
     return false;
   }
+  std::string get_default_sprite_name() const {
+    return "images/powerups/star/star.sprite";
+  }
 
 private:
   Physic physic;

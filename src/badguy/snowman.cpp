@@ -23,7 +23,7 @@
 #include "supertux/sector.hpp"
 
 Snowman::Snowman(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/snowman/snowman.sprite", "walk-left", "walk-right")
+  WalkingBadguy(reader, "walk-left", "walk-right")
 {
   walk_speed = 40;
   SoundManager::current()->preload("sounds/pop.ogg");

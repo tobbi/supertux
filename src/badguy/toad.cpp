@@ -29,7 +29,7 @@ static const std::string HOP_SOUND = "sounds/hop.ogg";
 }
 
 Toad::Toad(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/toad/toad.sprite"),
+  BadGuy(reader),
   recover_timer(),
   state()
 {
@@ -37,7 +37,7 @@ Toad::Toad(const ReaderMapping& reader) :
 }
 
 Toad::Toad(const Vector& pos, Direction d) :
-  BadGuy(pos, d, "images/creatures/toad/toad.sprite"),
+  BadGuy(pos, d),
   recover_timer(),
   state()
 {

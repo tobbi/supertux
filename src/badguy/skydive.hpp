@@ -42,6 +42,9 @@ class SkyDive : public BadGuy, public Portable
     std::string get_display_name() const {
       return _("Sky dive");
     }
+    std::string get_default_sprite_name() const {
+      return "images/creatures/skydive/skydive.sprite";
+    }
 
   protected:
     HitResponse collision_player(Player& player, const CollisionHit& hit);

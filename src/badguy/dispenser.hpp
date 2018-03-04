@@ -39,6 +39,9 @@ public:
   std::string get_display_name() const {
     return _("Dispenser");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/dispenser/dispenser.sprite";
+  }
   std::string get_type_string() const {
     switch(type) {
     case DT_DROPPER:

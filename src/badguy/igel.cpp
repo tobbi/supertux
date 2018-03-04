@@ -29,7 +29,7 @@ const float RANGE_OF_VISION = 256; /**< range in px at which we can see bullets 
 } // namespace
 
 Igel::Igel(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/igel/igel.sprite", "walking-left", "walking-right"),
+  WalkingBadguy(reader, "walking-left", "walking-right"),
   turn_recover_timer()
 {
   walk_speed = IGEL_SPEED;
@@ -37,7 +37,7 @@ Igel::Igel(const ReaderMapping& reader) :
 }
 
 Igel::Igel(const Vector& pos, Direction d) :
-  WalkingBadguy(pos, d, "images/creatures/igel/igel.sprite", "walking-left", "walking-right"),
+  WalkingBadguy(pos, d, "walking-left", "walking-right"),
   turn_recover_timer()
 {
   walk_speed = IGEL_SPEED;

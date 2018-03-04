@@ -43,6 +43,9 @@ public:
   std::string get_display_name() const {
     return _("Fish");
   }
+  std::string get_default_sprite_name() const {
+    return  "images/creatures/fish/fish.sprite";
+  }
 
 private:
   HitResponse hit(const CollisionHit& );

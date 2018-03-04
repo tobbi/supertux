@@ -29,7 +29,7 @@
 #include "video/drawing_context.hpp"
 
 InfoBlock::InfoBlock(const ReaderMapping& lisp) :
-  Block(lisp, "images/objects/bonus_block/infoblock.sprite"),
+  Block(lisp),
   message(),
   shown_pct(0),
   dest_pct(0),

@@ -29,7 +29,7 @@
 #include "util/reader_mapping.hpp"
 
 ScriptedObject::ScriptedObject(const ReaderMapping& lisp) :
-  MovingSprite(lisp, "images/objects/bonus_block/brick.sprite", LAYER_OBJECTS, COLGROUP_MOVING_STATIC),
+  MovingSprite(lisp, LAYER_OBJECTS, COLGROUP_MOVING_STATIC),
   ExposedObject<ScriptedObject, scripting::ScriptedObject>(this),
   physic(),
   solid(),

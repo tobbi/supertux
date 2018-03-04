@@ -24,13 +24,13 @@
 #include "supertux/tile.hpp"
 
 SkyDive::SkyDive(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/skydive/skydive.sprite"),
+  BadGuy(reader),
   is_grabbed(false)
 {
 }
 
 SkyDive::SkyDive(const Vector& pos, Direction d) :
-  BadGuy(pos, d, "images/creatures/skydive/skydive.sprite"),
+  BadGuy(pos, d),
   is_grabbed(false)
 {
 }

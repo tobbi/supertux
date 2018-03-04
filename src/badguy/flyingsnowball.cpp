@@ -28,7 +28,7 @@ const float PUFF_INTERVAL_MAX = 8.0f; /**< spawn new puff of smoke at least that
 }
 
 FlyingSnowBall::FlyingSnowBall(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/flying_snowball/flying_snowball.sprite"),
+  BadGuy(reader),
   normal_propeller_speed(),
   puff_timer()
 {
@@ -36,7 +36,7 @@ FlyingSnowBall::FlyingSnowBall(const ReaderMapping& reader) :
 }
 
 FlyingSnowBall::FlyingSnowBall(const Vector& pos) :
-  BadGuy(pos, "images/creatures/flying_snowball/flying_snowball.sprite"),
+  BadGuy(pos),
   normal_propeller_speed(),
   puff_timer()
 {

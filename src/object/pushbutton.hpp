@@ -35,6 +35,9 @@ public:
   std::string get_display_name() const {
     return _("Button");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/pushbutton/pushbutton.sprite";
+  }
 
   virtual ObjectSettings get_settings();
 

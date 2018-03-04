@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Spider mite");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/spidermite/spidermite.sprite";
+  }
 
 protected:
   enum SpiderMiteMode {

@@ -28,7 +28,7 @@
 #include "util/reader_mapping.hpp"
 
 Coin::Coin(const Vector& pos)
-  : MovingSprite(pos, "images/objects/coin/coin.sprite", LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
+  : MovingSprite(pos, LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
     path(),
     walker(),
     offset(),
@@ -41,7 +41,7 @@ Coin::Coin(const Vector& pos)
 }
 
 Coin::Coin(const Vector& pos, TileMap* tilemap)
-  : MovingSprite(pos, "images/objects/coin/coin.sprite", LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
+  : MovingSprite(pos, LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
     path(std::shared_ptr<Path>(tilemap->get_path())),
     walker(std::shared_ptr<PathWalker>(tilemap->get_walker())),
     offset(),
@@ -59,7 +59,7 @@ Coin::Coin(const Vector& pos, TileMap* tilemap)
 }
 
 Coin::Coin(const ReaderMapping& reader)
-  : MovingSprite(reader, "images/objects/coin/coin.sprite", LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
+  : MovingSprite(reader, LAYER_OBJECTS - 1, COLGROUP_TOUCHABLE),
     path(),
     walker(),
     offset(),

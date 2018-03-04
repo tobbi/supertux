@@ -60,6 +60,9 @@ public:
   std::string get_display_name() const {
     return _("Will 'o' wisp");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/willowisp/willowisp.sprite";
+  }
 
   virtual ObjectSettings get_settings();
   virtual void move_to(const Vector& pos);

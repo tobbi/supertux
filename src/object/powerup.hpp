@@ -36,6 +36,9 @@ public:
   std::string get_display_name() const {
     return _("Power up");
   }
+  std::string get_default_sprite_name() const {
+    return "images/powerups/egg/egg.sprite";
+  }
 
   virtual ObjectSettings get_settings();
 

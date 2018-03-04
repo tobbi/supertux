@@ -29,7 +29,7 @@ static const float SHAKE_TIME = .8f;
 static const float SHAKE_RANGE_Y = 400;
 
 Stalactite::Stalactite(const ReaderMapping& lisp) :
-  BadGuy(lisp, "images/creatures/stalactite/stalactite.sprite", LAYER_TILES - 1),
+  BadGuy(lisp, LAYER_TILES - 1),
   timer(),
   state(STALACTITE_HANGING),
   shake_delta()

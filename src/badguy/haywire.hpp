@@ -44,6 +44,9 @@ public:
   std::string get_display_name() const {
     return _("Haywire");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/haywire/haywire.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

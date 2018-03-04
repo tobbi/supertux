@@ -24,7 +24,7 @@
 #include "supertux/sector.hpp"
 
 WaterDrop::WaterDrop(const Vector& pos, const std::string& sprite_path_, const Vector& velocity) :
-  MovingSprite(pos, sprite_path_, LAYER_OBJECTS - 1, COLGROUP_MOVING_ONLY_STATIC),
+  MovingSprite(pos, LAYER_OBJECTS - 1, COLGROUP_MOVING_ONLY_STATIC),
   physic(),
   wd_state(WDS_FALLING),
   sprite_path(sprite_path_)

@@ -28,7 +28,7 @@
 #include "util/reader_mapping.hpp"
 
 GoldBomb::GoldBomb(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/gold_bomb/gold_bomb.sprite", "left", "right"),
+  WalkingBadguy(reader, "left", "right"),
   tstate(STATE_NORMAL),
   grabbed(false),
   grabber(NULL),

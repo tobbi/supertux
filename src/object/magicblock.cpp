@@ -39,7 +39,7 @@ const float SWITCH_DELAY = 0.06f; /**< seconds to wait for stable conditions unt
 }
 
 MagicBlock::MagicBlock(const ReaderMapping& lisp) :
-  MovingSprite(lisp, "images/objects/magicblock/magicblock.sprite"),
+  MovingSprite(lisp),
   is_solid(false),
   trigger_red(),
   trigger_green(),

@@ -26,7 +26,7 @@
 #include "util/reader_mapping.hpp"
 
 MrBomb::MrBomb(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/mr_bomb/mr_bomb.sprite", "left", "right"),
+  WalkingBadguy(reader, "left", "right"),
   grabbed(false)
 {
   walk_speed = 80;
@@ -49,7 +49,7 @@ MrBomb::MrBomb(const ReaderMapping& reader) :
 
 /* MrBomb created by a dispenser always gets default sprite atm.*/
 MrBomb::MrBomb(const Vector& pos, Direction d) :
-  WalkingBadguy(pos, d, "images/creatures/mr_bomb/mr_bomb.sprite", "left", "right"),
+  WalkingBadguy(pos, d, "left", "right"),
   grabbed()
 {
   walk_speed = 80;

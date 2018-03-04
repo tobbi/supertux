@@ -38,6 +38,9 @@ public:
   std::string get_display_name() const {
     return _("Ispy");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/ispy/ispy.sprite";
+  }
 
   virtual ObjectSettings get_settings();
   virtual void after_editor_set();

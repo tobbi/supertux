@@ -42,6 +42,9 @@ public:
   std::string get_display_name() const {
     return _("Toad");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/toad/toad.sprite";
+  }
 
   void after_editor_set();
 

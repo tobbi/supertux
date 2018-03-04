@@ -34,6 +34,9 @@ public:
   std::string get_display_name() const {
     return _("Bouncing Snowball");
   }
+  virtual std::string get_default_sprite_name() const override {
+    return "images/creatures/bouncing_snowball/bouncing_snowball.sprite";
+  }
 
   void after_editor_set();
 

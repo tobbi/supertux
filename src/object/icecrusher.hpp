@@ -41,6 +41,9 @@ public:
   std::string get_display_name() const {
     return _("Ice crusher");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/icecrusher/icecrusher.sprite";
+  }
 
   void after_editor_set();
 

@@ -31,11 +31,11 @@ class Bullet;
 class BadGuy : public MovingSprite
 {
 public:
-  BadGuy(const Vector& pos, const std::string& sprite_name, int layer = LAYER_OBJECTS,
+  BadGuy(const Vector& pos, int layer = LAYER_OBJECTS,
          const std::string& light_sprite_name = "images/objects/lightmap_light/lightmap_light-medium.sprite");
-  BadGuy(const Vector& pos, Direction direction, const std::string& sprite_name, int layer = LAYER_OBJECTS,
+  BadGuy(const Vector& pos, Direction direction, int layer = LAYER_OBJECTS,
          const std::string& light_sprite_name = "images/objects/lightmap_light/lightmap_light-medium.sprite");
-  BadGuy(const ReaderMapping& reader, const std::string& sprite_name, int layer = LAYER_OBJECTS,
+  BadGuy(const ReaderMapping& reader, int layer = LAYER_OBJECTS,
          const std::string& light_sprite_name = "images/objects/lightmap_light/lightmap_light-medium.sprite");
 
   /** Called when the badguy is drawn. The default implementation
@@ -53,6 +53,10 @@ public:
 
   virtual std::string get_display_name() const override {
     return _("Badguy");
+  }
+
+  virtual std::string get_default_sprite_name() const override {
+    return "images/creatures/snowball/snowball.sprite";
   }
 
   virtual ObjectSettings get_settings() override {

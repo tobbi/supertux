@@ -28,7 +28,7 @@ const float DART_SPEED = 200;
 static const std::string DART_SOUND = "sounds/flame.wav";
 
 Dart::Dart(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/dart/dart.sprite"),
+  BadGuy(reader),
   parent(0),
   sound_source()
 {

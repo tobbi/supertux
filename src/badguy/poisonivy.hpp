@@ -32,6 +32,9 @@ public:
   std::string get_display_name() const {
     return _("Poisonous ivy");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/poison_ivy/poison_ivy.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

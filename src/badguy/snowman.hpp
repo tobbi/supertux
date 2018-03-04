@@ -30,6 +30,9 @@ public:
   std::string get_display_name() const {
     return _("Snowman");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/snowman/snowman.sprite";
+  }
 
 protected:
   void loose_head();

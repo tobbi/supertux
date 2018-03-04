@@ -37,6 +37,9 @@ public:
   std::string get_display_name() const {
     return _("Bonus block");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/bonus_block/bonusblock.sprite";
+  }
   enum Contents {
     CONTENT_COIN,
     CONTENT_FIREGROW,

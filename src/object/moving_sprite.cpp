@@ -24,33 +24,35 @@
 #include <physfs.h>
 #include <stdexcept>
 
-MovingSprite::MovingSprite(const Vector& pos, const std::string& sprite_name_,
-                           int layer_, CollisionGroup collision_group) :
-  sprite_name(sprite_name_),
+MovingSprite::MovingSprite(const Vector& pos, int layer_, CollisionGroup collision_group) :
+  sprite_name(get_default_sprite_name()),
   sprite(SpriteManager::current()->create(sprite_name)),
   layer(layer_)
 {
+
   bbox.set_pos(pos);
   bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());
   set_group(collision_group);
 }
 
 MovingSprite::MovingSprite(const ReaderMapping& reader, const Vector& pos, int layer_, CollisionGroup collision_group) :
-  sprite_name(),
+  sprite_name(get_default_sprite_name()),
   sprite(),
   layer(layer_)
 {
   bbox.set_pos(pos);
   if (!reader.get("sprite", sprite_name))
-    throw std::runtime_error("no sprite name set");
-
+  {
+    sprite_name = get_default_sprite_name();
+    //throw std::runtime_error("no sprite name set");
+  }
   sprite = SpriteManager::current()->create(sprite_name);
   bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());
   set_group(collision_group);
 }
 
-MovingSprite::MovingSprite(const ReaderMapping& reader, const std::string& sprite_name_, int layer_, CollisionGroup collision_group) :
-  sprite_name(sprite_name_),
+/*MovingSprite::MovingSprite(const ReaderMapping& reader, int layer_, CollisionGroup collision_group) :
+  sprite_name(get_default_sprite_name()),
   sprite(),
   layer(layer_)
 {
@@ -66,7 +68,7 @@ MovingSprite::MovingSprite(const ReaderMapping& reader, const std::string& sprit
   sprite = SpriteManager::current()->create(this->sprite_name);
   bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());
   set_group(collision_group);
-}
+}*/
 
 MovingSprite::MovingSprite(const ReaderMapping& reader, int layer_, CollisionGroup collision_group) :
   sprite_name(),
@@ -75,8 +77,10 @@ MovingSprite::MovingSprite(const ReaderMapping& reader, int layer_, CollisionGro
 {
   reader.get("x", bbox.p1.x);
   reader.get("y", bbox.p1.y);
-  if (!reader.get("sprite", sprite_name))
-    throw std::runtime_error("no sprite name set");
+  if (!reader.get("sprite", sprite_name) || sprite_name.empty() || PHYSFS_exists(sprite_name.c_str()))
+  {
+    sprite_name = get_default_sprite_name();
+  }
 
   sprite = SpriteManager::current()->create(sprite_name);
   bbox.set_size(sprite->get_current_hitbox_width(), sprite->get_current_hitbox_height());

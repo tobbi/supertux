@@ -26,9 +26,8 @@ namespace worldmap_editor {
 class WorldmapObject : public MovingSprite
 {
   public:
-    WorldmapObject(const ReaderMapping& lisp, const std::string& default_sprite);
     WorldmapObject(const ReaderMapping& lisp);
-    WorldmapObject(const Vector& pos, const std::string& default_sprite);
+    WorldmapObject(const Vector& pos);
     ~WorldmapObject();
 
     void update(float elapsed_time) {
@@ -46,6 +45,11 @@ class WorldmapObject : public MovingSprite
     virtual std::string get_class() const {
       return "worldmap-object";
     }
+    virtual std::string get_default_sprite_name() const {
+      // TODO: We currently don't have a generic sprite for WorldmapObject
+      // Shouldn't bother us, because WorldmapObject is just a base class.
+      return "images/worldmap/common/tux.sprite";
+    }
 
     virtual void move_to(const Vector& pos);
 
@@ -61,6 +65,9 @@ class LevelDot : public WorldmapObject
 
     virtual std::string get_class() const {
       return "level";
+    }
+    std::string get_default_sprite_name() const {
+      return "images/worldmap/common/leveldot.sprite";
     }
 
     void draw(DrawingContext& context);
@@ -84,6 +91,9 @@ class Teleporter : public WorldmapObject
 
     virtual std::string get_class() const {
       return "teleporter";
+    }
+    std::string get_default_sprite_name() const {
+      return "images/worldmap/common/teleporterdot.sprite";
     }
 
     void draw(DrawingContext& context);
@@ -109,6 +119,9 @@ class WorldmapSpawnPoint : public WorldmapObject
     virtual std::string get_class() const {
       return "worldmap-spawnpoint";
     }
+    std::string get_default_sprite_name() const {
+      return "images/worldmap/common/tux.png";
+    }
 
     ObjectSettings get_settings();
     void save(Writer& writer);
@@ -125,6 +138,9 @@ class SpriteChange : public WorldmapObject
 
     virtual std::string get_class() const {
       return "sprite-change";
+    }
+    std::string get_default_sprite_name() const {
+      return "images/engine/editor/spritechange.png";
     }
 
     ObjectSettings get_settings();

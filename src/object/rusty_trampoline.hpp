@@ -43,6 +43,9 @@ public:
   std::string get_display_name() const {
     return _("Rusty trampoline");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/rusty-trampoline/rusty-trampoline.sprite";
+  }
 
 private:
   bool portable;

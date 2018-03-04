@@ -23,13 +23,13 @@
 #include <math.h>
 
 PoisonIvy::PoisonIvy(const ReaderMapping& reader)
-  : WalkingBadguy(reader, "images/creatures/poison_ivy/poison_ivy.sprite", "left", "right")
+  : WalkingBadguy(reader, "left", "right")
 {
   walk_speed = 80;
 }
 
 PoisonIvy::PoisonIvy(const Vector& pos, Direction d)
-  : WalkingBadguy(pos, d, "images/creatures/poison_ivy/poison_ivy.sprite", "left", "right")
+  : WalkingBadguy(pos, d, "left", "right")
 {
   walk_speed = 80;
 }

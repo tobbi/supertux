@@ -33,6 +33,9 @@ public:
   bool is_flammable() const { return false; }
   bool is_freezable() const { return false; }
   void kill_fall() { }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/ghosttree/root.sprite";
+  }
 
 protected:
   enum MyState {

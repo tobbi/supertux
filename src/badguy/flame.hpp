@@ -44,6 +44,9 @@ public:
   std::string get_display_name() const {
     return _("Flame");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/flame/flame.sprite";
+  }
 
   void stop_looping_sounds();
   void play_looping_sounds();

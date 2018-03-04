@@ -42,6 +42,9 @@ public:
   std::string get_display_name() const {
     return _("Kugelblitz");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/kugelblitz/kugelblitz.sprite";
+  }
 
 private:
   void try_activate();

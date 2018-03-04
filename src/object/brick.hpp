@@ -34,6 +34,9 @@ public:
   std::string get_display_name() const {
     return _("Brick");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/bonus_block/brick.sprite";
+  }
 
 protected:
   virtual void hit(Player& player);

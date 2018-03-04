@@ -28,7 +28,7 @@ const float MUZZLE_Y = 25; /**< [px] muzzle y-offset from top */
 }
 
 DartTrap::DartTrap(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/darttrap/darttrap.sprite", LAYER_TILES-1),
+  BadGuy(reader, LAYER_TILES-1),
   enabled(true),
   initial_delay(),
   fire_delay(),

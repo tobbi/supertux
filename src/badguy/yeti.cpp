@@ -57,7 +57,7 @@ const float SNOW_EXPLOSIONS_VY = -200; /**< Speed of snowballs */
 }
 
 Yeti::Yeti(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/yeti/yeti.sprite"),
+  BadGuy(reader),
   state(),
   state_timer(),
   safe_timer(),

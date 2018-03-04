@@ -50,6 +50,9 @@ public:
   std::string get_display_name() const {
     return _("Mr. Ice Block");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mr_iceblock/mr_iceblock.sprite";
+  }
 
 protected:
   enum IceState {

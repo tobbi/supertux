@@ -20,14 +20,14 @@
 #include "supertux/object_factory.hpp"
 
 WalkingLeaf::WalkingLeaf(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/walkingleaf/walkingleaf.sprite", "left", "right")
+  WalkingBadguy(reader, "left", "right")
 {
   walk_speed = 60;
   max_drop_height = 16;
 }
 
 WalkingLeaf::WalkingLeaf(const Vector& pos, Direction d)
-  : WalkingBadguy(pos, d, "images/creatures/walkingleaf/walkingleaf.sprite", "left", "right")
+  : WalkingBadguy(pos, d, "left", "right")
 {
   walk_speed = 60;
   max_drop_height = 16;

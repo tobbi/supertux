@@ -45,6 +45,9 @@ public:
   std::string get_display_name() const {
     return _("Snail");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/snail/snail.sprite";
+  }
   
   bool is_portable() const;
   void ungrab(MovingObject& , Direction dir_);

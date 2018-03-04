@@ -24,7 +24,7 @@
 #include "supertux/sector.hpp"
 
 LiveFire::LiveFire(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/livefire/livefire.sprite", "left", "right"),
+  WalkingBadguy(reader, "left", "right"),
   death_sound("sounds/fall.wav"),
   state(STATE_WALKING)
 {

@@ -27,7 +27,7 @@
 #include "util/reader_mapping.hpp"
 
 Lantern::Lantern(const ReaderMapping& reader) :
-  Rock(reader, "images/objects/lantern/lantern.sprite"),
+  Rock(reader),
   lightcolor(1.0f, 1.0f, 1.0f),
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light.sprite"))
 {
@@ -45,7 +45,7 @@ Lantern::Lantern(const ReaderMapping& reader) :
 }
 
 Lantern::Lantern(const Vector& pos) :
-  Rock(pos, "images/objects/lantern/lantern.sprite"),
+  Rock(pos),
   lightcolor(0.0f, 0.0f, 0.0f),
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light.sprite"))
 {

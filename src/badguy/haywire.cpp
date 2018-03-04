@@ -33,7 +33,7 @@
 #define EXPLODING_WALK_SPEED 160
 
 Haywire::Haywire(const ReaderMapping& reader) :
-  WalkingBadguy(reader, "images/creatures/haywire/haywire.sprite", "left", "right"),
+  WalkingBadguy(reader, "left", "right"),
   is_exploding(false),
   time_until_explosion(0.0f),
   is_stunned(false),

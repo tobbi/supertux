@@ -28,8 +28,8 @@ namespace {
 const std::string ROCK_SOUND = "sounds/brick.wav"; //TODO use own sound.
 }
 
-Rock::Rock(const Vector& pos, const std::string& spritename) :
-  MovingSprite(pos, spritename),
+Rock::Rock(const Vector& pos) :
+  MovingSprite(pos),
   ExposedObject<Rock, scripting::Rock>(this),
   physic(),
   on_ground(false),
@@ -43,7 +43,7 @@ Rock::Rock(const Vector& pos, const std::string& spritename) :
 }
 
 Rock::Rock(const ReaderMapping& reader) :
-  MovingSprite(reader, "images/objects/rock/rock.sprite"),
+  MovingSprite(reader),
   ExposedObject<Rock, scripting::Rock>(this),
   physic(),
   on_ground(false),
@@ -55,23 +55,6 @@ Rock::Rock(const ReaderMapping& reader) :
   reader.get("name", name, "");
   reader.get("on-grab-script", on_grab_script, "");
   reader.get("on-ungrab-script", on_ungrab_script, "");
-  SoundManager::current()->preload(ROCK_SOUND);
-  set_group(COLGROUP_MOVING_STATIC);
-}
-
-Rock::Rock(const ReaderMapping& reader, const std::string& spritename) :
-  MovingSprite(reader, spritename),
-  ExposedObject<Rock, scripting::Rock>(this),
-  physic(),
-  on_ground(false),
-  grabbed(false),
-  last_movement(),
-  on_grab_script(),
-  on_ungrab_script()
-{
-  if(!reader.get("name", name)) name = "";
-  if(!reader.get("on-grab-script", on_grab_script)) on_grab_script = "";
-  if(!reader.get("on-ungrab-script", on_ungrab_script)) on_ungrab_script = "";
   SoundManager::current()->preload(ROCK_SOUND);
   set_group(COLGROUP_MOVING_STATIC);
 }

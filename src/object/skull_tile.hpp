@@ -27,6 +27,9 @@ public:
   std::string get_class() const {
     return "skulltile";
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/skull_tile/skull_tile.sprite";
+  }
 
   HitResponse collision(GameObject& other, const CollisionHit& hit);
   void update(float elapsed_time);

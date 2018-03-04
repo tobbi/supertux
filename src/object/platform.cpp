@@ -24,12 +24,7 @@
 #include "util/reader_mapping.hpp"
 
 Platform::Platform(const ReaderMapping& reader) :
-  Platform(reader, "images/objects/flying_platform/flying_platform.sprite")
-{
-}
-
-Platform::Platform(const ReaderMapping& reader, const std::string& default_sprite) :
-  MovingSprite(reader, default_sprite, LAYER_OBJECTS, COLGROUP_STATIC),
+  MovingSprite(reader, LAYER_OBJECTS, COLGROUP_STATIC),
   ExposedObject<Platform, scripting::Platform>(this),
   path(),
   walker(),

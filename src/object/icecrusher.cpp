@@ -41,7 +41,7 @@ const float PAUSE_TIME_LARGE  = 1.0;
 }
 
 IceCrusher::IceCrusher(const ReaderMapping& reader) :
-  MovingSprite(reader, "images/creatures/icecrusher/icecrusher.sprite", LAYER_OBJECTS, COLGROUP_STATIC),
+  MovingSprite(reader, LAYER_OBJECTS, COLGROUP_STATIC),
   state(IDLE),
   start_position(bbox.p1),
   physic(),

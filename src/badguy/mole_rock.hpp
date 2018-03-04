@@ -47,6 +47,9 @@ public:
   std::string get_display_name() const {
     return _("Mole's rock");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mole/mole_rock.sprite";
+  }
 
 protected:
   const BadGuy* parent; /**< collisions with this BadGuy will be ignored */

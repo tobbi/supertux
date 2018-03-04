@@ -44,6 +44,9 @@ public:
   std::string get_display_name() const {
     return _("Mr. Bomb");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mr_bomb/mr_bomb.sprite";
+  }
 
 protected:
   bool collision_squished(GameObject& object);

@@ -31,7 +31,7 @@ Iceflame::Iceflame(const ReaderMapping& reader) :
   Flame(reader)
 {
   lightsprite->set_color(Color(0.00f, 0.13f, 0.18f));
-  sprite = SpriteManager::current()->create("images/creatures/flame/iceflame.sprite");
+  // sprite = SpriteManager::current()->create("images/creatures/flame/iceflame.sprite");
 }
 
 void

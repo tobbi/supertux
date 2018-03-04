@@ -37,7 +37,7 @@ static const Vector SUCK_TARGET_OFFSET = Vector(-16,-16);
 static const float SUCK_TARGET_SPREAD = 8;
 
 GhostTree::GhostTree(const ReaderMapping& lisp) :
-  BadGuy(lisp, "images/creatures/ghosttree/ghosttree.sprite", LAYER_OBJECTS - 10),
+  BadGuy(lisp, LAYER_OBJECTS - 10),
   mystate(STATE_IDLE),
   willowisp_timer(),
   willo_spawn_y(0),

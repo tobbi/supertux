@@ -43,6 +43,10 @@ public:
   void stop_looping_sounds();
   void play_looping_sounds();
 
+  std::string get_default_sprite_name() const {
+    return "images/creatures/mr_bomb/bomb.sprite";
+  }
+
 private:
   enum State {
     STATE_TICKING

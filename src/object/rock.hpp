@@ -28,9 +28,8 @@ class Rock : public MovingSprite,
              public ExposedObject<Rock, scripting::Rock>
 {
 public:
-  Rock(const Vector& pos, const std::string& spritename);
+  Rock(const Vector& pos);
   Rock(const ReaderMapping& reader);
-  Rock(const ReaderMapping& reader, const std::string& spritename);
 
   void collision_solid(const CollisionHit& hit);
   HitResponse collision(GameObject& other, const CollisionHit& hit);
@@ -38,11 +37,14 @@ public:
 
   void grab(MovingObject& object, const Vector& pos, Direction dir);
   void ungrab(MovingObject& object, Direction dir);
-  std::string get_class() const {
+  virtual std::string get_class() const override {
     return "rock";
   }
-  std::string get_display_name() const {
+  virtual std::string get_display_name() const override {
     return _("Rock");
+  }
+  virtual std::string get_default_sprite_name() const override {
+    return "images/objects/rock/rock.sprite";
   }
   ObjectSettings get_settings();
 

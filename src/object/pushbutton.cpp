@@ -32,7 +32,7 @@ const std::string BUTTON_SOUND = "sounds/switch.ogg";
 }
 
 PushButton::PushButton(const ReaderMapping& lisp) :
-  MovingSprite(lisp, "images/objects/pushbutton/pushbutton.sprite", LAYER_BACKGROUNDTILES+1, COLGROUP_MOVING),
+  MovingSprite(lisp, LAYER_BACKGROUNDTILES+1, COLGROUP_MOVING),
   script(),
   state(OFF)
 {

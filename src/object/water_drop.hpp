@@ -30,6 +30,9 @@ public:
   virtual void update(float elapsed_time);
   virtual void collision_solid(const CollisionHit& hit);
   virtual HitResponse collision(GameObject& other, const CollisionHit& );
+  std::string get_default_sprite_name() const {
+    return sprite_path;
+  }
 
 private:
   Physic physic;

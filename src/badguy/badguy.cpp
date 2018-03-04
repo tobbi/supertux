@@ -43,9 +43,8 @@ static const float BURN_TIME = 1;
 static const float X_OFFSCREEN_DISTANCE = 3840;
 static const float Y_OFFSCREEN_DISTANCE = 2160;
 
-BadGuy::BadGuy(const Vector& pos, const std::string& sprite_name_, int layer_,
-               const std::string& light_sprite_name) :
-  MovingSprite(pos, sprite_name_, layer_, COLGROUP_DISABLED),
+BadGuy::BadGuy(const Vector& pos, int layer_, const std::string& light_sprite_name) :
+  MovingSprite(pos, layer_, COLGROUP_DISABLED),
   physic(),
   countMe(true),
   is_initialized(false),
@@ -77,9 +76,9 @@ BadGuy::BadGuy(const Vector& pos, const std::string& sprite_name_, int layer_,
   lightsprite->set_blend(Blend(GL_SRC_ALPHA, GL_ONE));
 }
 
-BadGuy::BadGuy(const Vector& pos, Direction direction, const std::string& sprite_name_, int layer_,
+BadGuy::BadGuy(const Vector& pos, Direction direction, int layer_,
                const std::string& light_sprite_name) :
-  MovingSprite(pos, sprite_name_, layer_, COLGROUP_DISABLED),
+  MovingSprite(pos, layer_, COLGROUP_DISABLED),
   physic(),
   countMe(true),
   is_initialized(false),
@@ -111,9 +110,9 @@ BadGuy::BadGuy(const Vector& pos, Direction direction, const std::string& sprite
   lightsprite->set_blend(Blend(GL_SRC_ALPHA, GL_ONE));
 }
 
-BadGuy::BadGuy(const ReaderMapping& reader, const std::string& sprite_name_, int layer_,
+BadGuy::BadGuy(const ReaderMapping& reader, int layer_,
                const std::string& light_sprite_name) :
-  MovingSprite(reader, sprite_name_, layer_, COLGROUP_DISABLED),
+  MovingSprite(reader, layer_, COLGROUP_DISABLED),
   physic(),
   countMe(true),
   is_initialized(false),

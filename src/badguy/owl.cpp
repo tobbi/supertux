@@ -32,7 +32,7 @@
 #define ACTIVATION_DISTANCE 128.0
 
 Owl::Owl(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/owl/owl.sprite", LAYER_OBJECTS + 1),
+  BadGuy(reader, LAYER_OBJECTS + 1),
   carried_obj_name(),
   carried_object(NULL)
 {
@@ -41,7 +41,7 @@ Owl::Owl(const ReaderMapping& reader) :
 }
 
 Owl::Owl(const Vector& pos, Direction d) :
-  BadGuy(pos, d, "images/creatures/owl/owl.sprite", LAYER_OBJECTS + 1),
+  BadGuy(pos, d, LAYER_OBJECTS + 1),
   carried_obj_name("skydive"),
   carried_object(NULL)
 {

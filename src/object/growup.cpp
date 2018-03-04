@@ -23,7 +23,7 @@
 #include "sprite/sprite_manager.hpp"
 
 GrowUp::GrowUp(Direction direction) :
-  MovingSprite(Vector(0,0), "images/powerups/egg/egg.sprite", LAYER_OBJECTS, COLGROUP_MOVING),
+  MovingSprite(Vector(0,0), LAYER_OBJECTS, COLGROUP_MOVING),
   physic(),
   light(0.0f,0.0f,0.0f),
   shadesprite(SpriteManager::current()->create("images/powerups/egg/egg.sprite")),

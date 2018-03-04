@@ -30,7 +30,7 @@
 #include <sstream>
 
 PowerUp::PowerUp(const ReaderMapping& lisp) :
-  MovingSprite(lisp, "images/powerups/egg/egg.sprite", LAYER_OBJECTS, COLGROUP_MOVING),
+  MovingSprite(lisp, LAYER_OBJECTS, COLGROUP_MOVING),
   physic(),
   script(),
   no_physics(),
@@ -43,6 +43,7 @@ PowerUp::PowerUp(const ReaderMapping& lisp) :
   SoundManager::current()->preload("sounds/grow.ogg");
   SoundManager::current()->preload("sounds/fire-flower.wav");
   SoundManager::current()->preload("sounds/gulp.wav");
+
   //set default light for glow effect for standard sprites
   lightsprite->set_blend(Blend(GL_SRC_ALPHA, GL_ONE));
   lightsprite->set_color(Color(0.0f, 0.0f, 0.0f));
@@ -63,7 +64,7 @@ PowerUp::PowerUp(const ReaderMapping& lisp) :
 }
 
 PowerUp::PowerUp(const Vector& pos, const std::string& sprite_name_) :
-  MovingSprite(pos, sprite_name_, LAYER_OBJECTS, COLGROUP_MOVING),
+  MovingSprite(pos, LAYER_OBJECTS, COLGROUP_MOVING),
   physic(),
   script(),
   no_physics(false),
@@ -73,6 +74,9 @@ PowerUp::PowerUp(const Vector& pos, const std::string& sprite_name_) :
   physic.enable_gravity(true);
   SoundManager::current()->preload("sounds/grow.ogg");
   SoundManager::current()->preload("sounds/fire-flower.wav");
+
+  sprite_name = sprite_name_;
+
   //set default light for glow effect for standard sprites
   lightsprite->set_blend(Blend(GL_SRC_ALPHA, GL_ONE));
   lightsprite->set_color(Color(0.0f, 0.0f, 0.0f));

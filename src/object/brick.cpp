@@ -30,9 +30,10 @@
 #include "util/reader_mapping.hpp"
 
 Brick::Brick(const Vector& pos, int data, const std::string& spriteName)
-  : Block(SpriteManager::current()->create(spriteName)), breakable(false),
+  : Block(), breakable(false),
     coin_counter(0)
 {
+  sprite_name = spriteName;
   bbox.set_pos(pos);
   if(data == 1)
     coin_counter = 5;
@@ -41,7 +42,7 @@ Brick::Brick(const Vector& pos, int data, const std::string& spriteName)
 }
 
 Brick::Brick(const ReaderMapping& lisp) :
-  Block(lisp, "images/objects/bonus_block/brick.sprite"),
+  Block(lisp),
   breakable(),
   coin_counter(0)
 {

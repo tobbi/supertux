@@ -41,7 +41,7 @@
 #include <physfs.h>
 
 BonusBlock::BonusBlock(const Vector& pos, int data) :
-  Block(SpriteManager::current()->create("images/objects/bonus_block/bonusblock.sprite")),
+  Block(NULL),
   contents(),
   object(),
   hit_counter(1),
@@ -54,7 +54,7 @@ BonusBlock::BonusBlock(const Vector& pos, int data) :
 }
 
 BonusBlock::BonusBlock(const ReaderMapping& lisp) :
-  Block(lisp, "images/objects/bonus_block/bonusblock.sprite"),
+  Block(lisp),
   contents(),
   object(0),
   hit_counter(1),
@@ -121,7 +121,7 @@ BonusBlock::get_content_by_data(int d)
       object = std::make_shared<Trampoline>(get_pos(), true);
       break;
     case 9: contents = CONTENT_CUSTOM;
-      object = std::make_shared<Rock>(get_pos(), "images/objects/rock/rock.sprite");
+      object = std::make_shared<Rock>(get_pos());
       break;
     case 10: contents = CONTENT_RAIN; break;
     case 11: contents = CONTENT_EXPLODE; break;

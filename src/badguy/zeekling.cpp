@@ -25,7 +25,7 @@
 #include "supertux/object_factory.hpp"
 
 Zeekling::Zeekling(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/zeekling/zeekling.sprite"),
+  BadGuy(reader),
   speed(gameRandom.rand(130, 171)),
   diveRecoverTimer(),
   state(FLYING),
@@ -37,7 +37,7 @@ Zeekling::Zeekling(const ReaderMapping& reader) :
 }
 
 Zeekling::Zeekling(const Vector& pos, Direction d) :
-  BadGuy(pos, d, "images/creatures/zeekling/zeekling.sprite"),
+  BadGuy(pos, d),
   speed(gameRandom.rand(130, 171)),
   diveRecoverTimer(),
   state(FLYING),

@@ -41,6 +41,9 @@ public:
   std::string get_display_name() const {
     return _("Stalactite");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/stalactite/stalactite.sprite";
+  }
 
 protected:
   enum StalactiteState {

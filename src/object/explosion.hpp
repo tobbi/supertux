@@ -38,6 +38,11 @@ public:
     return false;
   }
 
+  std::string get_default_sprite_name() const
+  {
+    return "images/objects/explosion/explosion.sprite";
+  }
+
   bool hurts() const
   {
     return this->hurt;

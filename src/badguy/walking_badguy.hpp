@@ -28,19 +28,16 @@ class WalkingBadguy : public BadGuy
 {
 public:
   WalkingBadguy(const Vector& pos,
-                const std::string& sprite_name,
                 const std::string& walk_left_action,
                 const std::string& walk_right_action,
                 int layer = LAYER_OBJECTS,
                 const std::string& light_sprite_name = "images/objects/lightmap_light/lightmap_light-medium.sprite");
   WalkingBadguy(const Vector& pos, Direction direction,
-                const std::string& sprite_name,
                 const std::string& walk_left_action,
                 const std::string& walk_right_action,
                 int layer = LAYER_OBJECTS,
                 const std::string& light_sprite_name = "images/objects/lightmap_light/lightmap_light-medium.sprite");
   WalkingBadguy(const ReaderMapping& reader,
-                const std::string& sprite_name,
                 const std::string& walk_left_action,
                 const std::string& walk_right_action,
                 int layer = LAYER_OBJECTS,

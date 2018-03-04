@@ -32,6 +32,9 @@ public:
   std::string get_display_name() const {
     return _("Spiky");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/spiky/spiky.sprite";
+  }
 
 private:
 };

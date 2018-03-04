@@ -39,6 +39,9 @@ public:
   std::string get_display_name() const {
     return _("Zeekling");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/zeekling/zeekling.sprite";
+  }
 
 private:
   bool collision_squished(GameObject& object);

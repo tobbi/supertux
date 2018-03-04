@@ -42,6 +42,9 @@ public:
   std::string get_display_name() const {
     return _("Mole");
   }
+  std::string get_default_sprite_name() const {
+    return  "images/creatures/mole/mole.sprite";
+  }
 
 private:
   enum MoleState {

@@ -37,8 +37,7 @@ static const float VANISH_RANGE = 512; /**< at what distance to stop tracking an
 static const std::string SOUNDFILE = "sounds/willowisp.wav";
 
 WillOWisp::WillOWisp(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/willowisp/willowisp.sprite", LAYER_FLOATINGOBJECTS,
-         "images/objects/lightmap_light/lightmap_light-small.sprite"),
+  BadGuy(reader, LAYER_FLOATINGOBJECTS, "images/objects/lightmap_light/lightmap_light-small.sprite"),
   ExposedObject<WillOWisp, scripting::WillOWisp>(this),
   mystate(STATE_IDLE),
   target_sector(),

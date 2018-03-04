@@ -55,6 +55,9 @@ public:
   std::string get_display_name() const {
     return _("Lantern");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/lantern/lantern.sprite";
+  }
 
   virtual ObjectSettings get_settings();
   virtual void after_editor_set();

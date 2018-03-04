@@ -35,7 +35,7 @@
 #define  RAND_SPEED 150
 
 Kugelblitz::Kugelblitz(const ReaderMapping& reader) :
-  BadGuy(reader, "images/creatures/kugelblitz/kugelblitz.sprite"),
+  BadGuy(reader),
   pos_groundhit(),
   groundhit_pos_set(false),
   dying(),

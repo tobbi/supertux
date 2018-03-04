@@ -30,6 +30,9 @@ public:
   std::string get_display_name() const {
     return _("Short fuse");
   }
+  std::string get_default_sprite_name() const {
+    return "images/creatures/short_fuse/short_fuse.sprite";
+  }
 
 protected:
   HitResponse collision_player (Player& player, const CollisionHit& hit);

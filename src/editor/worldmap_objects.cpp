@@ -27,14 +27,6 @@
 
 namespace worldmap_editor {
 
-WorldmapObject::WorldmapObject (const ReaderMapping& lisp, const std::string& default_sprite) :
-  MovingSprite(lisp, default_sprite)
-{
-  bbox.p1.x = 32 * bbox.p1.x;
-  bbox.p1.y = 32 * bbox.p1.y;
-  bbox.set_size(32, 32);
-}
-
 WorldmapObject::WorldmapObject (const ReaderMapping& lisp) :
   MovingSprite(lisp)
 {
@@ -43,8 +35,8 @@ WorldmapObject::WorldmapObject (const ReaderMapping& lisp) :
   bbox.set_size(32, 32);
 }
 
-WorldmapObject::WorldmapObject (const Vector& pos, const std::string& default_sprite) :
-  MovingSprite(pos, default_sprite)
+WorldmapObject::WorldmapObject (const Vector& pos) :
+  MovingSprite(pos)
 {
   bbox.p1.x = 32 * bbox.p1.x;
   bbox.p1.y = 32 * bbox.p1.y;
@@ -70,7 +62,7 @@ WorldmapObject::save(Writer& writer) {
 }
 
 LevelDot::LevelDot (const ReaderMapping& lisp) :
-  WorldmapObject(lisp, "images/worldmap/common/leveldot.sprite"),
+  WorldmapObject(lisp),
   level(),
   extro_script(),
   auto_play(false),
@@ -155,7 +147,7 @@ LevelDot::after_editor_set() {
 }
 
 Teleporter::Teleporter (const ReaderMapping& lisp) :
-  WorldmapObject(lisp, "images/worldmap/common/teleporterdot.sprite"),
+  WorldmapObject(lisp),
   worldmap(),
   spawnpoint(),
   message(),
@@ -212,7 +204,7 @@ Teleporter::get_settings() {
 }
 
 WorldmapSpawnPoint::WorldmapSpawnPoint (const ReaderMapping& lisp) :
-  WorldmapObject(lisp, "images/worldmap/common/tux.png"),
+  WorldmapObject(lisp),
   dir(worldmap::D_NONE)
 {
   lisp.get("name", name);
@@ -224,7 +216,7 @@ WorldmapSpawnPoint::WorldmapSpawnPoint (const ReaderMapping& lisp) :
 }
 
 WorldmapSpawnPoint::WorldmapSpawnPoint (const std::string& name_, const Vector& pos) :
-  WorldmapObject(pos, "images/worldmap/common/tux.png"),
+  WorldmapObject(pos),
   dir(worldmap::D_NONE)
 {
   name = name_;
@@ -248,7 +240,7 @@ WorldmapSpawnPoint::get_settings() {
 }
 
 SpriteChange::SpriteChange (const ReaderMapping& lisp) :
-  WorldmapObject(lisp, "images/engine/editor/spritechange.png"),
+  WorldmapObject(lisp),
   target_sprite(sprite_name),
   stay_action(),
   initial_stay_action(false),
@@ -294,7 +286,7 @@ SpriteChange::get_settings() {
 }
 
 SpecialTile::SpecialTile (const ReaderMapping& lisp) :
-  WorldmapObject(lisp, "images/worldmap/common/messagedot.png"),
+  WorldmapObject(lisp),
   map_message(),
   script(),
   passive_message(false),

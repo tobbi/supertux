@@ -25,12 +25,12 @@ static const float JUMPSPEED = -450;
 static const float BSNOWBALL_WALKSPEED = 80;
 
 BouncingSnowball::BouncingSnowball(const ReaderMapping& reader)
-  : BadGuy(reader, "images/creatures/bouncing_snowball/bouncing_snowball.sprite")
+  : BadGuy(reader)
 {
 }
 
 BouncingSnowball::BouncingSnowball(const Vector& pos, Direction d)
-  : BadGuy(pos, d, "images/creatures/bouncing_snowball/bouncing_snowball.sprite")
+  : BadGuy(pos, d)
 {
 }
 

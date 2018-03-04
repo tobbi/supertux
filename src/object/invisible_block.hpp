@@ -31,6 +31,9 @@ public:
   std::string get_display_name() const {
     return _("Invisible block");
   }
+  std::string get_default_sprite_name() const {
+    return "images/objects/bonus_block/invisibleblock.sprite";
+  }
 
   virtual void draw(DrawingContext& context);
   virtual bool collides(GameObject& other, const CollisionHit& hit) const;

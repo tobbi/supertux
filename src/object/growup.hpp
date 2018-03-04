@@ -29,6 +29,10 @@ public:
     return false;
   }
 
+  std::string get_default_sprite_name() const {
+    return "images/powerups/egg/egg.sprite";
+  }
+
   virtual void update(float elapsed_time);
   virtual void draw(DrawingContext& context);
   virtual void collision_solid(const CollisionHit& hit);

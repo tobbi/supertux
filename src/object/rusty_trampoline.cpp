@@ -34,7 +34,7 @@ const float VY_BOUNCE = -500;
 }
 
 RustyTrampoline::RustyTrampoline(const ReaderMapping& lisp) :
-  Rock(lisp, "images/objects/rusty-trampoline/rusty-trampoline.sprite"),
+  Rock(lisp),
   portable(true), counter(3)
 {
   lisp.get("name", name, "");

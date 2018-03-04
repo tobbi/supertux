@@ -33,6 +33,9 @@ public:
   virtual std::string get_display_name() const {
     return _("Kamikaze snowball");
   }
+  virtual std::string get_default_sprite_name() const {
+    return "images/creatures/snowball/kamikaze-snowball.sprite";
+  }
 
   void after_editor_set();
 
@@ -54,6 +57,9 @@ class LeafShot : public KamikazeSnowball
     }
     std::string get_display_name() const {
       return _("Leaf Shot");
+    }
+    std::string get_default_sprite_name() const {
+      return "images/creatures/leafshot/leafshot.sprite";
     }
 };
 
