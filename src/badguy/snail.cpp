@@ -19,6 +19,9 @@
 #include <math.h>
 
 #include "audio/sound_manager.hpp"
+#include "audio/sound_source.hpp"
+#include "math/random.hpp"
+#include "object/explosion.hpp"
 #include "object/player.hpp"
 #include "sprite/sprite.hpp"
 #include "supertux/sector.hpp"
@@ -36,13 +39,23 @@ Snail::Snail(const ReaderMapping& reader) :
   state(STATE_NORMAL),
   kicked_delay_timer(),
   danger_gone_timer(),
-  squishcount(0)
+  random_explosion_timer(),
+  squishcount(0),
+  ticking(SoundManager::current()->create_sound_source("sounds/ticking2.wav"))
 {
   walk_speed = 80;
   max_drop_height = 600;
   SoundManager::current()->preload("sounds/iceblock_bump.wav");
   SoundManager::current()->preload("sounds/stomp.wav");
   SoundManager::current()->preload("sounds/kick.wav");
+  SoundManager::current()->preload("sounds/ring.ogg");
+  
+  ticking->set_position(get_pos());
+  ticking->set_looping(true);
+  ticking->set_gain(1.0f);
+  ticking->set_reference_distance(32);
+  ticking->play();
+
 }
 
 void
@@ -50,6 +63,9 @@ Snail::initialize()
 {
   WalkingBadguy::initialize();
   be_normal();
+  auto rand = gameRandom.rand(0, 60);
+  random_explosion_timer.start(rand);
+  SoundManager::current()->play("sounds/ticking2.wav", get_pos());
 }
 
 void
@@ -127,6 +143,15 @@ Snail::is_in_danger()
 void
 Snail::active_update(float dt_sec)
 {
+  ticking->set_position(get_pos());
+  if(random_explosion_timer.check())
+  {
+    ticking->set_looping(false);
+    ticking->stop();
+    SoundManager::current()->play("sounds/ring.ogg", get_pos());
+    Sector::get().add<Explosion>(m_col.m_bbox.get_middle(), EXPLOSION_STRENGTH_DEFAULT);
+  }
+
   if (state == STATE_GRABBED)
     return;
   
@@ -353,6 +378,16 @@ Snail::ungrab(MovingObject& object, Direction dir_)
   }
   set_colgroup_active(COLGROUP_MOVING);
   Portable::ungrab(object, dir_);
+}
+
+void 
+Snail::kill_fall()
+{
+  ticking->set_looping(false);
+  ticking->stop();
+  SoundManager::current()->play("sounds/ring.ogg", get_pos());
+  Sector::get().add<Explosion>(m_col.m_bbox.get_middle(), EXPLOSION_STRENGTH_DEFAULT);
+  WalkingBadguy::kill_fall();
 }
 
 bool

@@ -20,6 +20,8 @@
 #include "badguy/walking_badguy.hpp"
 #include "object/portable.hpp"
 
+class SoundSource;
+
 /** Badguy "Snail" - a snail-like creature that can be flipped and
     tossed around at an angle */
 class Snail final :
@@ -45,6 +47,8 @@ public:
   virtual void ungrab(MovingObject& , Direction dir_) override;
   virtual void grab(MovingObject&, const Vector& pos, Direction dir_) override;
 
+  virtual void kill_fall() override;
+
 protected:
   virtual bool collision_squished(GameObject& object) override;
   bool is_in_danger();
@@ -69,7 +73,9 @@ private:
   State state;
   Timer kicked_delay_timer; /**< wait time until switching from STATE_KICKED_DELAY to STATE_KICKED */
   Timer danger_gone_timer; /**< time after which snail turns back from STATE_SHELLED */ 
+  Timer random_explosion_timer;
   int   squishcount;
+  std::unique_ptr<SoundSource> ticking;
 
 private:
   Snail(const Snail&) = delete;
