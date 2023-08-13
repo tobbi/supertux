@@ -44,9 +44,9 @@ ScriptTrigger::ScriptTrigger(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-ScriptTrigger::get_settings()
+ScriptTrigger::add_settings()
 {
-  ObjectSettings result = Trigger::get_settings();
+  ObjectSettings result = Trigger::add_settings();
 
   result.add_script(_("Script"), &script, "script");
   result.add_bool(_("Button"), &must_activate, "button");

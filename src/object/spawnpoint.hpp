@@ -47,7 +47,7 @@ public:
   virtual std::string get_class_name() const override { return class_name(); }
   static std::string display_name() { return _("Spawnpoint"); }
   virtual std::string get_display_name() const override { return display_name(); }
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   virtual int get_layer() const override { return LAYER_FOREGROUND1; }
 

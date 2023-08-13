@@ -34,7 +34,7 @@ public:
 
   virtual void kill_fall() override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual void after_editor_set() override;
   static std::string class_name() { return "walking_candle"; }
   virtual std::string get_class_name() const override { return class_name(); }

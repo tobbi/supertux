@@ -47,7 +47,7 @@ public:
     return "images/engine/editor/gradient.png";
   }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   virtual void on_flip(float height) override;
 

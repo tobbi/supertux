@@ -128,18 +128,16 @@ FishChasing::active_update(float dt_sec) {
   }
 }
 
-ObjectSettings
-FishChasing::get_settings()
+void
+FishChasing::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = FishSwimming::get_settings();
+  FishSwimming::add_settings(settings);
 
-  result.add_float(_("Tracking Distance"), &m_track_distance, "track-distance", m_track_distance);
-  result.add_float(_("Losing Distance"), &m_lost_distance, "lost-distance", m_lost_distance);
-  result.add_float(_("Chase Speed"), &m_chase_speed, "chase-speed", m_chase_speed);
+  settings.add_float(_("Tracking Distance"), &m_track_distance, "track-distance", m_track_distance);
+  settings.add_float(_("Losing Distance"), &m_lost_distance, "lost-distance", m_lost_distance);
+  settings.add_float(_("Chase Speed"), &m_chase_speed, "chase-speed", m_chase_speed);
 
-  result.reorder({ "radius", "direction", "track-distance", "lost-distance", "chase-speed", "x", "y" });
-
-  return result;
+  settings.reorder({ "radius", "direction", "track-distance", "lost-distance", "chase-speed", "x", "y" });
 }
 
 /* EOF */

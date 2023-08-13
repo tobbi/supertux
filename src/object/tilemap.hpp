@@ -58,7 +58,7 @@ public:
   static std::string display_name() { return _("Tilemap"); }
   virtual std::string get_display_name() const override { return display_name(); }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual void after_editor_set() override;
 
   virtual void update(float dt_sec) override;

@@ -65,9 +65,9 @@ Door::Door(const ReaderMapping& mapping) :
 }
 
 ObjectSettings
-Door::get_settings()
+Door::add_settings()
 {
-  ObjectSettings result = SpritedTrigger::get_settings();
+  ObjectSettings result = SpritedTrigger::add_settings();
 
   result.add_script(_("Script"), &script, "script");
   result.add_text(_("Sector"), &target_sector, "sector");

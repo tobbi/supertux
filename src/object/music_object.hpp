@@ -43,7 +43,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
   virtual const std::string get_icon_path() const override { return "images/engine/editor/music.png"; }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   void play_music(MusicType musictype);
   void resume_music();

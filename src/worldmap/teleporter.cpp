@@ -40,9 +40,9 @@ Teleporter::Teleporter(const ReaderMapping& mapping) :
 }
 
 ObjectSettings
-Teleporter::get_settings()
+Teleporter::add_settings()
 {
-  ObjectSettings result = WorldMapObject::get_settings();
+  ObjectSettings result = WorldMapObject::add_settings();
 
   result.add_text(_("Sector"), &m_sector, "sector");
   result.add_text(_("Spawnpoint"), &m_spawnpoint, "spawnpoint");

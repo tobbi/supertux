@@ -103,10 +103,11 @@ public:
       If false, load_state() and save_state() calls would not do anything. */
   virtual bool track_state() const { return true; }
 
-  /** Indicates if get_settings() is implemented. If true the editor
+  /** Indicates if add_settings() is implemented. If true the editor
       will display Tip and ObjectMenu. */
   virtual bool has_settings() const { return is_saveable(); }
-  virtual ObjectSettings get_settings();
+  virtual void add_settings(ObjectSettings& settings);
+  const ObjectSettings& get_settings() const { return m_settings; }  
 
   /** Get all types of the object, if available. **/
   virtual GameObjectTypes get_types() const;
@@ -224,7 +225,7 @@ protected:
   bool m_track_undo;
 
 private:
-  /** The object's type at the time of the last get_settings() call.
+  /** The object's type at the time of the last add_settings() call.
       Used to check if the type has changed. **/
   int m_previous_type;
 
@@ -242,6 +243,8 @@ private:
   std::vector<std::unique_ptr<GameObjectComponent> > m_components;
 
   std::vector<ObjectRemoveListener*> m_remove_listeners;
+
+  ObjectSettings m_settings;
 
 private:
   GameObject(const GameObject&) = delete;

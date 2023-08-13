@@ -70,9 +70,9 @@ void CloudParticleSystem::init()
   add_clouds(m_current_amount, 0.f);
 }
 
-ObjectSettings CloudParticleSystem::get_settings()
+ObjectSettings CloudParticleSystem::add_settings()
 {
-  ObjectSettings result = ParticleSystem::get_settings();
+  ObjectSettings result = ParticleSystem::add_settings();
 
   result.add_int(_("Intensity"), &m_current_amount, "intensity", 15);
 

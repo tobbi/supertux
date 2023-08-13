@@ -229,9 +229,9 @@ Camera::~Camera()
 }
 
 ObjectSettings
-Camera::get_settings()
+Camera::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_enum(_("Mode"), reinterpret_cast<int*>(&m_defaultmode),
                   {_("normal"), _("manual"), _("autoscroll")},

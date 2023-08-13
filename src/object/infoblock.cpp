@@ -69,9 +69,9 @@ InfoBlock::~InfoBlock()
 }
 
 ObjectSettings
-InfoBlock::get_settings()
+InfoBlock::add_settings()
 {
-  ObjectSettings result = Block::get_settings();
+  ObjectSettings result = Block::add_settings();
 
   result.add_multiline_translatable_text(_("Message"), &m_message, "message");
 

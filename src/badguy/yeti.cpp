@@ -362,16 +362,14 @@ Yeti::is_flammable() const
   return false;
 }
 
-ObjectSettings
-Yeti::get_settings()
+void
+Yeti::add_settings()
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings();
 
-  result.add_text("hud-icon", &hud_icon, "hud-icon", std::string("images/creatures/yeti/hudlife.png"), OPTION_HIDDEN);
-  result.add_bool(_("Fixed position"), &fixed_pos, "fixed-pos", false);
-  result.add_int(_("Lives"), &hit_points, "lives", 5);
-
-  return result;
+  m_settings.add_text("hud-icon", &hud_icon, "hud-icon", std::string("images/creatures/yeti/hudlife.png"), OPTION_HIDDEN);
+  m_settings.add_bool(_("Fixed position"), &fixed_pos, "fixed-pos", false);
+  m_settings.add_int(_("Lives"), &hit_points, "lives", 5);
 }
 
 void

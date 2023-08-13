@@ -36,12 +36,12 @@ InvisibleWall::InvisibleWall(const ReaderMapping& mapping):
 }
 
 ObjectSettings
-InvisibleWall::get_settings()
+InvisibleWall::add_settings()
 {
   width = m_col.m_bbox.get_width();
   height = m_col.m_bbox.get_height();
 
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   //result.add_float(_("Width"), &width, "width");
   //result.add_float(_("Height"), &height, "height");

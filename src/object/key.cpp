@@ -185,9 +185,9 @@ Key::draw(DrawingContext& context)
 }
 
 ObjectSettings
-Key::get_settings()
+Key::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_color(_("Color"), &m_color, "color", Color::WHITE);
 

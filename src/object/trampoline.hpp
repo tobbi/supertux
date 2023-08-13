@@ -36,7 +36,7 @@ public:
   static std::string display_name() { return _("Trampoline"); }
   virtual std::string get_display_name() const override { return display_name(); }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
 private:
   bool portable;

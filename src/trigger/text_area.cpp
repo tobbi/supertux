@@ -134,9 +134,9 @@ TextArea::update(float dt_sec)
 }
 
 ObjectSettings
-TextArea::get_settings()
+TextArea::add_settings()
 {
-  ObjectSettings settings = Trigger::get_settings();
+  ObjectSettings settings = Trigger::add_settings();
 
   settings.add_bool(_("Once"), &m_once, "once");
   settings.add_float(_("Text change time"), &m_delay, "delay");

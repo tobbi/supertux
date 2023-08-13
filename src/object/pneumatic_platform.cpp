@@ -154,9 +154,9 @@ PneumaticPlatform::editor_delete()
 }
 
 ObjectSettings
-PneumaticPlatform::get_settings()
+PneumaticPlatform::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_sprite(_("Sprite"), &m_sprite_name, "sprite", std::string("images/objects/platforms/small.sprite"));
   result.add_float(_("X"), &m_pos.x, "x", 0.0f, OPTION_HIDDEN);

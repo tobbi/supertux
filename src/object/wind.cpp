@@ -66,12 +66,12 @@ Wind::Wind(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Wind::get_settings()
+Wind::add_settings()
 {
   new_size.x = m_col.m_bbox.get_width();
   new_size.y = m_col.m_bbox.get_height();
 
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   //result.add_float("width", &new_size.x, "width", OPTION_HIDDEN);
   //result.add_float("height", &new_size.y, "height", OPTION_HIDDEN);

@@ -49,9 +49,9 @@ PushButton::PushButton(const ReaderMapping& mapping) :
 }
 
 ObjectSettings
-PushButton::get_settings()
+PushButton::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_script(_("Script"), &script, "script");
   result.add_bool(_("Upside down"), &m_upside_down, "upside-down");

@@ -28,7 +28,7 @@ Tip::Tip(GameObject& object) :
   m_strings(),
   m_header()
 {
-  auto os = object.get_settings();
+  auto os = object.add_settings();
   m_header = os.get_name();
 
   for (const auto& oo_ptr : os.get_options())

@@ -48,7 +48,7 @@ public:
   void update(float) override;
 
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit) override { return FORCE_MOVE; }
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual void move_to(const Vector& pos) override;
 
   Vector get_tile_pos() const { return { m_tile_x, m_tile_y }; }

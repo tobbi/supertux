@@ -55,9 +55,9 @@ Lantern::Lantern(const Vector& pos) :
 }
 
 ObjectSettings
-Lantern::get_settings()
+Lantern::add_settings()
 {
-  ObjectSettings result = Rock::get_settings();
+  ObjectSettings result = Rock::add_settings();
 
   result.add_color(_("Color"), &lightcolor, "color", Color::WHITE);
 

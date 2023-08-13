@@ -57,9 +57,9 @@ ParticleSystem::ParticleSystem(float max_particle_size_) :
 }
 
 ObjectSettings
-ParticleSystem::get_settings()
+ParticleSystem::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_bool(_("Enabled"), &enabled, "enabled", true);
   result.add_int(_("Z-pos"), &z_pos, "z-pos", LAYER_BACKGROUND1);

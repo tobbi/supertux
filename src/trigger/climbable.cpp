@@ -52,9 +52,9 @@ Climbable::~Climbable()
 }
 
 ObjectSettings
-Climbable::get_settings()
+Climbable::add_settings()
 {
-  ObjectSettings result = Trigger::get_settings();
+  ObjectSettings result = Trigger::add_settings();
 
   result.add_translatable_text(_("Message"), &message, "message");
 

@@ -71,9 +71,9 @@ Candle::after_editor_set()
 }
 
 ObjectSettings
-Candle::get_settings()
+Candle::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_bool(_("Burning"), &burning, "burning", true);
   result.add_bool(_("Flicker"), &flicker, "flicker", true);

@@ -43,9 +43,9 @@ ParticleZone::ParticleZone(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-ParticleZone::get_settings()
+ParticleZone::add_settings()
 {
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   result.add_bool(_("Enabled"), &m_enabled, "enabled", true);
   result.add_text(_("Particle Name"), &m_particle_name, "particle-name");

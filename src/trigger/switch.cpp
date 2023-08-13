@@ -46,9 +46,9 @@ Switch::~Switch()
 }
 
 ObjectSettings
-Switch::get_settings()
+Switch::add_settings()
 {
-  ObjectSettings result = SpritedTrigger::get_settings();
+  ObjectSettings result = SpritedTrigger::add_settings();
 
   result.add_script(_("Turn on script"), &script, "script");
   result.add_script(_("Turn off script"), &off_script, "off-script");

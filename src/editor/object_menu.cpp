@@ -31,7 +31,7 @@ ObjectMenu::ObjectMenu(GameObject* go, const std::function<bool (GameObject*)>& 
 {
   m_object->save_state();
 
-  ObjectSettings os = m_object->get_settings();
+  ObjectSettings os = m_object->add_settings();
   add_label(os.get_name());
   add_hl();
   for (const auto& oo_ptr : os.get_options())

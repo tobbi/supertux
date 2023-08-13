@@ -184,9 +184,9 @@ MovingSprite::change_sprite(const std::string& new_sprite_name)
 }
 
 ObjectSettings
-MovingSprite::get_settings()
+MovingSprite::add_settings()
 {
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   result.add_sprite(_("Sprite"), &m_sprite_name, "sprite", m_default_sprite_name);
 

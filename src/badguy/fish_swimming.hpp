@@ -39,7 +39,7 @@ public:
   static std::string display_name() { return _("Swimming Fish"); }
   virtual std::string get_display_name() const override { return display_name(); }
   virtual std::string get_overlay_size() const override { return "2x1"; }
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   void turn_around();
   void maintain_velocity(float goal_x_velocity);

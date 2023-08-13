@@ -53,9 +53,9 @@ ConveyorBelt::ConveyorBelt(const ReaderMapping &reader) :
 }
 
 ObjectSettings
-ConveyorBelt::get_settings()
+ConveyorBelt::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_direction(_("Direction"), &m_dir, Direction::LEFT, "direction");
   result.add_float(_("Speed"), &m_speed, "speed", 1.0f);

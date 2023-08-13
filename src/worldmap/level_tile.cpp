@@ -147,7 +147,7 @@ LevelTile::set_perfect(bool v)
 }
 
 ObjectSettings
-LevelTile::get_settings()
+LevelTile::add_settings()
 {
   // FIXME: hack to make the basedir absolute, making
   // World::get_basedir() itself absolute would be correct, but
@@ -156,7 +156,7 @@ LevelTile::get_settings()
   if (!basedir.empty() && basedir.front() != '/')
     basedir = "/" + basedir;
 
-  ObjectSettings result = WorldMapObject::get_settings();
+  ObjectSettings result = WorldMapObject::add_settings();
 
   result.add_level(_("Level"), &m_level_filename, "level", basedir);
   result.add_script(_("Outro script"), &m_extro_script, "extro-script");

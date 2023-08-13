@@ -67,9 +67,9 @@ WorldMapObject::initialize()
 }
 
 ObjectSettings
-WorldMapObject::get_settings()
+WorldMapObject::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.remove("x");
   result.remove("y");

@@ -46,7 +46,7 @@ public:
   static std::string display_name() { return _("Custom Particles"); }
   virtual std::string get_display_name() const override { return display_name(); }
   virtual void save(Writer& writer) override;
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   virtual const std::string get_icon_path() const override {
     return "images/engine/editor/sparkle.png";

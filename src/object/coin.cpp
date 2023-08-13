@@ -283,9 +283,9 @@ Coin::move_to(const Vector& pos)
 }
 
 ObjectSettings
-Coin::get_settings()
+Coin::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_path_ref(_("Path"), *this, get_path_ref(), "path-ref");
   m_add_path = get_walker() && get_path() && get_path()->is_valid();
@@ -330,9 +330,9 @@ Coin::on_flip(float height)
 }
 
 ObjectSettings
-HeavyCoin::get_settings()
+HeavyCoin::add_settings()
 {
-  auto result = MovingSprite::get_settings();
+  auto result = MovingSprite::add_settings();
 
   result.add_script(_("Collect script"), &m_collect_script, "collect-script");
 

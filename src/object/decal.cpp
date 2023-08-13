@@ -41,9 +41,9 @@ Decal::Decal(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Decal::get_settings()
+Decal::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_int(_("Z-pos"), &m_layer, "z-pos", LAYER_OBJECTS);
   result.add_bool(_("Solid"), &m_solid, "solid", false);

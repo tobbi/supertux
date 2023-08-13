@@ -251,14 +251,14 @@ TileMap::apply_offset_y(int fill_id, int yoffset)
 }
 
 ObjectSettings
-TileMap::get_settings()
+TileMap::add_settings()
 {
   m_new_size_x = m_width;
   m_new_size_y = m_height;
   m_new_offset_x = 0;
   m_new_offset_y = 0;
 
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_bool(_("Solid"), &m_real_solid, "solid");
   result.add_int(_("Resize offset x"), &m_new_offset_x);

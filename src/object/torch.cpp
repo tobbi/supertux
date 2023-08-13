@@ -87,9 +87,9 @@ Torch::collision(GameObject& other, const CollisionHit& )
 }
 
 ObjectSettings
-Torch::get_settings()
+Torch::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_bool(_("Burning"), &m_burning, "burning", true);
   result.add_int(_("Layer"), &m_layer, "layer", 0);

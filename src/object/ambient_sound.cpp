@@ -112,9 +112,9 @@ AmbientSound::~AmbientSound()
 }
 
 ObjectSettings
-AmbientSound::get_settings()
+AmbientSound::add_settings()
 {
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   result.add_sound(_("Sound"), &sample, "sample");
   result.add_float(_("Distance factor"), &distance_factor, "distance_factor");

@@ -102,9 +102,9 @@ MusicObject::get_music() const
 }
 
 ObjectSettings
-MusicObject::get_settings()
+MusicObject::add_settings()
 {
-  auto settings = GameObject::get_settings();
+  auto settings = GameObject::add_settings();
 
   settings.add_music(_("File"), &m_music, "file");
 

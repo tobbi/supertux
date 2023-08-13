@@ -95,9 +95,9 @@ Spotlight::~Spotlight()
 }
 
 ObjectSettings
-Spotlight::get_settings()
+Spotlight::add_settings()
 {
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
 
   result.add_bool(_("Enabled"), &m_enabled, "enabled", true);
   result.add_float(_("Angle"), &angle, "angle");

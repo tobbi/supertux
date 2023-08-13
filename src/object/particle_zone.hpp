@@ -42,7 +42,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit) override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual GameObjectTypes get_types() const override;
 
   virtual int get_layer() const override { return LAYER_OBJECTS; }

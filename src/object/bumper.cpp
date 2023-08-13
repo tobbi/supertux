@@ -40,9 +40,9 @@ Bumper::Bumper(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Bumper::get_settings()
+Bumper::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_bool(_("Facing Left"), &m_facing_left, "left", false);
   result.reorder({"left", "sprite", "x", "y"});

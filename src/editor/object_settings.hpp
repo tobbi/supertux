@@ -173,10 +173,6 @@ private:
 private:
   std::string m_name;
   std::vector<std::unique_ptr<ObjectOption> > m_options;
-
-private:
-  ObjectSettings(const ObjectSettings&) = delete;
-  ObjectSettings& operator=(const ObjectSettings&) = delete;
 };
 
 #endif

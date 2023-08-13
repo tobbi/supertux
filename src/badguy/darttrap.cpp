@@ -137,20 +137,18 @@ DartTrap::fire()
   set_action("idle", m_dir);
 }
 
-ObjectSettings
-DartTrap::get_settings()
+void
+DartTrap::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_float(_("Initial delay"), &m_initial_delay, "initial-delay");
-  result.add_bool(_("Enabled"), &m_enabled, "enabled", true);
-  result.add_float(_("Fire delay"), &m_fire_delay, "fire-delay");
-  result.add_int(_("Ammo"), &m_ammo, "ammo");
-  result.add_sprite(_("Dart sprite"), &m_dart_sprite, "dart-sprite", "images/creatures/darttrap/skull_dart.sprite");
+  settings.add_float(_("Initial delay"), &m_initial_delay, "initial-delay");
+  settings.add_bool(_("Enabled"), &m_enabled, "enabled", true);
+  settings.add_float(_("Fire delay"), &m_fire_delay, "fire-delay");
+  settings.add_int(_("Ammo"), &m_ammo, "ammo");
+  settings.add_sprite(_("Dart sprite"), &m_dart_sprite, "dart-sprite", "images/creatures/darttrap/skull_dart.sprite");
 
-  result.reorder({"initial-delay", "fire-delay", "ammo", "direction", "x", "y", "dart-sprite"});
-
-  return result;
+  settings.reorder({"initial-delay", "fire-delay", "ammo", "direction", "x", "y", "dart-sprite"});
 }
 
 void

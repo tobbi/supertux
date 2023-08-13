@@ -196,9 +196,9 @@ BicyclePlatform::after_editor_set()
 }
 
 ObjectSettings
-BicyclePlatform::get_settings()
+BicyclePlatform::add_settings()
 {
-  auto result = GameObject::get_settings();
+  auto result = GameObject::add_settings();
 
   result.add_float(_("X"), &m_center.x, "x", 0.0f, OPTION_HIDDEN);
   result.add_float(_("Y"), &m_center.y, "y", 0.0f, OPTION_HIDDEN);

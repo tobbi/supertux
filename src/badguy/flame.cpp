@@ -51,17 +51,15 @@ Flame::Flame(const ReaderMapping& reader, const std::string& sprite) :
   m_glowing = true;
 }
 
-ObjectSettings
-Flame::get_settings()
+void
+Flame::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_float(_("Radius"), &radius, "radius", 100.0f);
-  result.add_float(_("Speed"), &speed, "speed", 2.0f);
+  settings.add_float(_("Radius"), &radius, "radius", 100.0f);
+  settings.add_float(_("Speed"), &speed, "speed", 2.0f);
 
-  result.reorder({"speed", "sprite", "x", "y"});
-
-  return result;
+  settings.reorder({"speed", "sprite", "x", "y"});
 }
 
 void

@@ -93,9 +93,9 @@ void RainParticleSystem::init()
 }
 
 ObjectSettings
-RainParticleSystem::get_settings()
+RainParticleSystem::add_settings()
 {
-  ObjectSettings result = ParticleSystem::get_settings();
+  ObjectSettings result = ParticleSystem::add_settings();
 
   result.add_float(_("Intensity"), &m_current_amount, "intensity", 1.f);
   result.add_float(_("Angle"), &m_current_angle, "angle", 1.f);

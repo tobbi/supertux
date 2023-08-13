@@ -432,14 +432,12 @@ Crusher::after_editor_set()
   after_sprite_set();
 }
 
-ObjectSettings
-Crusher::get_settings()
+void
+Crusher::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = MovingSprite::get_settings();
-  result.add_bool(_("Sideways"), &m_sideways, "sideways", false);
-  result.reorder({ "sideways", "sprite", "x", "y" });
-
-  return result;
+  MovingSprite::add_settings(settings);
+  settings.add_bool(_("Sideways"), &m_sideways, "sideways", false);
+  settings.reorder({ "sideways", "sprite", "x", "y" });
 }
 
 bool

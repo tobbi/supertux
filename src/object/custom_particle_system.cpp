@@ -416,9 +416,9 @@ CustomParticleSystem::save(Writer& writer)
 }
 
 ObjectSettings
-CustomParticleSystem::get_settings()
+CustomParticleSystem::add_settings()
 {
-  ObjectSettings result = ParticleSystem::get_settings();
+  ObjectSettings result = ParticleSystem::add_settings();
 
   result.add_surface(_("Texture"), &m_particle_main_texture, "main-texture");
 

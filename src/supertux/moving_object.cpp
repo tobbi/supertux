@@ -48,15 +48,15 @@ MovingObject::~MovingObject()
 {
 }
 
-ObjectSettings
-MovingObject::get_settings()
+void
+MovingObject::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   if (m_parent_dispenser)
   {
     result.remove("name");
-    return result;
+    return;
   }
 
   if (has_variable_size())

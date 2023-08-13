@@ -60,7 +60,7 @@ public:
 
   virtual std::string get_overlay_size() const { return "1x1"; }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual void after_editor_set() override;
 
   /** Called when a collision with another object occurred. The

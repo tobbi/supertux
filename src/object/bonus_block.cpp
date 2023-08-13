@@ -203,9 +203,9 @@ BonusBlock::~BonusBlock()
 }
 
 ObjectSettings
-BonusBlock::get_settings()
+BonusBlock::add_settings()
 {
-  ObjectSettings result = Block::get_settings();
+  ObjectSettings result = Block::add_settings();
 
   result.add_script(_("Script"), &m_script, "script");
   result.add_int(_("Count"), &m_hit_counter, "count", 1);

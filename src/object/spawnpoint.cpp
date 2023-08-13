@@ -55,9 +55,9 @@ SpawnPointMarker::draw(DrawingContext& context)
 }
 
 ObjectSettings
-SpawnPointMarker::get_settings()
+SpawnPointMarker::add_settings()
 {
-  ObjectSettings result = MovingObject::get_settings();
+  ObjectSettings result = MovingObject::add_settings();
   result.add_test_from_here();
   return result;
 }

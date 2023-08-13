@@ -48,9 +48,9 @@ SecretAreaTrigger::SecretAreaTrigger(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-SecretAreaTrigger::get_settings()
+SecretAreaTrigger::add_settings()
 {
-  ObjectSettings result = Trigger::get_settings();
+  ObjectSettings result = Trigger::add_settings();
 
   result.add_text(_("Name"), &m_name);
   result.add_text(_("Fade tilemap"), &fade_tilemap, "fade-tilemap");

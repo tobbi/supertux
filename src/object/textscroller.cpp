@@ -342,9 +342,9 @@ TextScroller::scroll(float offset)
 }
 
 ObjectSettings
-TextScroller::get_settings()
+TextScroller::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_file(_("File"), &m_filename, "file");
   result.add_script(_("Finish Script"), &m_finish_script, "finish-script");

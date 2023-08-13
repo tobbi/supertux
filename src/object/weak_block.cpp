@@ -208,9 +208,9 @@ WeakBlock::on_flip(float height)
 }
 
 ObjectSettings
-WeakBlock::get_settings()
+WeakBlock::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_bool(_("Linked"), &linked, "linked", true);
 

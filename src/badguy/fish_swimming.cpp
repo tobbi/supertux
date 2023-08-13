@@ -46,16 +46,14 @@ FishSwimming::FishSwimming(const ReaderMapping& reader, const std::string& sprit
   reader.get("radius", m_radius, 100.0f);
 }
 
-ObjectSettings
-FishSwimming::get_settings()
+void
+FishSwimming::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_float(_("Radius"), &m_radius, "radius", 100.0f);
+  settings.add_float(_("Radius"), &m_radius, "radius", 100.0f);
 
-  result.reorder({ "radius", "direction", "x", "y" });
-
-  return result;
+  settings.reorder({ "radius", "direction", "x", "y" });
 }
 
 void

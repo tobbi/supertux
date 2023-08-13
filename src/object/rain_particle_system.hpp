@@ -40,7 +40,7 @@ public:
   virtual std::string get_class_name() const override { return class_name(); }
   static std::string display_name() { return _("Rain Particles"); }
   virtual std::string get_display_name() const override { return display_name(); }
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   void fade_speed(float new_speed, float fade_time);
   void fade_angle(float new_angle, float fade_time, easing ease_func);

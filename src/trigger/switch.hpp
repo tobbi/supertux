@@ -30,7 +30,7 @@ public:
   static std::string display_name() { return _("Switch"); }
   virtual std::string get_display_name() const override { return display_name(); }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   virtual void update(float dt_sec) override;
   virtual void event(Player& player, EventType type) override;

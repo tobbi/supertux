@@ -233,16 +233,14 @@ Owl::ignite()
   BadGuy::ignite();
 }
 
-ObjectSettings
-Owl::get_settings()
+void
+Owl::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_list(_("Carry"), "carry", s_portable_objects, &carried_obj_name);
+  settings.add_list(_("Carry"), "carry", s_portable_objects, &carried_obj_name);
 
-  result.reorder({"carry", "direction", "sprite", "x", "y"});
-
-  return result;
+  settings.reorder({"carry", "direction", "sprite", "x", "y"});
 }
 
 /* EOF */

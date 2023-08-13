@@ -28,7 +28,7 @@ public:
   Brick(const ReaderMapping& mapping, const std::string& sprite_name = "images/objects/bonus_block/brick.sprite");
 
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit) override;
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   static std::string class_name() { return "brick"; }
   virtual std::string get_class_name() const override { return class_name(); }
   static std::string display_name() { return _("Brick"); }

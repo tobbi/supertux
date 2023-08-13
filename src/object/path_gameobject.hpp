@@ -56,7 +56,7 @@ public:
 
   virtual void on_flip(float height) override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   Path& get_path() { return *m_path; }
 

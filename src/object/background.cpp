@@ -173,9 +173,9 @@ Background::~Background()
 }
 
 ObjectSettings
-Background::get_settings()
+Background::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_float(_("X"), &m_pos.x, "x", 0.0f, OPTION_HIDDEN);
   result.add_float(_("Y"), &m_pos.y, "y", 0.0f, OPTION_HIDDEN);

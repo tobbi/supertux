@@ -1033,17 +1033,15 @@ BadGuy::set_colgroup_active(CollisionGroup group_)
   if (m_state == STATE_ACTIVE) set_group(group_);
 }
 
-ObjectSettings
-BadGuy::get_settings()
+void
+BadGuy::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  MovingSprite::add_settings(settings);
 
-  result.add_direction(_("Direction"), &m_start_dir, Direction::AUTO, "direction");
-  result.add_script(_("Death script"), &m_dead_script, "dead-script");
+  settings.add_direction(_("Direction"), &m_start_dir, Direction::AUTO, "direction");
+  settings.add_script(_("Death script"), &m_dead_script, "dead-script");
 
-  result.reorder({"direction", "sprite", "x", "y"});
-
-  return result;
+  settings.reorder({"direction", "sprite", "x", "y"});
 }
 
 void

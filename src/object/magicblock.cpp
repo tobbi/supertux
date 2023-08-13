@@ -88,9 +88,9 @@ MagicBlock::MagicBlock(const ReaderMapping& mapping) :
 }
 
 ObjectSettings
-MagicBlock::get_settings()
+MagicBlock::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_rgb(_("Color"), &m_color, "color", Color::BLACK);
 

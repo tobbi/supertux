@@ -41,9 +41,9 @@ SequenceTrigger::SequenceTrigger(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-SequenceTrigger::get_settings()
+SequenceTrigger::add_settings()
 {
-  ObjectSettings result = Trigger::get_settings();
+  ObjectSettings result = Trigger::add_settings();
 
   result.add_enum(_("Sequence"), reinterpret_cast<int*>(&sequence),
                   {_("end sequence"), _("stop Tux"), _("fireworks")},

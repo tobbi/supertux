@@ -139,9 +139,9 @@ Brick::break_for_crusher(Crusher* crusher)
 }
 
 ObjectSettings
-Brick::get_settings()
+Brick::add_settings()
 {
-  ObjectSettings result = Block::get_settings();
+  ObjectSettings result = Block::add_settings();
   result.add_bool(_("Breakable"), &m_breakable, "breakable");
   return result;
 }

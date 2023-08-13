@@ -86,7 +86,7 @@ GameObject::del_remove_listener(ObjectRemoveListener* listener)
 void
 GameObject::save(Writer& writer)
 {
-  auto settings = get_settings();
+  auto settings = add_settings();
   for (const auto& option : settings.get_options())
   {
     option->save(writer);
@@ -104,7 +104,7 @@ GameObject::save()
 }
 
 ObjectSettings
-GameObject::get_settings()
+GameObject::add_settings()
 {
   ObjectSettings result(get_display_name());
 

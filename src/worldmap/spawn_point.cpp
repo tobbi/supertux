@@ -70,9 +70,9 @@ SpawnPointObject::SpawnPointObject(const std::string& name, const Vector& pos) :
 }
 
 ObjectSettings
-SpawnPointObject::get_settings()
+SpawnPointObject::add_settings()
 {
-  ObjectSettings result = WorldMapObject::get_settings();
+  ObjectSettings result = WorldMapObject::add_settings();
 
   result.remove("sprite");
 

@@ -65,9 +65,9 @@ Thunderstorm::Thunderstorm(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Thunderstorm::get_settings()
+Thunderstorm::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_int(_("Z-pos"), &layer, "z-pos", LAYER_BACKGROUNDTILES - 1);
   result.add_bool(_("Running"), &running, "running", true);

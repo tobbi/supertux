@@ -169,9 +169,9 @@ PathGameObject::draw(DrawingContext& context)
 }
 
 ObjectSettings
-PathGameObject::get_settings()
+PathGameObject::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_path(_("Path"), m_path.get(), "path");
 

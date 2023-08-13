@@ -48,9 +48,9 @@ CirclePlatform::collision(GameObject& other, const CollisionHit& )
 }
 
 ObjectSettings
-CirclePlatform::get_settings()
+CirclePlatform::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_float(_("Radius"), &radius, "radius", 100.0f);
   result.add_float(_("Speed"), &speed, "speed", 2.0f);

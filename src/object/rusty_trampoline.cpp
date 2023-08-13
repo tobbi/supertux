@@ -58,9 +58,9 @@ RustyTrampoline::update(float dt_sec)
 }
 
 ObjectSettings
-RustyTrampoline::get_settings()
+RustyTrampoline::add_settings()
 {
-  ObjectSettings result = Rock::get_settings();
+  ObjectSettings result = Rock::add_settings();
 
   result.add_int(_("Counter"), &counter, "counter", 3);
   result.add_bool(_("Portable"), &portable, "portable", true);

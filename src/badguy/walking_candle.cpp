@@ -83,16 +83,14 @@ WalkingCandle::kill_fall()
   unfreeze(false);
 }
 
-ObjectSettings
-WalkingCandle::get_settings()
+void
+WalkingCandle::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_color(_("Color"), &lightcolor, "color", Color::WHITE);
+  settings.add_color(_("Color"), &lightcolor, "color", Color::WHITE);
 
-  result.reorder({"color", "x", "y"});
-
-  return result;
+  settings.reorder({"color", "x", "y"});
 }
 
 void

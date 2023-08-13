@@ -38,7 +38,7 @@ public:
 
   virtual void draw_worldmap(DrawingContext& context) override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   std::string get_map_message() const { return m_map_message; }
   bool is_passive_message() const { return m_passive_message; }

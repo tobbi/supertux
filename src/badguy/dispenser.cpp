@@ -365,24 +365,22 @@ Dispenser::on_type_change(int old_type)
   set_correct_action();
 }
 
-ObjectSettings
-Dispenser::get_settings()
+void
+Dispenser::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings(settings);
 
-  result.add_float(_("Interval (seconds)"), &m_cycle, "cycle");
-  result.add_bool(_("Random"), &m_random, "random", false);
-  result.add_objects(_("Objects"), &m_objects, this, "objects");
-  result.add_bool(_("Limit dispensed badguys"), &m_limit_dispensed_badguys,
+  settings.add_float(_("Interval (seconds)"), &m_cycle, "cycle");
+  settings.add_bool(_("Random"), &m_random, "random", false);
+  settings.add_objects(_("Objects"), &m_objects, this, "objects");
+  settings.add_bool(_("Limit dispensed badguys"), &m_limit_dispensed_badguys,
                   "limit-dispensed-badguys", false);
-  result.add_bool(_("Obey Gravity"), &m_gravity,
+  settings.add_bool(_("Obey Gravity"), &m_gravity,
                   "gravity", false);
-  result.add_int(_("Max concurrent badguys"), &m_max_concurrent_badguys,
+  settings.add_int(_("Max concurrent badguys"), &m_max_concurrent_badguys,
                  "max-concurrent-badguys", 0);
 
-  result.reorder({"cycle", "random", "type", "objects", "direction", "gravity", "limit-dispensed-badguys", "max-concurrent-badguys", "x", "y"});
-
-  return result;
+  settings.reorder({"cycle", "random", "type", "objects", "direction", "gravity", "limit-dispensed-badguys", "max-concurrent-badguys", "x", "y"});
 }
 
 GameObjectTypes

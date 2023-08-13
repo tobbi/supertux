@@ -61,9 +61,9 @@ LitObject::update(float)
 }
 
 ObjectSettings
-LitObject::get_settings()
+LitObject::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_sprite(_("Light sprite"), &m_light_sprite_name, "light-sprite", std::string("images/objects/lightflower/light/glow_light.sprite"));
   result.add_int(_("Layer"), &m_layer, "layer", 0);

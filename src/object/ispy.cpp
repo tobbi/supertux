@@ -46,9 +46,9 @@ Ispy::Ispy(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Ispy::get_settings()
+Ispy::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_script(_("Script"), &m_script, "script");
   result.add_direction(_("Direction"), &m_dir, Direction::AUTO, "direction");

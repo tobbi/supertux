@@ -67,9 +67,9 @@ Platform::finish_construction()
 }
 
 ObjectSettings
-Platform::get_settings()
+Platform::add_settings()
 {
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   if (get_path_gameobject())
   {

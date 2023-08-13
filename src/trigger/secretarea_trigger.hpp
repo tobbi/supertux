@@ -37,7 +37,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
   virtual bool has_variable_size() const override { return true; }
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   virtual void event(Player& player, EventType type) override;
   virtual void draw(DrawingContext& context) override;

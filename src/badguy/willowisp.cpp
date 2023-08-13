@@ -302,30 +302,28 @@ WillOWisp::set_state(const std::string& new_state)
   }
 }
 
-ObjectSettings
-WillOWisp::get_settings()
+void
+WillOWisp::add_settings()
 {
-  ObjectSettings result = BadGuy::get_settings();
+  BadGuy::add_settings();
 
-  result.add_direction(_("Direction"), &m_dir);
-  result.add_text(_("Sector"), &m_target_sector, "sector");
-  result.add_text(_("Spawnpoint"), &m_target_spawnpoint, "spawnpoint");
-  result.add_text(_("Hit script"), &m_hit_script, "hit-script");
-  result.add_float(_("Track range"), &m_track_range, "track-range", TRACK_RANGE);
-  result.add_float(_("Vanish range"), &m_vanish_range, "vanish-range", VANISH_RANGE);
-  result.add_float(_("Fly speed"), &m_flyspeed, "flyspeed", FLYSPEED);
-  result.add_path_ref(_("Path"), *this, get_path_ref(), "path-ref");
-  result.add_int(_("Starting Node"), &m_starting_node, "starting-node", 0, 0U);
-  result.add_color(_("Color"), &m_color, "color");
+  m_settings.add_direction(_("Direction"), &m_dir);
+  m_settings.add_text(_("Sector"), &m_target_sector, "sector");
+  m_settings.add_text(_("Spawnpoint"), &m_target_spawnpoint, "spawnpoint");
+  m_settings.add_text(_("Hit script"), &m_hit_script, "hit-script");
+  m_settings.add_float(_("Track range"), &m_track_range, "track-range", TRACK_RANGE);
+  m_settings.add_float(_("Vanish range"), &m_vanish_range, "vanish-range", VANISH_RANGE);
+  m_settings.add_float(_("Fly speed"), &m_flyspeed, "flyspeed", FLYSPEED);
+  m_settings.add_path_ref(_("Path"), *this, get_path_ref(), "path-ref");
+  m_settings.add_int(_("Starting Node"), &m_starting_node, "starting-node", 0, 0U);
+  m_settings.add_color(_("Color"), &m_color, "color");
   if (get_path())
   {
-    result.add_bool(_("Adapt Speed"), &get_path()->m_adapt_speed, {}, {});
-    result.add_path_handle(_("Handle"), m_path_handle, "handle");
+    m_settings.add_bool(_("Adapt Speed"), &get_path()->m_adapt_speed, {}, {});
+    m_settings.add_path_handle(_("Handle"), m_path_handle, "handle");
   }
 
-  result.reorder({"sector", "spawnpoint", "flyspeed", "track-range", "hit-script", "vanish-range", "name", "path-ref", "region", "x", "y"});
-
-  return result;
+  m_settings.reorder({"sector", "spawnpoint", "flyspeed", "track-range", "hit-script", "vanish-range", "name", "path-ref", "region", "x", "y"});
 }
 
 void WillOWisp::stop_looping_sounds()

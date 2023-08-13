@@ -43,13 +43,12 @@ RCrystallo::initialize()
   state = Sector::get().is_free_of_statics(magnetic_box) ? RCRYSTALLO_FALLING : RCRYSTALLO_ROOF;
 }
 
-ObjectSettings
-RCrystallo::get_settings()
+void
+RCrystallo::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = WalkingBadguy::get_settings();
-  result.add_float(_("Radius"), &m_radius, "radius", 100.0f);
-  result.reorder({ "radius", "direction", "x", "y" });
-  return result;
+  WalkingBadguy::add_settings(settings);
+  settings.add_float(_("Radius"), &m_radius, "radius", 100.0f);
+  settings.reorder({ "radius", "direction", "x", "y" });
 }
 
 void

@@ -77,7 +77,7 @@ public:
 
   virtual void draw(DrawingContext& context) override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
   virtual void after_editor_set() override;
 
   virtual int get_layer() const override { return LAYER_OBJECTS; }

@@ -44,17 +44,15 @@ SCrystallo::initialize()
   set_action("editor", m_dir);
 }
 
-ObjectSettings
-SCrystallo::get_settings()
+void
+SCrystallo::add_settings(ObjectSettings& settings)
 {
-  ObjectSettings result = WalkingBadguy::get_settings();
+  WalkingBadguy::add_settings(settings);
 
-  result.add_float(_("Walk Radius"), &m_radius, "radius", 100.0f);
-  result.add_float(_("Awakening Radius"), &m_range, "range", 250.0f);
+  settings.add_float(_("Walk Radius"), &m_radius, "radius", 100.0f);
+  settings.add_float(_("Awakening Radius"), &m_range, "range", 250.0f);
 
-  result.reorder({ "radius", "range", "direction", "x", "y" });
-
-  return result;
+  settings.reorder({ "radius", "range", "direction", "x", "y" });
 }
 
 void

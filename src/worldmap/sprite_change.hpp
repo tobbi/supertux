@@ -37,7 +37,7 @@ public:
 
   virtual void draw_worldmap(DrawingContext& context) override;
 
-  virtual ObjectSettings get_settings() override;
+  virtual void add_settings(ObjectSettings& settings) override;
 
   /**
    * Activates the SpriteChange's stay action, if applicable

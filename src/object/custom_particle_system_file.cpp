@@ -46,14 +46,14 @@ CustomParticleSystemFile::~CustomParticleSystemFile()
 }
 
 ObjectSettings
-CustomParticleSystemFile::get_settings()
+CustomParticleSystemFile::add_settings()
 {
-  ObjectSettings result = ParticleSystem::get_settings();
+  ObjectSettings result = ParticleSystem::add_settings();
 
   result.add_file(_("File"), &m_filename, "file", {}, {".stcp"}, "/particles");
   result.add_particle_editor();
 
-  // It is assumed get_settings() is called whenever the menu is opened.
+  // It is assumed add_settings() is called whenever the menu is opened.
   Editor::current()->m_particle_editor_filename = &m_filename;
 
   result.add_remove();

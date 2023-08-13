@@ -116,15 +116,15 @@ NodeMarker::editor_delete()
   Editor::current()->update_node_iterators();
 }
 
-ObjectSettings
-NodeMarker::get_settings()
+void
+NodeMarker::add_settings()
 {
-  ObjectSettings result(_("Path Node"));
-  result.add_label(_("Press CTRL to move Bezier handles"));
-  result.add_float(_("Time"), &(m_node->time));
-  result.add_float(_("Speed"), &(m_node->speed));
+  m_settings = ObjectSettings("Path Node");
+  m_settings.add_label(_("Press CTRL to move Bezier handles"));
+  m_settings.add_float(_("Time"), &(m_node->time));
+  m_settings.add_float(_("Speed"), &(m_node->speed));
   
-  result.add_enum(_("Easing"), reinterpret_cast<int*>(&(m_node->easing)),
+  m_settings.add_enum(_("Easing"), reinterpret_cast<int*>(&(m_node->easing)),
                   {
                     _("No easing"),
                     _("Quad in"), _("Quad out"), _("Quad in/out"),
@@ -152,7 +152,6 @@ NodeMarker::get_settings()
                     "EaseBounceIn", "EaseBounceOut", "EaseBounceInOut"
                   },
                   0, "easing");
-  return result;
 }
 
 void

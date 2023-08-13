@@ -67,9 +67,9 @@ SpecialTile::draw_worldmap(DrawingContext& context)
 }
 
 ObjectSettings
-SpecialTile::get_settings()
+SpecialTile::add_settings()
 {
-  ObjectSettings result = WorldMapObject::get_settings();
+  ObjectSettings result = WorldMapObject::add_settings();
 
   result.add_translatable_text(_("Message"), &m_map_message, "map-message");
   result.add_bool(_("Show message"), &m_passive_message, "passive-message", false);

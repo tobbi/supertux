@@ -58,12 +58,12 @@ ScriptedObject::ScriptedObject(const ReaderMapping& mapping) :
   }
 }
 ObjectSettings
-ScriptedObject::get_settings()
+ScriptedObject::add_settings()
 {
   new_size.x = m_col.m_bbox.get_width();
   new_size.y = m_col.m_bbox.get_height();
 
-  ObjectSettings result = MovingSprite::get_settings();
+  ObjectSettings result = MovingSprite::add_settings();
 
   result.add_int(_("Z-pos"), &m_layer, "z-pos", LAYER_OBJECTS);
   //result.add_float("width", &new_size.x, "width", OPTION_HIDDEN);

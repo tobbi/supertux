@@ -30,7 +30,7 @@ class ConveyorBelt final : public MovingSprite,
 public:
   ConveyorBelt(const ReaderMapping& reader);
 
-  ObjectSettings get_settings() override;
+  ObjectSettings add_settings() override;
 
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit) override;
 

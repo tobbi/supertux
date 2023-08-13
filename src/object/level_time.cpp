@@ -45,9 +45,9 @@ LevelTime::LevelTime(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-LevelTime::get_settings()
+LevelTime::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   result.add_float(_("Time"), &time_left, "time");
   result.add_remove();

@@ -122,9 +122,9 @@ Gradient::Gradient(const ReaderMapping& reader) :
 }
 
 ObjectSettings
-Gradient::get_settings()
+Gradient::add_settings()
 {
-  ObjectSettings result = GameObject::get_settings();
+  ObjectSettings result = GameObject::add_settings();
 
   if (m_gradient_direction == HORIZONTAL || m_gradient_direction == HORIZONTAL_SECTOR) {
     result.add_rgba(_("Left Colour"), &m_gradient_top, "left_color");

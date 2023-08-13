@@ -84,9 +84,9 @@ SpriteChange::clone_sprite() const
 }
 
 ObjectSettings
-SpriteChange::get_settings()
+SpriteChange::add_settings()
 {
-  ObjectSettings result = WorldMapObject::get_settings();
+  ObjectSettings result = WorldMapObject::add_settings();
 
   result.add_text(_("Stay action"), &m_stay_action, "stay-action");
   result.add_bool(_("Initial stay action"), &m_in_stay_action, "initial-stay-action");
