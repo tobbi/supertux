@@ -133,6 +133,7 @@ GameSession::restart_level(bool after_death)
         p->set_bonus(m_boni_at_start.at(p->get_id()));
         m_boni_at_start[p->get_id()] = currentStatus.bonus[p->get_id()];
       }
+      m_currentsector->deactivate();
     }
     catch (const std::out_of_range&)
     {
