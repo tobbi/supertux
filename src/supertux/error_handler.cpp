@@ -155,12 +155,21 @@ ErrorHandler::show_stack_trace()
   reportButton.buttonid = 0;
   reportButton.text = "Report to SuperTux Team";
 
+  SDL_MessageBoxButtonData viewInfoButton;
+  viewInfoButton.flags = 0;
+  viewInfoButton.buttonid = 1;
+  viewInfoButton.text = "More info...";
+
+  SDL_MessageBoxButtonData buttons[2];
+  buttons[0] = reportButton;
+  buttons[1] = viewInfoButton;
+
   SDL_MessageBoxData data;
   data.flags = SDL_MESSAGEBOX_ERROR;
   data.title = "Error";
   data.message = "SuperTux encountered an unrecoverable error and needs to close.";
-  data.numbuttons = 1;
-  data.buttons = &reportButton;
+  data.numbuttons = 2;
+  data.buttons = &buttons[0];
 
   int triggeredButtonId;
   SDL_ShowMessageBox(&data, &triggeredButtonId);
@@ -174,14 +183,15 @@ ErrorHandler::show_stack_trace()
                                   base_url, issue_labels, issue_title, msg);
     FileSystem::open_url(url);
   }
-
-
-  // SDL_ShowSimpleMessageBox(
-  //   SDL_MESSAGEBOX_ERROR,
-  //   "Error",
-  //   msg.c_str(),
-  //   nullptr
-  // );
+  if(triggeredButtonId == 1)
+  {
+    SDL_ShowSimpleMessageBox(
+      SDL_MESSAGEBOX_ERROR,
+      "Error",
+      msg.c_str(),
+      nullptr
+    );
+  }
 }
 
 [[ noreturn ]] void
