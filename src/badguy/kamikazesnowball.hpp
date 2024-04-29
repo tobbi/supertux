@@ -67,7 +67,7 @@ public:
   virtual bool is_snipable() const override { return true; }
 
   GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
 protected:
   virtual bool collision_squished(GameObject& object) override;

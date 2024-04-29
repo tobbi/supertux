@@ -47,7 +47,7 @@ public:
   virtual bool is_flammable() const override { return m_type != GRANITO; }
 
   virtual GameObjectTypes get_types() const override;
-  virtual std::string get_default_sprite_name() const override;
+  virtual std::string get_sprite_name_for_type(const int& type) const override;
 
 private:
 

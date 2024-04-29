@@ -35,7 +35,7 @@ public:
   virtual HitResponse collision(GameObject& other, const CollisionHit& hit) override;
 
   GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
 private:
   virtual void hit(Player& player) override;

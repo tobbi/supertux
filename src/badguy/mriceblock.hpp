@@ -53,7 +53,7 @@ public:
   virtual bool is_freezable() const override;
 
   virtual GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
   bool can_break();
 

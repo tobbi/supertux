@@ -38,9 +38,9 @@ WalkingLeaf::get_types() const
 }
 
 std::string
-WalkingLeaf::get_default_sprite_name() const
+WalkingLeaf::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/walkingleaf/corrupted/rotten_leaf.sprite";

@@ -69,9 +69,9 @@ Trampoline::get_types() const
 }
 
 std::string
-Trampoline::get_default_sprite_name() const
+Trampoline::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case STATIONARY:
       return "images/objects/trampoline/trampoline_fix.sprite";

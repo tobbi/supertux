@@ -178,9 +178,9 @@ CorruptedGranito::get_types() const
 }
 
 std::string
-CorruptedGranito::get_default_sprite_name() const
+CorruptedGranito::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case GRANITO:
       return "images/creatures/granito/corrupted/corrupted_granito.sprite";

@@ -72,9 +72,9 @@ Snail::get_types() const
 }
 
 std::string
-Snail::get_default_sprite_name() const
+Snail::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/snail/corrupted/corrupted_snail.sprite";
@@ -157,7 +157,7 @@ Snail::active_update(float dt_sec)
 {
   if (state == STATE_GRABBED || is_grabbed())
     return;
-  
+
   if (m_frozen)
   {
     BadGuy::active_update(dt_sec);

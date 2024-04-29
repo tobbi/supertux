@@ -50,9 +50,9 @@ Jumpy::get_types() const
 }
 
 std::string
-Jumpy::get_default_sprite_name() const
+Jumpy::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case WOODEN:
       return "images/creatures/jumpy/woodjumpy.sprite";

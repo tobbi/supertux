@@ -73,9 +73,9 @@ PowerUp::get_types() const
 }
 
 std::string
-PowerUp::get_default_sprite_name() const
+PowerUp::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case FIRE:
       return "images/powerups/fireflower/fireflower.sprite";

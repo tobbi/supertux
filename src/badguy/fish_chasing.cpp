@@ -46,9 +46,9 @@ FishChasing::FishChasing(const ReaderMapping& reader) :
 }
 
 std::string
-FishChasing::get_default_sprite_name() const
+FishChasing::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case FOREST:
       return "images/creatures/fish/forest/brownfish.sprite";

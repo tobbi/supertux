@@ -53,9 +53,9 @@ MrTree::get_types() const
 }
 
 std::string
-MrTree::get_default_sprite_name() const
+MrTree::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/mr_tree/corrupted/haunted_tree.sprite";

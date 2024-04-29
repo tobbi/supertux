@@ -151,7 +151,7 @@ Dispenser::active_update(float dt_sec)
       {
         return;
       }
-      
+
       // Auto always shoots in Tux's direction.
       if (m_autotarget)
       {
@@ -440,16 +440,16 @@ Dispenser::get_types() const
 }
 
 std::string
-Dispenser::get_default_sprite_name() const
+Dispenser::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case POINT:
       return "images/creatures/dispenser/invisible.sprite";
     case GRANITO:
       return "images/creatures/granito/corrupted/hive/granito_hive.sprite";
     default:
-      return "images/creatures/dispenser/" + type_value_to_id(m_type) + ".sprite";
+      return "images/creatures/dispenser/" + type_value_to_id(type) + ".sprite";
   }
 }
 

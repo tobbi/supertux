@@ -159,9 +159,9 @@ Stalactite::get_types() const
 }
 
 std::string
-Stalactite::get_default_sprite_name() const
+Stalactite::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case ROCK:
       return "images/creatures/stalactite/stalactite_rock.sprite";

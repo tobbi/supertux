@@ -74,9 +74,9 @@ UnstableTile::get_types() const
 }
 
 std::string
-UnstableTile::get_default_sprite_name() const
+UnstableTile::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case BRICK:
       return "images/objects/unstable_tile/brick.sprite";

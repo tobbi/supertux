@@ -100,9 +100,9 @@ WeakBlock::get_types() const
 }
 
 std::string
-WeakBlock::get_default_sprite_name() const
+WeakBlock::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case HAY:
       return "images/objects/weak_block/strawbox.sprite";

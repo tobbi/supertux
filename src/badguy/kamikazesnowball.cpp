@@ -120,9 +120,9 @@ LeafShot::get_types() const
 }
 
 std::string
-LeafShot::get_default_sprite_name() const
+LeafShot::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/leafshot/corrupted/rotshot.sprite";

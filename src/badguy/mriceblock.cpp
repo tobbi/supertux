@@ -65,9 +65,9 @@ MrIceBlock::get_types() const
 }
 
 std::string
-MrIceBlock::get_default_sprite_name() const
+MrIceBlock::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case LAPTOP:
       return "images/creatures/laptop/laptop.sprite";

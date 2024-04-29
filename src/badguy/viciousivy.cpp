@@ -47,9 +47,9 @@ ViciousIvy::get_types() const
 }
 
 std::string
-ViciousIvy::get_default_sprite_name() const
+ViciousIvy::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/vicious_ivy/corrupted/rotten_ivy.sprite";

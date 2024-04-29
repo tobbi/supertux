@@ -35,7 +35,7 @@ public:
   virtual std::string get_overlay_size() const override { return "2x2"; }
   virtual ObjectSettings get_settings() override;
 
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
 private:
   enum ChaseState {

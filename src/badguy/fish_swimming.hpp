@@ -43,7 +43,7 @@ public:
   virtual ObjectSettings get_settings() override;
 
   virtual GameObjectTypes get_types() const override;
-  virtual std::string get_default_sprite_name() const override;
+  virtual std::string get_sprite_name_for_type(const int& type) const override;
 
   void turn_around();
   void maintain_velocity(float goal_x_velocity);

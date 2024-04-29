@@ -40,9 +40,9 @@ InvisibleBlock::get_types() const
 }
 
 std::string
-InvisibleBlock::get_default_sprite_name() const
+InvisibleBlock::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case RETRO:
       return "images/objects/bonus_block/retro_invisibleblock.sprite";

@@ -27,7 +27,7 @@ public:
   PowerUp(const Vector& pos, int type);
 
   GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
   virtual void update(float dt_sec) override;
   virtual void draw(DrawingContext& context) override;

@@ -74,9 +74,9 @@ Rock::get_types() const
 }
 
 std::string
-Rock::get_default_sprite_name() const
+Rock::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case LARGE:
       return "images/objects/rock/rock-b.png";

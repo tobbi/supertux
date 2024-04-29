@@ -191,9 +191,9 @@ Igel::get_types() const
 }
 
 std::string
-Igel::get_default_sprite_name() const
+Igel::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CORRUPTED:
       return "images/creatures/igel/corrupted/corrupted_igel.sprite";

@@ -82,10 +82,10 @@ Crusher::get_types() const
 }
 
 std::string
-Crusher::get_default_sprite_name() const
+Crusher::get_sprite_name_for_type(const int& type) const
 {
   const std::string size_prefix = (m_ic_size == NORMAL ? "krush" : "krosh");
-  switch (m_ic_type)
+  switch (type)
   {
     case ROCK:
       return "images/creatures/crusher/" + size_prefix + "_rock.sprite";

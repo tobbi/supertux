@@ -77,9 +77,9 @@ GranitoGiant::get_types() const
 }
 
 std::string
-GranitoGiant::get_default_sprite_name() const
+GranitoGiant::get_sprite_name_for_type(const int& type) const
 {
-  if (m_type < CORRUPTED_A) // Not corrupted
+  if (type < CORRUPTED_A) // Not corrupted
     return "images/creatures/granito/giant/granito_giant.sprite";
   else
     return "images/creatures/granito/corrupted/giant/corrupted_giant.sprite";

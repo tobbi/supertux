@@ -166,9 +166,9 @@ DartTrap::get_types() const
 }
 
 std::string
-DartTrap::get_default_sprite_name() const
+DartTrap::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case SKULL:
       return "images/creatures/darttrap/skull/darttrap_skull.sprite";

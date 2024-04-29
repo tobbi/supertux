@@ -84,9 +84,9 @@ BouncingSnowball::get_types() const
 }
 
 std::string
-BouncingSnowball::get_default_sprite_name() const
+BouncingSnowball::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case FATBAT:
       return "images/creatures/fatbat/fatbat.sprite";

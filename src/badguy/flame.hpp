@@ -40,7 +40,7 @@ public:
 
   virtual ObjectSettings get_settings() override;
   GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
   static std::string class_name() { return "flame"; }
   virtual std::string get_class_name() const override { return class_name(); }

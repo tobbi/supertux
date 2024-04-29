@@ -44,9 +44,9 @@ SnowBall::get_types() const
 }
 
 std::string
-SnowBall::get_default_sprite_name() const
+SnowBall::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case BUMPKIN:
       return "images/creatures/pumpkin/bumpkin.sprite";

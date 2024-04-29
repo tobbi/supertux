@@ -43,7 +43,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
 
   GameObjectTypes get_types() const override;
-  std::string get_default_sprite_name() const override;
+  std::string get_sprite_name_for_type(const int& type) const override;
 
 public:
   enum Type {

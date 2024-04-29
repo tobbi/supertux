@@ -50,9 +50,9 @@ MrBomb::get_types() const
 }
 
 std::string
-MrBomb::get_default_sprite_name() const
+MrBomb::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case CLASSIC:
       return "images/creatures/mr_bomb/old_bomb/old_bomb.sprite";

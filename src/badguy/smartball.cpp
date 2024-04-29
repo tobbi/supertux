@@ -37,9 +37,9 @@ SmartBall::get_types() const
 }
 
 std::string
-SmartBall::get_default_sprite_name() const
+SmartBall::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case PUMPKIN:
       return "images/creatures/pumpkin/pumpkin.sprite";

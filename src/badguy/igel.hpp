@@ -42,7 +42,7 @@ public:
   virtual void unfreeze(bool melt = true) override;
 
   virtual GameObjectTypes get_types() const override;
-  virtual std::string get_default_sprite_name() const override;
+  virtual std::string get_sprite_name_for_type(const int& type) const override;
 
 private:
   enum Type { NORMAL, CORRUPTED };

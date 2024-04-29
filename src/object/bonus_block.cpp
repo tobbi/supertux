@@ -177,9 +177,9 @@ BonusBlock::get_types() const
 }
 
 std::string
-BonusBlock::get_default_sprite_name() const
+BonusBlock::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case ORANGE:
       return "images/objects/bonus_block/orangeblock.sprite";

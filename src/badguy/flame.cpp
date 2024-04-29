@@ -88,9 +88,9 @@ Flame::get_types() const
 }
 
 std::string
-Flame::get_default_sprite_name() const
+Flame::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case GHOST:
       return "images/creatures/flame/ghostflame.sprite";

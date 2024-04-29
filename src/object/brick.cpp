@@ -62,9 +62,9 @@ Brick::get_types() const
 }
 
 std::string
-Brick::get_default_sprite_name() const
+Brick::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case RETRO:
       return "images/objects/bonus_block/retro_brick.sprite";

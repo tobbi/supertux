@@ -72,9 +72,9 @@ Coin::get_types() const
 }
 
 std::string
-Coin::get_default_sprite_name() const
+Coin::get_sprite_name_for_type(const int& type) const
 {
-  switch (m_type)
+  switch (type)
   {
     case RETRO:
       return "images/objects/coin/retro_coin.sprite";
