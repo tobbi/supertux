@@ -45,7 +45,9 @@ int reader_get_layer(const ReaderMapping& reader, int def)
     tmp = def;
 
   if (!Editor::is_active()) {
-    if (tmp > (LAYER_GUI - 100))
+    bool force_layer;
+    reader.get("force-layer", force_layer, false); 
+    if (!force_layer && tmp > (LAYER_GUI - 100))
       tmp = LAYER_GUI - 100;
   }
 
