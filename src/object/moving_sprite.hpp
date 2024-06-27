@@ -50,6 +50,7 @@ public:
   virtual void update(float dt_sec) override;
   static std::string class_name() { return "moving-sprite"; }
   virtual std::string get_class_name() const override { return class_name(); }
+  virtual GameObjectClasses get_class_types() const override { return MovingObject::get_class_types().add(typeid(MovingSprite)); }
 
   virtual ObjectSettings get_settings() override;
   virtual void after_editor_set() override;

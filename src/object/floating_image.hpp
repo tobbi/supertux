@@ -26,6 +26,8 @@ class FloatingImage final : public GameObject
 public:
   FloatingImage(const std::string& sprite);
   ~FloatingImage() override;
+  virtual GameObjectClasses get_class_types() const override { return GameObject::get_class_types().add(typeid(FloatingImage)); }
+
   virtual bool is_saveable() const override {
     return false;
   }

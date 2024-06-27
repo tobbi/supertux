@@ -60,6 +60,7 @@ public:
   virtual std::string get_class_name() const override { return class_name(); }
   static std::string display_name() { return _("Badguy"); }
   virtual std::string get_display_name() const override { return display_name(); }
+  virtual GameObjectClasses get_class_types() const override { return MovingSprite::get_class_types().add(typeid(Portable)).add(typeid(BadGuy)); }
 
   virtual std::string get_overlay_size() const { return "1x1"; }
 
