@@ -33,7 +33,8 @@ StackingBlock::StackingBlock(const ReaderMapping& mapping) :
   m_stack_delay(),
   m_stack_timer(),
   m_max_stack_count(),
-  m_current_stack_count()
+  m_current_stack_count(),
+  m_last_block_position(get_pos())
 {
 }
 
@@ -76,6 +77,7 @@ StackingBlock::update(float dt_sec)
       //Sector::get().add<SpecialRiser>(get_pos(), std::make_unique<Trampoline>(get_pos(), Trampoline::STATIONARY), true);
       log_warning << "Next stack" << std::endl;
       m_stack_timer.start(m_stack_delay);
+      m_last_block_position += Vector(0, -32);
     }
   }
   Block::update(dt_sec);

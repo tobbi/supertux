@@ -46,6 +46,7 @@ private:
   Timer m_stack_timer;
   int m_max_stack_count;
   int m_current_stack_count;
+  Vector m_last_block_position;
 
 private:
   virtual void hit(Player& player) override;
