@@ -50,7 +50,7 @@ public:
   virtual void update(float dt_sec) override;
   virtual void draw(DrawingContext& context) override;
 
-  virtual int get_layer() const override { return LAYER_TILES; }
+  virtual int get_layer() const override { return m_layer; }
 
   virtual void after_editor_set() override;
 

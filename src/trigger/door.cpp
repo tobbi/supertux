@@ -163,7 +163,7 @@ Door::update(float )
 void
 Door::draw(DrawingContext& context)
 {
-  m_sprite->draw(context.color(), m_col.m_bbox.p1(), LAYER_BACKGROUNDTILES+1, m_flip);
+  m_sprite->draw(context.color(), m_col.m_bbox.p1(), m_layer, m_flip);
 
   if (m_state == DoorState::LOCKED || m_state == DoorState::UNLOCKING)
   {
