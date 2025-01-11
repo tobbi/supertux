@@ -27,7 +27,9 @@
 #include "squirrel/supertux_api.hpp"
 #include "supertux/console.hpp"
 #include "supertux/globals.hpp"
+#include "supertux/level.hpp"
 #include "util/log.hpp"
+#include "worldmap/worldmap.hpp"
 
 #ifdef ENABLE_SQDBG
 #  include "../../external/squirrel/sqdbg/sqrdbg.h"
@@ -39,10 +41,34 @@ HSQREMOTEDBG debugger = nullptr;
 #ifdef __clang__
 __attribute__((__format__ (__printf__, 2, 0)))
 #endif
+
 static void printFunc(HSQUIRRELVM, const char* fmt, ...)
 {
   char buf[4096];
   const char separator[] = "\n";
+  static std::string last_execution_context;
+  std::string filename;
+
+  if(Level::current() != nullptr && !Level::current()->is_worldmap())
+  {
+    filename = Level::current()->m_filename;
+  }
+  else
+  {
+    auto worldmap = worldmap::WorldMap::current();
+    if(worldmap != nullptr)
+    {
+      filename = worldmap->get_filename();
+    }
+  }
+
+  if(!filename.empty() && last_execution_context != filename)
+  {
+    ConsoleBuffer::output << "[SCRIPTING] CURRENT FILENAME: "
+    << filename.c_str() << std::endl;
+    last_execution_context = filename;
+  }
+
   va_list arglist;
   va_start(arglist, fmt);
   vsnprintf(buf, sizeof(buf), fmt, arglist);
