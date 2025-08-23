@@ -24,8 +24,7 @@ class EditorTempSaveAs final : public Menu
 {
 private:
   enum MenuIDs {
-    MNID_SAVE,
-    MNID_CANCEL
+    MNID_SAVE
   };
 
 public:
