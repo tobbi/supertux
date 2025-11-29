@@ -40,6 +40,8 @@ CollisionSystem::CollisionSystem(Sector& sector) :
   m_objects(),
   m_ground_movement_manager(new CollisionGroundMovementManager)
 {
+  // Pre-allocate space for collision objects to avoid frequent reallocations
+  m_objects.reserve(256);
 }
 
 void
@@ -872,6 +874,8 @@ std::vector<CollisionObject*>
 CollisionSystem::get_nearby_objects(const Vector& center, float max_distance) const
 {
   std::vector<CollisionObject*> ret;
+  // Reserve a reasonable initial capacity to reduce reallocations
+  ret.reserve(32);
 
   for (const auto& object : m_objects) {
     float distance = object->get_bbox().distance(center);
