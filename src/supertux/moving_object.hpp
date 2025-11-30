@@ -153,6 +153,18 @@ public:
    */
   inline float get_height() const { return m_col.m_bbox.get_height(); }
 
+  /**
+   * @scripting
+   * @description Returns the object's hitbox rotation angle in radians.
+   */
+  inline float get_hitbox_rotation() const { return m_col.get_rotation_angle(); }
+  /**
+   * @scripting
+   * @description Sets the object's hitbox rotation angle in radians.
+   * @param float $angle The rotation angle in radians.
+   */
+  inline void set_hitbox_rotation(float angle) { m_col.set_rotation_angle(angle); }
+
 protected:
   void set_group(CollisionGroup group)
   {

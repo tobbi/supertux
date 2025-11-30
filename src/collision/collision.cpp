@@ -20,6 +20,7 @@
 
 #include "math/aatriangle.hpp"
 #include "math/rectf.hpp"
+#include "math/rotated_rectf.hpp"
 
 namespace collision {
 
@@ -231,6 +232,36 @@ bool intersects_line(const Rectf& r, const Vector& line_start, const Vector& lin
   if (line_intersects_line(p2, p3, line_start, line_end)) return true;
   if (line_intersects_line(p3, p4, line_start, line_end)) return true;
   if (line_intersects_line(p4, p1, line_start, line_end)) return true;
+  return false;
+}
+
+bool rotated_rectangles_overlap(const RotatedRectf& r1, const RotatedRectf& r2)
+{
+  return r1.overlaps(r2);
+}
+
+bool rotated_rectangle_aabb_overlap(const RotatedRectf& rotated, const Rectf& aabb)
+{
+  return rotated.overlaps(aabb);
+}
+
+bool line_intersects_rotated_rect(const Vector& line_start, const Vector& line_end, const RotatedRectf& rect)
+{
+  // First check if either endpoint is inside the rectangle
+  if (rect.contains(line_start) || rect.contains(line_end)) {
+    return true;
+  }
+  
+  // Check if the line intersects any edge of the rotated rectangle
+  const auto corners = rect.get_corners();
+  for (int i = 0; i < 4; ++i) {
+    const Vector& edge_start = corners[i];
+    const Vector& edge_end = corners[(i + 1) % 4];
+    if (line_intersects_line(line_start, line_end, edge_start, edge_end)) {
+      return true;
+    }
+  }
+  
   return false;
 }
 

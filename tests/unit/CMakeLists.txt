@@ -33,6 +33,10 @@ make_unit_test(CollisionTest SOURCE collision_test.cpp
   EXTERNAL math/rectf.cpp
   LIBRARIES SDL2 glm DEFINITIONS GLM_ENABLE_EXPERIMENTAL)
 
+make_unit_test(RotatedRectfTest SOURCE rotated_rectf_test.cpp
+  EXTERNAL math/rotated_rectf.cpp math/rectf.cpp
+  LIBRARIES SDL2 glm DEFINITIONS GLM_ENABLE_EXPERIMENTAL)
+
 message("ALL TESTS: ${all_test_targets}")
 
 add_custom_target(tests DEPENDS ${all_test_targets})
