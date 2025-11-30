@@ -24,6 +24,7 @@
 #include "collision/collision_group.hpp"
 #include "collision/collision_hit.hpp"
 #include "math/rectf.hpp"
+#include "math/rotated_rectf.hpp"
 
 class CollisionGroundMovementManager;
 class MovingObject;
@@ -132,6 +133,31 @@ public:
     return m_group;
   }
 
+  /** Get the rotation angle of the hitbox in radians */
+  inline float get_rotation_angle() const
+  {
+    return m_rotation_angle;
+  }
+
+  /** Set the rotation angle of the hitbox in radians */
+  inline void set_rotation_angle(float angle)
+  {
+    m_rotation_angle = angle;
+  }
+
+  /** Check if the hitbox has rotation (non-zero angle) */
+  inline bool has_rotation() const
+  {
+    return m_rotation_angle != 0.0f;
+  }
+
+  /** Get the rotated bounding box representation.
+   *  Returns a RotatedRectf based on the current bbox and rotation angle. */
+  RotatedRectf get_rotated_bbox() const
+  {
+    return RotatedRectf(m_bbox, m_rotation_angle);
+  }
+
   bool is_valid() const;
 
   inline MovingObject& get_parent() { return m_parent; }
@@ -163,6 +189,10 @@ private:
       Only bottom constraints to the top of the bounding box would be applied for objects,
       colliding with unisolid objects. */
   bool m_unisolid;
+
+  /** Rotation angle of the hitbox in radians.
+      A value of 0 means no rotation (axis-aligned). */
+  float m_rotation_angle;
 
   /**
    * Contains the current pressure on this object

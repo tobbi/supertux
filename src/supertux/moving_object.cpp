@@ -116,4 +116,6 @@ MovingObject::register_class(ssq::VM& vm)
   cls.addFunc<void, MovingObject, float, float>("move", &MovingObject::move);
   cls.addFunc("get_width", &MovingObject::get_width);
   cls.addFunc("get_height", &MovingObject::get_height);
+  cls.addFunc("get_hitbox_rotation", &MovingObject::get_hitbox_rotation);
+  cls.addFunc("set_hitbox_rotation", &MovingObject::set_hitbox_rotation);
 }

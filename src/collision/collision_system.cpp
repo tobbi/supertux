@@ -22,6 +22,7 @@
 #include "editor/editor.hpp"
 #include "math/aatriangle.hpp"
 #include "math/rect.hpp"
+#include "math/rotated_rectf.hpp"
 #include "object/player.hpp"
 #include "object/tilemap.hpp"
 #include "supertux/constants.hpp"
@@ -95,13 +96,31 @@ CollisionSystem::draw(DrawingContext& context)
     default:
       color = green_bright;
     }
-    const Rectf& rect = object->get_bbox();
-    context.color().draw_filled_rect(rect, color, LAYER_FOREGROUND1 + 10);
+
+    if (object->has_rotation()) {
+      // Draw rotated hitbox as outline
+      const RotatedRectf rotated_bbox = object->get_rotated_bbox();
+      const auto corners = rotated_bbox.get_corners();
+      // corners: [0]=top-left, [1]=top-right, [2]=bottom-right, [3]=bottom-left
+      constexpr int TOP_RIGHT_CORNER = 1;
+      for (int i = 0; i < 4; ++i) {
+        context.color().draw_line(corners[i], corners[(i + 1) % 4], color, LAYER_FOREGROUND1 + 10);
+      }
+      // Draw a line from center to top-right corner to indicate rotation
+      context.color().draw_line(rotated_bbox.get_center(),
+        corners[TOP_RIGHT_CORNER],
+        Color(1.0f, 1.0f, 0.0f, 0.75f), LAYER_FOREGROUND1 + 11);
+    } else {
+      const Rectf& rect = object->get_bbox();
+      context.color().draw_filled_rect(rect, color, LAYER_FOREGROUND1 + 10);
+    }
 
     // If unisolid, draw a line on top of the rectangle.
-    if (object->is_unisolid())
+    if (object->is_unisolid()) {
+      const Rectf& rect = object->get_bbox();
       context.color().draw_line(rect.p1(), Vector(rect.get_right(), rect.get_top()),
         Color::YELLOW, LAYER_FOREGROUND1 + 11);
+    }
   }
 }
 
@@ -392,8 +411,19 @@ CollisionSystem::collision_object(CollisionObject* object1, CollisionObject* obj
   const Rectf& r1 = object1->m_dest;
   const Rectf& r2 = object2->m_dest;
 
+  // Check for collision - use rotated collision if either object has rotation
+  bool objects_collide = false;
+  if (object1->has_rotation() || object2->has_rotation()) {
+    // Use rotated rectangle collision detection
+    RotatedRectf rotated1(r1, object1->get_rotation_angle());
+    RotatedRectf rotated2(r2, object2->get_rotation_angle());
+    objects_collide = rotated1.overlaps(rotated2);
+  } else {
+    objects_collide = r1.overlaps(r2);
+  }
+
   CollisionHit hit;
-  if (r1.overlaps(r2)) {
+  if (objects_collide) {
     Vector normal(0.0f, 0.0f);
     get_hit_normal(object1, object2, hit, normal);
 
@@ -645,7 +675,17 @@ CollisionSystem::update()
         || !object_2->is_valid())
         continue;
 
-      if (object->m_dest.overlaps(object_2->m_dest)) {
+      // Check for collision - use rotated collision if either object has rotation
+      bool objects_collide = false;
+      if (object->has_rotation() || object_2->has_rotation()) {
+        RotatedRectf rotated1(object->m_dest, object->get_rotation_angle());
+        RotatedRectf rotated2(object_2->m_dest, object_2->get_rotation_angle());
+        objects_collide = rotated1.overlaps(rotated2);
+      } else {
+        objects_collide = object->m_dest.overlaps(object_2->m_dest);
+      }
+
+      if (objects_collide) {
         Vector normal(0.0f, 0.0f);
         CollisionHit hit;
         get_hit_normal(object, object_2, hit, normal);

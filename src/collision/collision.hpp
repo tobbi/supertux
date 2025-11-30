@@ -23,6 +23,7 @@
 #include "math/fwd.hpp"
 
 class Rectf;
+class RotatedRectf;
 class AATriangle;
 
 namespace collision {
@@ -112,6 +113,15 @@ bool rectangle_aatriangle(Constraints* constraints, const Rectf& rect,
                           bool& hits_rectangle_bottom);
 
 void set_rectangle_rectangle_constraints(Constraints* constraints, const Rectf& r1, const Rectf& r2);
+
+/** Check if two rotated rectangles overlap using the Separating Axis Theorem */
+bool rotated_rectangles_overlap(const RotatedRectf& r1, const RotatedRectf& r2);
+
+/** Check if a rotated rectangle overlaps with an axis-aligned rectangle */
+bool rotated_rectangle_aabb_overlap(const RotatedRectf& rotated, const Rectf& aabb);
+
+/** Check if a line segment intersects with a rotated rectangle */
+bool line_intersects_rotated_rect(const Vector& line_start, const Vector& line_end, const RotatedRectf& rect);
 
 bool line_intersects_line(const Vector& line1_start, const Vector& line1_end, const Vector& line2_start, const Vector& line2_end);
 bool intersects_line(const Rectf& r, const Vector& line_start, const Vector& line_end);
