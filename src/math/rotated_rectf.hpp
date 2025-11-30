@@ -150,7 +150,9 @@ public:
    *  Uses the Separating Axis Theorem (SAT) */
   bool overlaps(const RotatedRectf& other) const;
 
-  /** Check if this rotated rectangle overlaps with an axis-aligned rectangle */
+  /** Check if this rotated rectangle overlaps with an axis-aligned rectangle.
+   *  The AABB is internally converted to a RotatedRectf with zero rotation
+   *  and SAT is used for collision detection. */
   bool overlaps(const Rectf& rect) const;
 
 private:

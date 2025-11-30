@@ -101,12 +101,14 @@ CollisionSystem::draw(DrawingContext& context)
       // Draw rotated hitbox as outline
       const RotatedRectf rotated_bbox = object->get_rotated_bbox();
       const auto corners = rotated_bbox.get_corners();
+      // corners: [0]=top-left, [1]=top-right, [2]=bottom-right, [3]=bottom-left
+      constexpr int TOP_RIGHT_CORNER = 1;
       for (int i = 0; i < 4; ++i) {
         context.color().draw_line(corners[i], corners[(i + 1) % 4], color, LAYER_FOREGROUND1 + 10);
       }
-      // Draw a line from center to indicate rotation
+      // Draw a line from center to top-right corner to indicate rotation
       context.color().draw_line(rotated_bbox.get_center(),
-        corners[1], // top-right corner
+        corners[TOP_RIGHT_CORNER],
         Color(1.0f, 1.0f, 0.0f, 0.75f), LAYER_FOREGROUND1 + 11);
     } else {
       const Rectf& rect = object->get_bbox();

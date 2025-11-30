@@ -19,8 +19,6 @@
 
 #include "math/rotated_rectf.hpp"
 
-const float PI = 3.14159265358979323846f;
-
 // Helper function to compare floating point values
 bool approx_equal(float a, float b, float epsilon = 0.001f)
 {
@@ -53,7 +51,7 @@ int main(void)
 
   // Test contains point with rotation
   {
-    RotatedRectf rect(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), PI / 4.0f);
+    RotatedRectf rect(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), static_cast<float>(M_PI / 4.0));
     
     ST_ASSERT("rotated contains center", rect.contains(Vector(100.0f, 100.0f)));
     ST_ASSERT("rotated contains diagonal point", rect.contains(Vector(100.0f, 140.0f)));
@@ -85,7 +83,7 @@ int main(void)
     ST_ASSERT("aabb top", approx_equal(aabb1.get_top(), 75.0f));
     ST_ASSERT("aabb bottom", approx_equal(aabb1.get_bottom(), 125.0f));
     
-    RotatedRectf rect2(Vector(100.0f, 100.0f), Vector(50.0f, 25.0f), PI / 4.0f);
+    RotatedRectf rect2(Vector(100.0f, 100.0f), Vector(50.0f, 25.0f), static_cast<float>(M_PI / 4.0));
     Rectf aabb2 = rect2.get_aabb();
     
     ST_ASSERT("rotated aabb is larger width", aabb2.get_width() > 100.0f);
@@ -107,7 +105,7 @@ int main(void)
   // Test overlap with rotation
   {
     RotatedRectf rect1(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), 0.0f);
-    RotatedRectf rect2(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), PI / 4.0f);
+    RotatedRectf rect2(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), static_cast<float>(M_PI / 4.0));
     
     ST_ASSERT("rotated overlapping 1->2", rect1.overlaps(rect2));
     ST_ASSERT("rotated overlapping 2->1", rect2.overlaps(rect1));
@@ -115,7 +113,7 @@ int main(void)
 
   // Test overlap with AABB
   {
-    RotatedRectf rotated(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), PI / 4.0f);
+    RotatedRectf rotated(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), static_cast<float>(M_PI / 4.0));
     
     Rectf aabb1(80.0f, 80.0f, 120.0f, 120.0f);
     ST_ASSERT("rotated overlaps aabb", rotated.overlaps(aabb1));
@@ -126,7 +124,7 @@ int main(void)
 
   // Test moved
   {
-    RotatedRectf rect(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), PI / 4.0f);
+    RotatedRectf rect(Vector(100.0f, 100.0f), Vector(50.0f, 50.0f), static_cast<float>(M_PI / 4.0));
     RotatedRectf moved = rect.moved(Vector(50.0f, 25.0f));
     
     ST_ASSERT("moved center x", approx_equal(moved.get_center().x, 150.0f));
