@@ -59,17 +59,6 @@ public:
   static void may_deactivate();
   static void may_reactivate();
 
-private:
-  static bool is_autosave_file(const std::string& filename) {
-    return StringUtil::has_suffix(filename, "~");
-  }
-  static std::string get_levelname_from_autosave(const std::string& filename) {
-    return is_autosave_file(filename) ? filename.substr(0, filename.size() - 1) : filename;
-  }
-  static std::string get_autosave_from_levelname(const std::string& filename) {
-    return is_autosave_file(filename) ? filename : filename + "~";
-  }
-
 public:
   static bool s_resaving_in_progress;
 
@@ -90,12 +79,6 @@ public:
 
   void disable_keyboard() { m_enabled = false; }
 
-  inline Level* get_level() const { return m_level.get(); }
-
-  inline void set_world(std::unique_ptr<World> w) { m_world = std::move(w); }
-  inline World* get_world() const { return m_world.get(); }
-
-  inline TileSet* get_tileset() const { return m_tileset; }
   inline EditorToolboxWidget* get_toolbox_widget() const { return m_toolbox_widget; }
   inline EditorToolbarWidget* get_toolbar_widget() const { return m_toolbar_widget; }
   inline EditorTilebox& get_tilebox() const { return m_toolbox_widget->get_tilebox(); }
@@ -109,41 +92,12 @@ public:
   inline int get_tileselect_select_mode() const { return m_toolbox_widget->get_tileselect_select_mode(); }
   inline int get_tileselect_move_mode() const { return m_toolbox_widget->get_tileselect_move_mode(); }
 
-  inline const std::string& get_levelfile() const { return m_levelfile; }
-
-  void level_from_nothing();
-
-  void set_level(std::unique_ptr<Level> level, bool reset = true);
-  inline void set_level(const std::string& levelfile)
-  {
-    m_levelfile = levelfile;
-    m_reload_request = true;
-  }
-  bool save_level(const std::string& filename = "", bool switch_file = false);
-
-  std::string get_level_directory() const;
-
-  inline bool is_temp_level() const { return m_temp_level; }
-
-  void open_level_directory();
-
   inline bool is_testing_level() const { return m_leveltested; }
-
-  void remove_autosave_file();
 
   /** Convert tiles on every tilemap in the level, according to a tile conversion file. */
   void convert_tiles_by_file(const std::string& file);
 
-  void check_deprecated_tiles(bool focus = false);
-  inline bool has_deprecated_tiles() const { return m_has_deprecated_tiles; }
-
   inline void update_autotileset() { m_overlay_widget->update_autotileset(); }
-
-  /** Checks whether the level can be saved and does not contain
-      obvious issues (currently: check if main sector and a spawn point
-      named "main" is present) */
-  void check_save_prerequisites(const std::function<void ()>& callback) const;
-  void check_unsaved_changes(const std::function<void ()>& action);
 
   void load_sector(const std::string& name);
   void delete_current_sector();
@@ -158,7 +112,6 @@ public:
   void select_tilegroup(int id);
   void select_last_tilegroup();
   const std::vector<Tilegroup>& get_tilegroups() const;
-  void change_tileset();
 
   void select_objectgroup(int id);
   void select_last_objectgroup();
@@ -193,7 +146,6 @@ public:
   void set_undo_disabled(bool state);
   void set_redo_disabled(bool state);
 
-  void pack_addon();
   inline void on_exit(exit_cb_t exit_cb) { m_on_exit_cb = exit_cb; }
 
 private:
@@ -214,13 +166,6 @@ private:
 
   void add_control(const std::string& name, std::unique_ptr<InterfaceControl> new_control, const std::string& description = "");
 
-protected:
-  std::shared_ptr<Level> m_level;
-  std::unique_ptr<World> m_world;
-
-  std::string m_levelfile;
-  std::string m_autosave_levelfile;
-
 public:
   bool m_quit_request;
   bool m_newlevel_request;
@@ -228,9 +173,6 @@ public:
   bool m_reactivate_request;
   bool m_deactivate_request;
   bool m_save_request;
-  bool m_save_temp_level;
-  std::string m_save_request_filename;
-  bool m_save_request_switch;
   bool m_test_request;
   bool m_particle_editor_request;
   bool m_testing_disabled;
@@ -256,10 +198,6 @@ private:
   bool m_leveltested;
   bool m_after_setup; // Set to true after setup function finishes and to false after leave function finishes
 
-  TileSet* m_tileset;
-  bool m_has_deprecated_tiles;
-  bool m_temp_level;
-
   std::optional<std::pair<std::string, Vector>> m_last_test_pos;
   std::vector<std::unique_ptr<Widget> > m_widgets;
   std::vector<std::unique_ptr<InterfaceControl>> m_controls;
@@ -273,8 +211,6 @@ private:
 
   bool m_enabled;
   SurfacePtr m_bgr_surface;
-
-  float m_time_since_last_save;
 
   float m_scroll_speed;
   float m_new_scale;

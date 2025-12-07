@@ -117,24 +117,16 @@ Editor::may_reactivate()
     self->m_reactivate_request = true;
 }
 
-
 Editor::Editor() :
-  m_level(),
-  m_world(),
-  m_levelfile(),
-  m_autosave_levelfile(),
   m_quit_request(false),
   m_newlevel_request(false),
   m_reload_request(false),
   m_reactivate_request(false),
   m_deactivate_request(false),
   m_save_request(false),
-  m_save_request_filename(""),
-  m_save_request_switch(false),
   m_test_request(false),
   m_particle_editor_request(false),
   m_test_pos(),
-  m_temp_level(true),
   m_particle_editor_filename(),
   m_ctrl_pressed(false),
   m_shift_pressed(false),
@@ -144,8 +136,6 @@ Editor::Editor() :
   m_levelloaded(false),
   m_leveltested(false),
   m_after_setup(false),
-  m_tileset(nullptr),
-  m_has_deprecated_tiles(false),
   m_widgets(),
   m_controls(),
   m_overlay_widget(),
@@ -156,14 +146,12 @@ Editor::Editor() :
   m_testing_disabled(false),
   m_enabled(false),
   m_bgr_surface(Surface::from_file("images/engine/menu/bg_editor.png")),
-  m_time_since_last_save(0.f),
   m_scroll_speed(32.0f),
   m_new_scale(0.f),
   m_mouse_pos(0.f, 0.f),
   m_layers_widget_needs_refresh(false),
   m_script_manager(),
   m_on_exit_cb(nullptr),
-  m_save_temp_level(false),
   m_last_test_pos(std::nullopt),
   m_shadow(SpriteManager::current()->create("images/engine/editor/shadow.png"))
 {
@@ -187,20 +175,6 @@ Editor::~Editor()
 {
   if (m_on_exit_cb)
     m_on_exit_cb();
-}
-
-void
-Editor::level_from_nothing()
-{
-	m_level = std::make_unique<Level>(false);
-	m_level->m_name = "";
-  m_level->m_license = LEVEL_DEFAULT_LICENSE;
-	m_level->m_tileset = "images/tiles.strf";
-	auto sector = SectorParser::from_nothing(*m_level);
-	sector->set_name(DEFAULT_SECTOR_NAME);
-	m_level->add_sector(std::move(sector));
-	m_level->initialize();
-	//m_reload_request = true;
 }
 
 void
@@ -485,77 +459,6 @@ Editor::update(float dt_sec, const Controller& controller)
 }
 
 void
-Editor::remove_autosave_file()
-{
-  if (m_temp_level)
-    return;
-
-  // Clear the auto-save file.
-  if (!m_autosave_levelfile.empty())
-  {
-    // Try to remove the test level using the PhysFS file system
-    if (physfsutil::remove(m_autosave_levelfile) != 0)
-    {
-      // This file is not inside any PhysFS mounts,
-      // try to remove this using normal file system
-      // methods.
-      FileSystem::remove(m_autosave_levelfile);
-    }
-  }
-}
-
-bool
-Editor::save_level(const std::string& filename, bool switch_file)
-{
-  if (m_temp_level && !m_save_temp_level)
-  {
-    MenuManager::instance().set_menu(MenuStorage::EDITOR_TEMP_SAVE_MENU);
-    return false;
-  }
-
-  if (m_save_temp_level)
-  {
-    m_save_temp_level = false;
-    m_temp_level = false;
-    // Implied
-    switch_file = true;
-  }
-
-  auto file = !filename.empty() ? filename : m_levelfile;
-
-  if (switch_file)
-    m_levelfile = filename;
-
-  for (const auto& sector : m_level->m_sectors)
-  {
-    sector->on_editor_save();
-  }
-  m_level->save(m_world ? FileSystem::join(m_world->get_basedir(), file) : file);
-  m_time_since_last_save = 0.f;
-  remove_autosave_file();
-  return true;
-}
-
-std::string
-Editor::get_level_directory() const
-{
-  std::string basedir;
-  if (m_world != nullptr)
-  {
-    basedir = m_world->get_basedir();
-    if (basedir == "./")
-    {
-      basedir = PHYSFS_getRealDir(m_levelfile.c_str());
-    }
-  }
-  else
-  {
-    basedir = FileSystem::dirname(m_levelfile);
-  }
-  return basedir;
-}
-
-void
 Editor::test_level(const std::optional<std::pair<std::string, Vector>>& test_pos)
 {
   if (m_testing_disabled)
@@ -601,16 +504,6 @@ Editor::test_level(const std::optional<std::pair<std::string, Vector>>& test_pos
   {
     reactivate();
   }
-}
-
-void
-Editor::open_level_directory()
-{
-  if (m_temp_level)
-    return;
-  m_level->save(FileSystem::join(get_level_directory(), m_levelfile));
-  auto path = FileSystem::join(PHYSFS_getWriteDir(), get_level_directory());
-  FileSystem::open_path(path);
 }
 
 void
@@ -884,91 +777,6 @@ Editor::quit_editor()
   check_unsaved_changes([quit] {
     quit();
   });
-}
-
-void
-Editor::check_unsaved_changes(const std::function<void ()>& action)
-{
-  if (!m_levelloaded || m_temp_level)
-  {
-    action();
-    return;
-  }
-
-  bool has_unsaved_changes = !g_config->editor_undo_tracking;
-  if (!has_unsaved_changes)
-  {
-    for (const auto& sector : m_level->m_sectors)
-    {
-      if (sector->has_object_changes())
-      {
-        has_unsaved_changes = true;
-        break;
-      }
-    }
-  }
-
-  if (has_unsaved_changes)
-  {
-    m_enabled = false;
-    auto dialog = std::make_unique<Dialog>();
-    dialog->set_text(g_config->editor_undo_tracking ? _("This level contains unsaved changes, do you want to save?") :
-                                                      _("This level may contain unsaved changes, do you want to save?"));
-    dialog->add_default_button(_("Yes"), [this, action] {
-      check_save_prerequisites([this, action] {
-        save_level();
-        action();
-        m_enabled = true;
-      });
-    });
-    dialog->add_button(_("No"), [this, action] {
-      action();
-	  set_level(nullptr, true);
-      m_enabled = true;
-    });
-    dialog->add_button(_("Cancel"), [this] {
-      m_enabled = true;
-    });
-    MenuManager::instance().set_dialog(std::move(dialog));
-  }
-  else
-  {
-    action();
-  }
-}
-
-void
-Editor::check_deprecated_tiles(bool focus)
-{
-  // Check for any deprecated tiles, used throughout the entire level
-  m_has_deprecated_tiles = false;
-  for (const auto& sector : m_level->get_sectors())
-  {
-    for (auto& tilemap : sector->get_objects_by_type<TileMap>())
-    {
-      int pos = -1;
-      for (const uint32_t& tile_id : tilemap.get_tiles())
-      {
-        pos++;
-        if (m_tileset->get(tile_id).is_deprecated())
-        {
-          // Focus on deprecated tile
-          if (focus)
-          {
-            set_sector(sector.get());
-            m_layers_widget->set_selected_tilemap(&tilemap);
-
-            const int width = tilemap.get_width();
-            m_sector->get_camera().set_translation_centered(Vector(pos % width, pos / width) * 32.f);
-            keep_camera_in_bounds();
-          }
-
-          m_has_deprecated_tiles = true;
-          return;
-        }
-      }
-    }
-  }
 }
 
 void
@@ -1291,24 +1099,6 @@ Editor::select_last_tilegroup()
   m_toolbox_widget->select_last_tilegroup();
 }
 
-const std::vector<Tilegroup>&
-Editor::get_tilegroups() const
-{
-  return m_tileset->get_tilegroups();
-}
-
-void
-Editor::change_tileset()
-{
-  m_tileset = TileManager::current()->get_tileset(m_level->get_tileset());
-  m_toolbox_widget->get_tilebox().set_input_type(InputType::NONE);
-  for (const auto& sector : m_level->m_sectors) {
-    for (auto& tilemap : sector->get_objects_by_type<TileMap>()) {
-      tilemap.set_tileset(m_tileset);
-    }
-  }
-}
-
 void
 Editor::select_objectgroup(int id)
 {
@@ -1325,53 +1115,6 @@ const std::vector<ObjectGroup>&
 Editor::get_objectgroups() const
 {
   return m_toolbox_widget->get_tilebox().get_object_info().m_groups;
-}
-
-void
-Editor::check_save_prerequisites(const std::function<void ()>& callback) const
-{
-  if (m_level->is_worldmap())
-  {
-    callback();
-    return;
-  }
-
-  bool sector_valid = false, spawnpoint_valid = false;
-  for (const auto& sector : m_level->m_sectors)
-  {
-    if (sector->get_name() == DEFAULT_SECTOR_NAME)
-    {
-      sector_valid = true;
-      for (const auto& spawnpoint : sector->get_objects_by_type<SpawnPointMarker>())
-      {
-        if (spawnpoint.get_name() == DEFAULT_SPAWNPOINT_NAME)
-        {
-          spawnpoint_valid = true;
-        }
-      }
-    }
-  }
-
-  if(sector_valid && spawnpoint_valid)
-  {
-    callback();
-    return;
-  }
-
-  if (!sector_valid)
-  {
-    /*
-    l10n: When translating this message, please keep "main" untranslated (the game expects the name of the sector to be "main").
-    */
-    Dialog::show_message(_("Couldn't find a sector with the name \"main\".\nPlease change the name of the sector where\nyou'd like the player to start to \"main\""));
-  }
-  else if (!spawnpoint_valid)
-  {
-    /*
-    l10n: When translating this message, please keep "main" untranslated (the game expects the name of the spawnpoint to be "main").
-    */
-    Dialog::show_message(_("Couldn't find a spawnpoint with the name \"main\".\nPlease change the name of the spawnpoint where\nyou'd like the player to start to \"main\""));
-  }
 }
 
 void
@@ -1424,60 +1167,6 @@ Editor::get_status() const
     status.m_details.push_back(status_text);
   }
   return status;
-}
-
-void
-Editor::pack_addon()
-{
-  auto id = FileSystem::basename(get_world()->get_basedir());
-  auto output_file_path = FileSystem::join(PHYSFS_getWriteDir(), "addons/" + id + ".zip");
-
-  int version = 0;
-  if (PHYSFS_exists(output_file_path.c_str()))
-  {
-    try
-    {
-      Partio::ZipFileReader zipold(output_file_path);
-      auto info_file = zipold.Get_File(id + ".nfo");
-      if (info_file)
-      {
-        auto info_stream = ReaderDocument::from_stream(*info_file);
-        auto a = info_stream.get_root().get_mapping();
-        a.get("version", version);
-      }
-    }
-    catch(const std::exception& e)
-    {
-      log_warning << e.what() << std::endl;
-    }
-  }
-  version++;
-
-  Partio::ZipFileWriter zip(output_file_path);
-  physfsutil::enumerate_files_recurse(get_world()->get_basedir(),
-    [&zip](const std::string& full_path)
-    {
-      auto os = zip.Add_File(full_path);
-      *os << std::ifstream(FileSystem::join(PHYSFS_getWriteDir(), full_path)).rdbuf();
-      return false;
-    });
-
-  std::stringstream ss;
-  Writer info(ss);
-
-  info.start_list("supertux-addoninfo");
-  {
-    info.write("id", id);
-    info.write("version", version);
-    info.write("type", get_world()->get_type());
-
-    info.write("title", get_world()->get_title());
-    info.write("author", get_level()->get_author());
-    info.write("license", get_level()->get_license());
-  }
-  info.end_list("supertux-addoninfo");
-
-  *zip.Add_File(id + ".nfo") << ss.rdbuf();
 }
 
 bool
