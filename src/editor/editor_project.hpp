@@ -21,6 +21,7 @@
 #include <memory>
 #include <string>
 
+#include "supertux/tile_set.hpp"
 #include "util/string_util.hpp"
 
 class Level;
@@ -60,13 +61,12 @@ public:
   bool save_level(const std::string& filename = "", bool switch_file = false);
 
   std::string get_level_directory() const;
+  void open_level_directory();
 
   inline TileSet* get_tileset() const { return m_tileset; }
   void change_tileset();
 
   inline bool is_temp_level() const { return m_temp_level; }
-
-  void open_level_directory();
 
   void check_deprecated_tiles(bool focus = false);
   inline bool has_deprecated_tiles() const { return m_has_deprecated_tiles; }
@@ -78,6 +78,7 @@ public:
 
   void check_unsaved_changes(const std::function<void ()>& action);
 
+  void autosave(float dt_sec);
   void remove_autosave_file();
 
   void pack_addon();
@@ -99,7 +100,7 @@ private:
   TileSet* m_tileset;
   bool m_has_deprecated_tiles;
 
-public:
-  EditorProject();
-  ~EditorProject();
+private:
+  EditorProject(const EditorProject&) = delete;
+  EditorProject& operator=(const EditorProject&) = delete;
 };

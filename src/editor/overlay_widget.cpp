@@ -380,8 +380,9 @@ EditorOverlayWidget::check_tiles_for_fill(uint32_t replace_tile,
 {
   if (m_autotile_mode)
   {
-    return m_editor.get_tileset()->has_mutual_autotileset(replace_tile, target_tile) &&
-          !m_editor.get_tileset()->has_mutual_autotileset(replace_tile, third_tile);
+    auto tileset = m_editor.get_project().get_tileset();
+    return tileset->has_mutual_autotileset(replace_tile, target_tile) &&
+          !tileset->has_mutual_autotileset(replace_tile, third_tile);
   }
   else
   {
@@ -1005,7 +1006,7 @@ EditorOverlayWidget::update_tile_selection()
 {
   Rectf select = tile_drag_rect();
   auto tiles = m_editor.get_selected_tiles();
-  auto tileset = m_editor.get_tileset();
+  auto tileset = m_editor->get_project().get_tileset();
   auto tilemap = m_editor.get_selected_tilemap();
   if (!tilemap) return;
 
@@ -1261,6 +1262,7 @@ void
 EditorOverlayWidget::update_autotileset()
 {
   AutotileSet* old_autotileset = get_current_autotileset();
+  auto tileset = m_editor->get_project().get_tileset();
 
   if (m_editor.get_selected_tiles()->pos(0, 0) == 0) // Erasing
   {
@@ -1574,7 +1576,7 @@ EditorOverlayWidget::draw(DrawingContext& context)
   {
     // Deprecated tiles in active tilemaps should have indication, when hovered
     auto sel_tilemap = m_editor.get_selected_tilemap();
-    if (m_editor.get_tileset()->get(sel_tilemap->get_tile_id(m_hovered_tile)).is_deprecated())
+    if (m_editor.get_project()->get_tileset()->get(sel_tilemap->get_tile_id(m_hovered_tile)).is_deprecated())
       context.color().draw_text(Resources::normal_font, "!",
                                 tp_to_sp(Vector(static_cast<int>(m_hovered_tile.x), static_cast<int>(m_hovered_tile.y))) + Vector(16, 8),
                                 ALIGN_CENTER, LAYER_GUI - 10, Color::RED);

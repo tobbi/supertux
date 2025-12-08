@@ -22,6 +22,7 @@
 
 #include <physfs.h>
 
+#include "editor/editor_project.hpp"
 #include "editor/overlay_widget.hpp"
 #include "editor/tilebox.hpp"
 #include "editor/toolbar_widget.hpp"
@@ -79,6 +80,7 @@ public:
 
   void disable_keyboard() { m_enabled = false; }
 
+  inline EditorProject& get_project() const { return *m_project; }
   inline EditorToolboxWidget* get_toolbox_widget() const { return m_toolbox_widget; }
   inline EditorToolbarWidget* get_toolbar_widget() const { return m_toolbar_widget; }
   inline EditorTilebox& get_tilebox() const { return m_toolbox_widget->get_tilebox(); }
@@ -167,6 +169,7 @@ private:
   void add_control(const std::string& name, std::unique_ptr<InterfaceControl> new_control, const std::string& description = "");
 
 public:
+
   bool m_quit_request;
   bool m_newlevel_request;
   bool m_reload_request;
@@ -192,6 +195,7 @@ public:
   bool m_tilebox_something_selected;
 
 private:
+  EditorProject* m_project;
   Sector* m_sector;
 
   bool m_levelloaded;

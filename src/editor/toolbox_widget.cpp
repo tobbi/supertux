@@ -125,7 +125,7 @@ EditorToolboxWidget::on_mouse_button_down(const SDL_MouseButtonEvent& button)
     switch (m_hovered_item)
     {
       case HoveredItem::TILEGROUP:
-        if (m_editor.get_tileset()->get_tilegroups().size() > 1)
+        if (Editor::current()->get_project()->get_tileset()->get_tilegroups().size() > 1)
         {
           m_editor.disable_keyboard();
           MenuManager::instance().push_menu(MenuStorage::EDITOR_TILEGROUP_MENU);
@@ -138,8 +138,8 @@ EditorToolboxWidget::on_mouse_button_down(const SDL_MouseButtonEvent& button)
         return true;
 
       case HoveredItem::OBJECTS:
-        if ((m_editor.get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_worldmap_groups() > 1) ||
-            (!m_editor.get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_level_groups() > 1))
+        if ((m_editor.get_project()->get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_worldmap_groups() > 1) ||
+            (!m_editor.get_project()->get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_level_groups() > 1))
         {
           m_editor.disable_keyboard();
           MenuManager::instance().push_menu(MenuStorage::EDITOR_OBJECTGROUP_MENU);
@@ -308,14 +308,14 @@ EditorToolboxWidget::switch_current_group(int dir)
       break;
 
     case HoveredItem::OBJECTS:
-      if ((m_editor.get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_worldmap_groups() > 1) ||
-          (!m_editor.get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_level_groups() > 1))
+      if ((m_editor.get_project().get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_worldmap_groups() > 1) ||
+          (!m_editor.get_project().get_level()->is_worldmap() && m_tilebox->get_object_info().get_num_level_groups() > 1))
       {
         m_tilebox->change_objectgroup(dir);
       }
       else
       {
-        if (m_editor.get_level()->is_worldmap())
+        if (m_editor.get_project().get_level()->is_worldmap())
           select_objectgroup(m_tilebox->get_object_info().get_first_worldmap_group_index());
         else
           select_objectgroup(0);
