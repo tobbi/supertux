@@ -561,9 +561,9 @@ Editor::update_keyboard(const Controller& controller)
 void
 Editor::load_sector(const std::string& name)
 {
-  Sector* sector = m_level->get_sector(name);
+  Sector* sector = m_project->get_level()->get_sector(name);
   if (!sector) {
-    sector = m_level->get_sector(0);
+    sector = m_project->get_level()->get_sector(0);
   }
 
   sector->set_undo_stack_size(g_config->editor_undo_stack_size);
@@ -594,116 +594,26 @@ Editor::set_sector(Sector* sector)
 void
 Editor::delete_current_sector()
 {
-  if (m_level->m_sectors.size() <= 1) {
+  auto sectors = m_project->get_level()->get_sectors();
+  if (sectors.size() <= 1) {
     log_fatal << "Deleting the last sector is not allowed." << std::endl;
   }
 
-  for (auto i = m_level->m_sectors.begin(); i != m_level->m_sectors.end(); ++i) {
+  for (auto i = sectors.begin(); i != sectors.end(); ++i) {
     if ( i->get() == get_sector() ) {
-      m_level->m_sectors.erase(i);
+      m_project->get_level()->m_sectors.erase(i);
       break;
     }
   }
 
-  set_sector(m_level->m_sectors.front().get());
+  set_sector(sectors.front().get());
   m_reactivate_request = true;
-}
-
-void
-Editor::set_level(std::unique_ptr<Level> level, bool reset)
-{
-  std::string sector_name = DEFAULT_SECTOR_NAME;
-  Vector translation(0.0f, 0.0f);
-
-  m_temp_level = (level == nullptr);
-
-  if (!reset && m_sector) {
-    translation = m_sector->get_camera().get_translation();
-    sector_name = m_sector->get_name();
-  }
-
-  m_reload_request = false;
-  m_enabled = true;
-
-  if (reset) {
-    m_toolbox_widget->get_tilebox().set_input_type(InputType::NONE);
-  }
-
-  m_levelloaded = true;
-
-  if (level != nullptr)
-  {
-    // Reload level.
-    m_level = std::move(level);
-  }
-  else
-  {
-    level_from_nothing();
-  }
-
-  if (reset) {
-    m_tileset = TileManager::current()->get_tileset(m_level->get_tileset());
-  }
-
-  load_sector(sector_name);
-
-  if (m_sector != nullptr)
-  {
-    m_sector->get_camera().set_mode(Camera::Mode::FREE);
-
-    if (!reset) {
-      m_sector->get_camera().set_translation(translation);
-    }
-  }
-
-  m_layers_widget->refresh_sector_text();
-  m_toolbox_widget->update_mouse_icon();
-  m_overlay_widget->on_level_change();
-
-  if (!reset) return;
-
-  // Warn the user if any deprecated tiles are used throughout the level
-  check_deprecated_tiles();
-  if (m_has_deprecated_tiles)
-  {
-    std::string message = _("This level contains deprecated tiles.\nIt is strongly recommended to replace all deprecated tiles\nto avoid loss of compatibility in future versions.");
-    if (!g_config->editor_show_deprecated_tiles)
-      message += "\n\n" + _("Tip: Turn on \"Show Deprecated Tiles\" from the level editor menu.");
-
-    Dialog::show_message(message);
-  }
 }
 
 void
 Editor::reload_level()
 {
-  ReaderMapping::s_translations_enabled = false;
-  try
-  {
-    set_level(LevelParser::from_file(m_world ?
-                                     FileSystem::join(m_world->get_basedir(), m_levelfile) : m_levelfile,
-                                     StringUtil::has_suffix(m_levelfile, ".stwm"),
-                                     true));
-  }
-  catch (const std::exception& err)
-  {
-    // In case the error was caused by the last edited level, say, not
-    // existing/being invalid, let's clear it
-    g_config->editor_last_edited_level = "";
-    log_warning << "Error loading level '" << m_levelfile << "' in editor: " << err.what() << std::endl;
-    reset_level();
-    return;
-  }
-  ReaderMapping::s_translations_enabled = true;
 
-  retoggle_undo_tracking();
-  undo_stack_cleanup();
-
-  // Autosave files : Once the level is loaded, make sure
-  // to use the regular file.
-  m_levelfile = get_levelname_from_autosave(m_levelfile);
-  m_autosave_levelfile = FileSystem::join(get_level_directory(),
-                                          get_autosave_from_levelname(m_levelfile));
 }
 
 void

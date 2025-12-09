@@ -1331,7 +1331,7 @@ EditorOverlayWidget::draw_tile_tip(DrawingContext& context)
           continue;
         }
         uint32_t tile_id = tiles->pos(static_cast<int>(drawn_tile.x), static_cast<int>(drawn_tile.y));
-        m_editor.get_tileset()->get(tile_id).draw(context.color(),
+        m_editor.get_project().get_tileset()->get(tile_id).draw(context.color(),
                                                   align_to_tilemap(on_tile),
                                                   LAYER_GUI - 11, Color(1, 1, 1, 0.5));
         //if (tile_id) {
@@ -1371,7 +1371,7 @@ EditorOverlayWidget::draw_rectangle_preview(DrawingContext& context)
         continue;
       }
       uint32_t tile_id = tiles->pos(static_cast<int>(drawn_tile.x), static_cast<int>(drawn_tile.y));
-      m_editor.get_tileset()->get(tile_id).draw(context.color(),
+      m_editor.get_project().get_tileset()->get(tile_id).draw(context.color(),
                                                 align_to_tilemap(on_tile),
                                                 LAYER_GUI - 11, Color(1, 1, 1, 0.5));
     }
@@ -1576,7 +1576,7 @@ EditorOverlayWidget::draw(DrawingContext& context)
   {
     // Deprecated tiles in active tilemaps should have indication, when hovered
     auto sel_tilemap = m_editor.get_selected_tilemap();
-    if (m_editor.get_project()->get_tileset()->get(sel_tilemap->get_tile_id(m_hovered_tile)).is_deprecated())
+    if (m_editor.get_project().get_tileset()->get(sel_tilemap->get_tile_id(m_hovered_tile)).is_deprecated())
       context.color().draw_text(Resources::normal_font, "!",
                                 tp_to_sp(Vector(static_cast<int>(m_hovered_tile.x), static_cast<int>(m_hovered_tile.y))) + Vector(16, 8),
                                 ALIGN_CENTER, LAYER_GUI - 10, Color::RED);

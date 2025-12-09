@@ -51,6 +51,7 @@ public:
   inline Level* get_level() const { return m_level.get(); }
   void set_level(std::unique_ptr<Level> level, bool reset = true);
   inline void set_level(const std::string& levelfile) { m_levelfile = levelfile; }
+  void reload_level();
 
   inline const std::string& get_levelfile() const { return m_levelfile; }
 

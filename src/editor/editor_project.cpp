@@ -142,6 +142,38 @@ EditorProject::save_level(const std::string& filename, bool switch_file)
   return true;
 }
 
+void
+EditorProject::reload_level()
+{
+  ReaderMapping::s_translations_enabled = false;
+  try
+  {
+    set_level(LevelParser::from_file(m_world ?
+                                    FileSystem::join(m_world->get_basedir(), m_levelfile) : m_levelfile,
+                                    StringUtil::has_suffix(m_levelfile, ".stwm"),
+                                    true));
+  }
+  catch (const std::exception& err)
+  {
+    // In case the error was caused by the last edited level, say, not
+    // existing/being invalid, let's clear it
+    g_config->editor_last_edited_level = "";
+    log_warning << "Error loading level '" << m_levelfile << "' in editor: " << err.what() << std::endl;
+    reset_level();
+    return;
+  }
+  ReaderMapping::s_translations_enabled = true;
+
+  retoggle_undo_tracking();
+  undo_stack_cleanup();
+
+  // Autosave files : Once the level is loaded, make sure
+  // to use the regular file.
+  m_levelfile = get_levelname_from_autosave(m_levelfile);
+  m_autosave_levelfile = FileSystem::join(get_level_directory(),
+                                          get_autosave_from_levelname(m_levelfile));
+}
+
 std::string
 EditorProject::get_level_directory() const
 {
