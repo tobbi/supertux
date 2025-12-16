@@ -121,8 +121,7 @@ private:
   std::unique_ptr<ScreenManager> m_screen_manager;
   std::unique_ptr<Savegame> m_savegame;
 
-  std::unique_ptr<Downloader> m_downloader; // Used for getting the version of the latest SuperTux release.
-  std::string m_version_info;
+  Downloader m_downloader; // Used for getting the version of the latest SuperTux release.
 
 private:
   Main(const Main&) = delete;
