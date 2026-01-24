@@ -70,14 +70,18 @@ GL20Context::ortho(float width, float height, bool vflip)
   
   // Apply 3D isometric-like perspective transformation when enabled
   if (g_config && g_config->enable_3d_mode) {
-    // Apply a shear transformation for isometric effect
-    const GLfloat shear_matrix[] = {
-      1.0f, 0.0f, 0.0f, 0.0f,
-      0.5f, 1.0f, 0.0f, 0.0f,  // Shear Y based on X
-      0.0f, 0.0f, 1.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 1.0f
+    // True isometric projection with 30-degree angles for dramatic 3D effect
+    const GLfloat cos30 = 0.866f;  // cos(30°)
+    const GLfloat sin30 = 0.5f;     // sin(30°)
+    
+    // Isometric transformation matrix combining rotation and scaling
+    const GLfloat iso_matrix[] = {
+      cos30,  sin30,  0.0f, 0.0f,      // X axis rotated
+      -sin30, cos30 * 0.5f, 0.0f, 0.0f, // Y axis compressed and rotated
+      0.0f,   0.0f,   1.0f, 0.0f,
+      0.0f,   0.0f,   0.0f, 1.0f
     };
-    glMultMatrixf(shear_matrix);
+    glMultMatrixf(iso_matrix);
   }
 
   assert_gl();
