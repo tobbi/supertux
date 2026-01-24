@@ -67,6 +67,7 @@ Config::Config() :
   flash_intensity(50),
   max_viewport(false),
   fancy_gfx(true),
+  enable_3d_mode(false),
   precise_scrolling(true),
   invert_wheel_x(false),
   invert_wheel_y(false),
@@ -330,6 +331,7 @@ Config::load()
 
     config_video_mapping->get("magnification", magnification);
     config_video_mapping->get("fancy_gfx", fancy_gfx);
+    config_video_mapping->get("enable_3d_mode", enable_3d_mode);
     config_video_mapping->get("prefer_wayland", prefer_wayland);
     config_video_mapping->get("max_viewport", max_viewport);
 
@@ -511,6 +513,7 @@ Config::save()
 
   writer.write("magnification", magnification);
   writer.write("fancy_gfx", fancy_gfx);
+  writer.write("enable_3d_mode", enable_3d_mode);
   writer.write("prefer_wayland", prefer_wayland);
   writer.write("max_viewport", max_viewport);
 

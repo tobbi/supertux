@@ -67,6 +67,18 @@ GL20Context::ortho(float width, float height, bool vflip)
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+  
+  // Apply 3D isometric-like perspective transformation when enabled
+  if (g_config && g_config->enable_3d_mode) {
+    // Apply a shear transformation for isometric effect
+    const GLfloat shear_matrix[] = {
+      1.0f, 0.0f, 0.0f, 0.0f,
+      0.5f, 1.0f, 0.0f, 0.0f,  // Shear Y based on X
+      0.0f, 0.0f, 1.0f, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    };
+    glMultMatrixf(shear_matrix);
+  }
 
   assert_gl();
 }

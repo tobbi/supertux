@@ -125,11 +125,33 @@ GL33CoreContext::ortho(float width, float height, bool vflip)
   const float tx = -1.0f;
   const float ty = 1.0f * (vflip ? 1.0f : -1.0f);
 
-  const float mvp_matrix[] = {
-    sx, 0, tx,
-    0, sy, ty,
-    0, 0, 1
-  };
+  float mvp_matrix[9];
+  
+  // Apply 3D isometric-like perspective transformation when enabled
+  if (g_config && g_config->enable_3d_mode) {
+    // Isometric perspective: shear the Y-axis based on X position
+    const float shear = 0.5f; // Isometric angle approximation
+    mvp_matrix[0] = sx;
+    mvp_matrix[1] = sx * shear;
+    mvp_matrix[2] = tx;
+    mvp_matrix[3] = 0;
+    mvp_matrix[4] = sy;
+    mvp_matrix[5] = ty;
+    mvp_matrix[6] = 0;
+    mvp_matrix[7] = 0;
+    mvp_matrix[8] = 1;
+  } else {
+    // Standard orthographic projection
+    mvp_matrix[0] = sx;
+    mvp_matrix[1] = 0;
+    mvp_matrix[2] = tx;
+    mvp_matrix[3] = 0;
+    mvp_matrix[4] = sy;
+    mvp_matrix[5] = ty;
+    mvp_matrix[6] = 0;
+    mvp_matrix[7] = 0;
+    mvp_matrix[8] = 1;
+  }
 
   const GLint mvp_loc = m_program->get_modelviewprojection_location();
   glUniformMatrix3fv(mvp_loc, 1, false, mvp_matrix);

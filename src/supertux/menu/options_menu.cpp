@@ -127,6 +127,9 @@ OptionsMenu::refresh()
       add_toggle(MNID_FANCY_GFX, _("Fancy Effects"), &g_config->fancy_gfx)
         .set_help(_("Applies fancy effects such as blur, clear tile refraction, and various other effects deemed \"fancy\". May significantly degrade performance."));
 
+      add_toggle(MNID_3D_MODE, _("3D Mode"), &g_config->enable_3d_mode)
+        .set_help(_("Enables an isometric 3D perspective effect for the game."));
+
       add_flash_intensity();
 
 #if !defined(HIDE_NONMOBILE_OPTIONS) && !defined(__EMSCRIPTEN__)
