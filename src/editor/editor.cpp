@@ -1193,15 +1193,6 @@ Editor::reactivate()
   m_toolbox_widget->update_mouse_icon();
 }
 
-void
-Editor::on_window_resize()
-{
-  for(const auto& widget: m_widgets)
-  {
-    widget->on_window_resize();
-  }
-}
-
 bool
 Editor::has_focus() const
 {

@@ -66,7 +66,6 @@ private:
   EditorLayersWidget* m_layers_widget;
   EditorToolbarWidget* m_toolbar_widget;
 
-
 private:
   bool m_ctrl_pressed;
   bool m_shift_pressed;

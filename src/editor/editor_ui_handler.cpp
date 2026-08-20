@@ -208,3 +208,12 @@ EditorUIHandler::on_event(const SDL_Event& ev)
     log_warning << "error while processing Editor::event(): " << err.what() << std::endl;
   }
 }
+
+void
+Editor::on_window_resize()
+{
+  for(const auto& widget: m_widgets)
+  {
+    widget->on_window_resize();
+  }
+}
