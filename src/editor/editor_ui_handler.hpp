@@ -20,8 +20,6 @@
 #include <vector>
 #include <string>
 
-#include <physfs.h>
-
 #include "editor/overlay_widget.hpp"
 #include "editor/tilebox.hpp"
 #include "editor/toolbar_widget.hpp"

@@ -210,7 +210,7 @@ EditorUIHandler::on_event(const SDL_Event& ev)
 }
 
 void
-Editor::on_window_resize()
+EditorUIHandler::on_window_resize()
 {
   for(const auto& widget: m_widgets)
   {
