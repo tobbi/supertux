@@ -15,12 +15,30 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "editor/editor_event_handler.hpp"
+#include "editor/editor_ui_handler.hpp"
 
 void
-EditorEventHandler::on_event(const SDL_Event& ev)
+EditorUIHandler::EditorUIHandler() :
+  m_widgets(),
+  m_controls(),
+  m_overlay_widget(),
+  m_toolbox_widget(),
+  m_toolbar_widget(),
+  m_layers_widget(),
+  m_ctrl_pressed(),
+  m_shift_pressed(),
+  m_alt_pressed(),
+  m_key_zoomed(),
+  m_pen_down(),
+  m_mouse_pos(),
+{
+}
+
+void
+EditorUIHandler::on_event(const SDL_Event& ev)
 {
   auto editor = Editor::current();
+
   if (!editor->has_focus())
     return;
 

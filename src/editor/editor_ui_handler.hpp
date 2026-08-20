@@ -48,8 +48,30 @@ class Sector;
 class TileSet;
 class World;
 
-class EditorEventHandler final
+class EditorUIHandler final
 {
+public:
+  EditorUIHandler();
+
+public:
   void on_event(const SDL_Event& ev) override;
   void on_window_resize() override;
+
+private:
+  std::vector<std::unique_ptr<Widget> > m_widgets;
+  std::vector<std::unique_ptr<InterfaceControl>> m_controls;
+
+  EditorOverlayWidget* m_overlay_widget;
+  EditorToolboxWidget* m_toolbox_widget;
+  EditorLayersWidget* m_layers_widget;
+  EditorToolbarWidget* m_toolbar_widget;
+
+
+private:
+  bool m_ctrl_pressed;
+  bool m_shift_pressed;
+  bool m_alt_pressed;
+  bool m_key_zoomed;
+  bool m_pen_down;
+  Vector m_mouse_pos;
 }
