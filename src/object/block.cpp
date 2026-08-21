@@ -25,6 +25,7 @@
 #include "object/coin.hpp"
 #include "object/growup.hpp"
 #include "object/player.hpp"
+#include "object/star.hpp"
 #include "object/sprite_particle.hpp"
 #include "supertux/constants.hpp"
 #include "supertux/flip_level_transformer.hpp"
@@ -172,14 +173,28 @@ Block::start_bounce(MovingObject* hitter)
   if (offset > 2 || offset < -2)
     offset = 0;
 
-  m_sprite->set_angle(BUMP_ROTATION_ANGLE*offset);
+  m_sprite->set_angle(BUMP_ROTATION_ANGLE * offset);
 }
 
 void
-Block::start_break(MovingObject* hitter)
+Block::start_break(MovingObject* hitter, bool add_gato_bonus)
 {
   start_bounce(hitter);
   m_breaking = true;
+
+  if (!add_gato_bonus)
+  {
+    return;
+  }
+
+  auto player = dynamic_cast<Player*>(hitter);
+  if (!player)
+  {
+    return;
+  }
+
+  Direction direction = (player->get_bbox().get_middle().x > m_col.m_bbox.get_middle().x) ? Direction::LEFT : Direction::RIGHT;
+  Sector::get().add<Star>(get_pos() + Vector(0, -32), direction, "images/objects/bonus_block/bonus_cat.png");
 }
 
 void

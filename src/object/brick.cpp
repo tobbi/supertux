@@ -19,6 +19,7 @@
 #include "audio/sound_manager.hpp"
 #include "badguy/badguy.hpp"
 #include "badguy/crusher.hpp"
+#include "math/random.hpp"
 #include "object/bouncy_coin.hpp"
 #include "object/camera.hpp"
 #include "object/explosion.hpp"
@@ -28,11 +29,16 @@
 #include "supertux/sector.hpp"
 #include "util/reader_mapping.hpp"
 
+namespace {
+  int GATO_BRICK_UPPER_BOUND = 200;
+}
+
 Brick::Brick(const Vector& pos, int data, const std::string& sprite_name) :
   Block(pos, sprite_name),
   m_breakable(false),
   m_coin_counter(0),
-  m_coins_worth()
+  m_coins_worth(),
+  m_is_gato_brick(gameRandom.rand(GATO_BRICK_UPPER_BOUND) > 5)
 {
   if (data == 1) {
     m_coin_counter = 5;
@@ -46,7 +52,8 @@ Brick::Brick(const ReaderMapping& mapping, const std::string& sprite_name) :
   Block(mapping, sprite_name),
   m_breakable(),
   m_coin_counter(0),
-  m_coins_worth()
+  m_coins_worth(),
+  m_is_gato_brick(gameRandom.rand(GATO_BRICK_UPPER_BOUND) > 5)
 {
   parse_type(mapping);
   mapping.get("breakable", m_breakable, true);
@@ -82,6 +89,22 @@ Brick::hit(Player& player)
 {
   if (m_sprite->get_action() == "empty")
     return;
+
+  if (m_is_gato_brick)
+  {
+    auto rand = gameRandom.rand(0, 2);
+    auto file = "";
+    if (rand == 0)
+    {
+      file = "sounds/61259__timtube__cat-meowing.wav";
+    }
+    else
+    {
+      file = "sounds/146963__zabuhailo__cathisses1.wav";
+    }
+    
+    SoundManager::current()->play(file);
+  }
 
   try_break(&player);
 }
@@ -152,7 +175,7 @@ Brick::try_break(Player* player, bool slider)
   } else if (m_breakable) {
     if (player) {
       if (player->is_big()) {
-        start_break(player);
+        start_break(player, m_is_gato_brick);
       } else {
         start_bounce(player);
       }

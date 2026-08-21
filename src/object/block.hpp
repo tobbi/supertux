@@ -41,7 +41,7 @@ public:
 protected:
   virtual void hit(Player& player) = 0;
 
-  void start_break(MovingObject* hitter);
+  void start_break(MovingObject* hitter, bool add_gato_bonus = false);
   void break_me();
 
 protected:

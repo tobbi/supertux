@@ -55,6 +55,7 @@ private:
   bool m_breakable;
   int m_coin_counter;
   int m_coins_worth;
+  bool m_is_gato_brick;
 
 private:
   Brick(const Brick&) = delete;

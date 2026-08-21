@@ -33,6 +33,8 @@ Star::Star(const Vector& pos, Direction direction, const std::string& custom_spr
   lightsprite(SpriteManager::current()->create("images/objects/lightmap_light/lightmap_light-small.sprite"))
 {
   physic.set_velocity((direction == Direction::LEFT) ? -STAR_SPEED : STAR_SPEED, INITIALJUMP);
+  if (direction == Direction::LEFT)
+    m_flip = HORIZONTAL_FLIP;
   //set light for glow effect
   lightsprite->set_blend(Blend::ADD);
   lightsprite->set_color(Color(0.4f, 0.4f, 0.4f));
