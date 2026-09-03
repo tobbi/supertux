@@ -187,9 +187,9 @@ add_package(TARGET Freetype
 # endif()
 
 if(NOT EMSCRIPTEN)
-  add_package(TARGET SDL3
-    PKG SDL3 PKG_USE SDL3::SDL3 CONFIG REQUIRED PKG_CONFIG sdl3 SDL3
-    ${SUPERTUX_ANDROID_PREFER_PKGCONF})
+  # add_package(TARGET SDL3
+  #   PKG SDL3 PKG_USE SDL3::SDL3 CONFIG REQUIRED PKG_CONFIG sdl3 SDL3
+  #   ${SUPERTUX_ANDROID_PREFER_PKGCONF})
   add_package(TARGET SDL3_image
     PKG SDL3_image PKG_USE SDL3_image::SDL3_image CONFIG REQUIRED PKG_CONFIG SDL3_image sdl3_image
     ${SUPERTUX_ANDROID_PREFER_PKGCONF})
@@ -222,6 +222,10 @@ endif()
 # if(USE_SYSTEM_SDL2_TTF)
 #   message(WARNING "Building with system-wide SDL_TTF will cause bi-directional (e.g. Arabic) scriptures to not be displayed properly.")
 # endif()
+
+set(SDL_ROOT "/Volumes/Development/workspace/SDL")
+add_subdirectory(${SDL_ROOT} "sdl_build")
+include_directories(SYSTEM "${SDL_ROOT}/include")
 
 add_subdirectory(external/sexp-cpp EXCLUDE_FROM_ALL)
 # TODO: SDL3
@@ -452,7 +456,7 @@ if(NOT EMSCRIPTEN)
     # SDL3 main (windows?)
     $<TARGET_NAME_IF_EXISTS:SDL3::SDL3main>
     # SDL3
-    SDL3
+    SDL3::SDL3
   )
   target_link_libraries(supertux2 PUBLIC
     Ogg

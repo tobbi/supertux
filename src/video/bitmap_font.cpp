@@ -82,7 +82,7 @@ BitmapFont::BitmapFont(GlyphWidth glyph_width_,
       }
       catch(const std::exception& e)
       {
-        log_fatal << "Couldn't load font file: " << e.what() << std::endl;
+        log_warning << "Couldn't load font file: " << e.what() << std::endl;
       }
     }
     return false;
