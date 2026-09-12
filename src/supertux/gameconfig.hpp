@@ -41,6 +41,7 @@ public:
   void check_values();
 
   inline bool is_initial() const { return m_initial; }
+  void set_initial(bool initial) { m_initial = initial; } 
 
 private:
   bool m_initial;

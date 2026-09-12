@@ -104,6 +104,7 @@ ConfigSubsystem::ConfigSubsystem() :
   catch(const std::exception& e)
   {
     log_info << "Couldn't load config file: " << e.what() << ", using default settings" << std::endl;
+    m_config.set_initial(true);
   }
 
   // init random number stuff
