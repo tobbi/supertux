@@ -49,12 +49,14 @@ FlipLevelTransformer::transform_sector(Sector& sector)
 void
 FlipLevelTransformer::transform_flip(Flip& flip)
 {
-  if (flip & VERTICAL_FLIP) {
-    flip = flip & ~VERTICAL_FLIP;
-  } else {
-    flip = flip | VERTICAL_FLIP;
-  }
-
+  // if (flip == VERTICAL_FLIP)
+  // {
+  //   if (flip & VERTICAL_FLIP) {
+  //     flip = flip & ~VERTICAL_FLIP;
+  //   } else {
+  //     flip = flip | VERTICAL_FLIP;
+  //   }
+  // }
   if (flip & HORIZONTAL_FLIP) {
     flip = flip & ~HORIZONTAL_FLIP;
   } else {
