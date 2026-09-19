@@ -662,7 +662,14 @@ BadGuy::on_flip(const Sizef& size)
 {
   MovingObject::on_flip(size);
   Vector pos = get_start_position();
-  pos.y = size.height - pos.y;
+  if (m_flip == HORIZONTAL_FLIP)
+  {
+    pos.x = size.width - pos.x;
+  }
+  else if (m_flip == VERTICAL_FLIP)
+  {
+    pos.y = size.height - pos.y;
+  }
   set_start_position(pos);
 }
 

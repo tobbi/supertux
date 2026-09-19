@@ -146,6 +146,19 @@ void
 PushButton::on_flip(const Sizef& size)
 {
   MovingSprite::on_flip(size);
-  m_dir = m_dir == Direction::UP ? Direction::DOWN : Direction::UP;
+  if (m_flip == VERTICAL_FLIP)
+  {
+    if (m_dir == Direction::UP || m_dir == Direction::DOWN)
+    {
+      m_dir = m_dir == Direction::UP ? Direction::DOWN : Direction::UP;
+    }
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    if (m_dir == Direction::LEFT || m_dir == Direction::RIGHT)
+    {
+      m_dir = m_dir == Direction::LEFT ? Direction::RIGHT : Direction::LEFT;
+    }
+  }
   set_action(m_state == OFF ? "off" : "on", m_dir);
 }

@@ -32,9 +32,21 @@ class Decal;
 /** Vertically or horizontally flip a level */
 class FlipLevelTransformer final : public LevelTransformer
 {
+
 public:
+  FlipLevelTransformer() :
+    m_flip()
+  {
+  }
+
+  void set_flip(const Flip &flip) { m_flip = flip; }
+  const Flip& get_flip() const { return m_flip; }
+
   static void transform_flip(Flip& flip);
   static void transform_path(float height, float obj_height, Path& path);
 public:
-  virtual void transform_sector(Sector& sector) override;
+  void transform_sector(Sector& sector) override;
+
+private:
+  Flip m_flip;
 };

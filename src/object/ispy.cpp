@@ -134,14 +134,30 @@ void
 Ispy::on_flip(const Sizef& size)
 {
   MovingSprite::on_flip(size);
-  if (m_dir == Direction::UP)
+  if (m_flip == VERTICAL_FLIP)
   {
-    m_dir = Direction::DOWN;
-    set_action("idle-down");
+    if (m_dir == Direction::UP)
+    {
+      m_dir = Direction::DOWN;
+      set_action("idle-down");
+    }
+    else if (m_dir == Direction::DOWN)
+    {
+      m_dir = Direction::UP;
+      set_action("idle-up");
+    }
   }
-  else if (m_dir == Direction::DOWN)
+  else if (m_flip == HORIZONTAL_FLIP)
   {
-    m_dir = Direction::UP;
-    set_action("idle-up");
+    if (m_dir == Direction::LEFT)
+    {
+      m_dir = Direction::RIGHT;
+      set_action("idle-right");
+    }
+    else if (m_dir == Direction::RIGHT)
+    {
+      m_dir = Direction::LEFT;
+      set_action("idle-left");
+    }
   }
 }

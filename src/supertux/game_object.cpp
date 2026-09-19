@@ -31,6 +31,7 @@ GameObject::GameObject(const std::string& name) :
   m_parent(),
   m_name(name),
   m_type(0),
+  m_flip(NO_FLIP),
   m_fade_helpers(),
   m_track_undo(true),
   m_previous_type(-1),

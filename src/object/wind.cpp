@@ -202,7 +202,14 @@ void
 Wind::on_flip(const Sizef& size)
 {
   MovingObject::on_flip(size);
-  speed.y = -speed.y;
+  if (m_flip == VERTICAL_FLIP)
+  {
+    speed.y = -speed.y;
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    speed.x = -speed.x;
+  }
 }
 
 

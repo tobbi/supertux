@@ -116,8 +116,7 @@ DartTrap::fire()
   SoundManager::current()->play("sounds/dartfire.wav", get_pos());
   Dart &dart = Sector::get().add<Dart>(Vector(0.f, 0.f), m_dir, this,
                                        m_dart_sprite, m_dart_lightsprite);
-  if(m_dir == Direction::LEFT || m_dir == Direction::RIGHT)
-    dart.set_flip(m_flip);
+  dart.set_flip(m_flip);
 
   Vector pos;
   switch (m_dir)
@@ -204,15 +203,8 @@ void
 DartTrap::on_flip(const Sizef& size)
 {
   BadGuy::on_flip(size);
-  if (m_dir == Direction::DOWN || m_dir == Direction::UP)
-  {
-    m_dir = invert_dir(m_dir);
-    set_action(m_state == IDLE ? "idle" : "loading", m_dir, 1);
-  }
-  else
-  {
-    FlipLevelTransformer::transform_flip(m_flip);
-  }
+  m_dir = invert_dir(m_dir);
+  set_action(m_state == IDLE ? "idle" : "loading", m_dir, 1);
 }
 
 void

@@ -843,14 +843,27 @@ void
 Crusher::on_flip(const Sizef& size)
 {
   MovingSprite::on_flip(size);
-  m_flipped = !m_flipped;
-  m_start_position.y = size.height - m_col.m_bbox.get_height() - m_start_position.y;
-  FlipLevelTransformer::transform_flip(m_flip);
+  if (m_flip == HORIZONTAL_FLIP)
+  {
+    if (m_dir == CrusherDirection::LEFT)
+      m_dir = CrusherDirection::RIGHT;
+    else if (m_dir == CrusherDirection::RIGHT)
+      m_dir = CrusherDirection::LEFT;
 
-  if (m_dir == CrusherDirection::DOWN)
-    m_dir = CrusherDirection::UP;
-  else if (m_dir == CrusherDirection::UP)
-    m_dir = CrusherDirection::DOWN;
+    m_start_position.y = size.width - m_col.m_bbox.get_width() - m_start_position.x;
+  }
+  else
+  {
+    if (m_dir == CrusherDirection::DOWN)
+      m_dir = CrusherDirection::UP;
+    else if (m_dir == CrusherDirection::UP)
+      m_dir = CrusherDirection::DOWN;
+    
+    m_flipped = !m_flipped;
+    m_start_position.y = size.height - m_col.m_bbox.get_height() - m_start_position.y;
+  }
+
+  FlipLevelTransformer::transform_flip(m_flip);
 
   idle();
 }

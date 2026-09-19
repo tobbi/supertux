@@ -39,6 +39,7 @@ FlipLevelTransformer::transform_sector(Sector& sector)
     if (!object->is_valid())
       return;
 
+    object->set_flip(m_flip);
     object->on_flip(sector_size);
   }
 
@@ -52,5 +53,11 @@ FlipLevelTransformer::transform_flip(Flip& flip)
     flip = flip & ~VERTICAL_FLIP;
   } else {
     flip = flip | VERTICAL_FLIP;
+  }
+
+  if (flip & HORIZONTAL_FLIP) {
+    flip = flip & ~HORIZONTAL_FLIP;
+  } else {
+    flip = flip | HORIZONTAL_FLIP;
   }
 }

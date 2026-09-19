@@ -297,7 +297,14 @@ void
 Zeekling::on_flip(const Sizef& size)
 {
   BadGuy::on_flip(size);
-  m_start_position.y = get_pos().y;
+  if (m_flip == VERTICAL_FLIP)
+  {
+    m_start_position.y = get_pos().y;
+  }
+  else
+  {
+    m_start_position.x = get_pos().x;
+  }
 }
 
 /* EOF */

@@ -719,6 +719,20 @@ static void set_respawn_pos(const std::string& sector, float x, float y)
 
 /**
  * @scripting
+ * @description Flips the level horizontally (i.e. left is now right and vice versa).
+                Call again to revert the effect. Make sure the player can land on something after the level is flipped!
+ */
+static void flip_horizontally()
+{
+  if (!GameSession::current()) return;
+  BIND_SECTOR(::Sector::get());
+  FlipLevelTransformer flip_transformer;
+  flip_transformer.set_flip(HORIZONTAL_FLIP);
+  flip_transformer.transform(GameSession::current()->get_current_level());
+}
+
+/**
+ * @scripting
  * @description Flips the level vertically (i.e. top is now bottom and vice versa).
                 Call again to revert the effect. Make sure the player can land on something after the level is flipped!
  */
@@ -727,6 +741,7 @@ static void flip_vertically()
   if (!GameSession::current()) return;
   BIND_SECTOR(::Sector::get());
   FlipLevelTransformer flip_transformer;
+  flip_transformer.set_flip(VERTICAL_FLIP);
   flip_transformer.transform(GameSession::current()->get_current_level());
 }
 
@@ -876,6 +891,7 @@ void register_supertux_scripting_api(ssq::VM& vm)
   level.addFunc("set_start_pos", &scripting::Level::set_start_pos);
   level.addFunc("set_respawn_point", &scripting::Level::set_respawn_point);
   level.addFunc("set_respawn_pos", &scripting::Level::set_respawn_pos);
+  level.addFunc("flip_horizontally", &scripting::Level::flip_horizontally);
   level.addFunc("flip_vertically", &scripting::Level::flip_vertically);
   level.addFunc("toggle_pause", &scripting::Level::toggle_pause);
   level.addFunc("pause_target_timer", &scripting::Level::pause_target_timer);
@@ -887,6 +903,7 @@ void register_supertux_scripting_api(ssq::VM& vm)
   /* "Level" global functions (0.6.3 backward compatibility) */
   vm.addFunc("Level_finish", &scripting::Level::finish);
   vm.addFunc("Level_spawn", &scripting::Level::spawn, ssq::DefaultArguments<const std::string&>(""));
+  vm.addFunc("Level_flip_horizontally", &scripting::Level::flip_horizontally);
   vm.addFunc("Level_flip_vertically", &scripting::Level::flip_vertically);
   vm.addFunc("Level_toggle_pause", &scripting::Level::toggle_pause);
 }

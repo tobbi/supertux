@@ -298,6 +298,8 @@ void
 Gradient::on_flip(const Sizef& size)
 {
   GameObject::on_flip(size);
+  // TODO: Horizontal flipping support !!!
+
   if (m_gradient_direction == VERTICAL || m_gradient_direction == VERTICAL_SECTOR)
     std::swap(m_gradient_top, m_gradient_bottom);
 }

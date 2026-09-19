@@ -156,8 +156,6 @@ protected:
   SpritePtr m_sprite;
   int m_layer; /**< Sprite's z-position. Refer to video/drawing_context.hpp for sensible values. */
 
-  Flip m_flip;
-
 private:
   /** A custom sprite has been successfully found and set on initialization. */
   bool m_sprite_found;

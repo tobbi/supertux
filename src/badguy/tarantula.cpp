@@ -393,16 +393,24 @@ void
 Tarantula::on_flip(const Sizef& size)
 {
   BadGuy::on_flip(size);
-  m_vertical_flip = !m_vertical_flip;
 
-  m_last_height = size.height - m_last_height;
-  m_target_height = size.height - m_target_height;
-  m_ground_height = size.height - m_ground_height;
-
-  if (!m_vertical_flip)
+  if (m_flip == VERTICAL_FLIP)
   {
-    m_start_position.y -= get_height();
-    m_last_height -= get_height();
+    m_vertical_flip = !m_vertical_flip;
+
+    m_last_height = size.height - m_last_height;
+    m_target_height = size.height - m_target_height;
+    m_ground_height = size.height - m_ground_height;
+
+    if (!m_vertical_flip)
+    {
+      m_start_position.y -= get_height();
+      m_last_height -= get_height();
+    }
+  }
+  else
+  {
+    m_start_position.x -= get_width();
   }
 }
 

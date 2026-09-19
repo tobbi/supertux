@@ -58,7 +58,6 @@ TileMap::TileMap(const TileSet *new_tileset) :
   m_movement(0, 0),
   m_objects_hit_bottom(),
   m_ground_movement_manager(nullptr),
-  m_flip(NO_FLIP),
   m_alpha(1.0),
   m_current_alpha(1.0),
   m_remaining_fade_time(0),
@@ -92,7 +91,6 @@ TileMap::TileMap(const TileSet *tileset_, const ReaderMapping& reader) :
   m_movement(Vector(0, 0)),
   m_objects_hit_bottom(),
   m_ground_movement_manager(nullptr),
-  m_flip(NO_FLIP),
   m_alpha(1.0),
   m_current_alpha(1.0),
   m_remaining_fade_time(0),
@@ -499,19 +497,36 @@ TileMap::editor_update()
 void
 TileMap::on_flip(const Sizef& size)
 {
-  for (int x = 0; x < get_width(); ++x) {
-    for (int y = 0; y < get_height()/2; ++y) {
-      // swap tiles
-      int y2 = get_height() - 1 - y;
-      uint32_t t1 = get_tile_id(x, y);
-      uint32_t t2 = get_tile_id(x, y2);
-      change(x, y, t2);
-      change(x, y2, t1);
+  Vector offset = get_offset();
+  if (m_flip == VERTICAL_FLIP)
+  {
+    for (int x = 0; x < get_width(); ++x) {
+      for (int y = 0; y < get_height()/2; ++y) {
+        // swap tiles
+        int y2 = get_height() - 1 - y;
+        uint32_t t1 = get_tile_id(x, y);
+        uint32_t t2 = get_tile_id(x, y2);
+        change(x, y, t2);
+        change(x, y2, t1);
+      }
     }
+    offset.y = size.height - offset.y - get_bbox().get_height();
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    for (int x = 0; x < get_width() / 2; ++x) {
+      for (int y = 0; y < get_height(); ++y) {
+        // swap tiles
+        int x2 = get_width() - 1 - x;
+        uint32_t t1 = get_tile_id(x, y);
+        uint32_t t2 = get_tile_id(x2, y);
+        change(x, y, t2);
+        change(x2, y, t1);
+      }
+    }
+    offset.x = size.width - offset.x - get_bbox().get_width();
   }
   FlipLevelTransformer::transform_flip(m_flip);
-  Vector offset = get_offset();
-  offset.y = size.height - offset.y - get_bbox().get_height();
   set_offset(offset);
   PathObject::on_flip();
 }

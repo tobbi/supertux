@@ -36,7 +36,6 @@ MovingSprite::MovingSprite(const Vector& pos, const std::string& sprite_name_,
   m_default_sprite_name(sprite_name_),
   m_sprite(SpriteManager::current()->create(m_sprite_name)),
   m_layer(layer_),
-  m_flip(NO_FLIP),
   m_sprite_found(false),
   m_custom_layer(false)
 {
@@ -57,7 +56,6 @@ MovingSprite::MovingSprite(const ReaderMapping& reader, const std::string& sprit
   m_default_sprite_name(sprite_name_),
   m_sprite(),
   m_layer(layer_),
-  m_flip(NO_FLIP),
   m_sprite_found(false),
   m_custom_layer(reader.get("z-pos", m_layer))
 {
@@ -81,7 +79,6 @@ MovingSprite::MovingSprite(const ReaderMapping& reader, int layer_, CollisionGro
   m_default_sprite_name(),
   m_sprite(),
   m_layer(layer_),
-  m_flip(NO_FLIP),
   m_sprite_found(false),
   m_custom_layer(reader.get("z-pos", m_layer))
 {

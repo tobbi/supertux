@@ -167,15 +167,32 @@ void
 Dart::on_flip(const Sizef& size)
 {
   BadGuy::on_flip(size);
-  if (m_dir == Direction::UP)
+  if (m_flip == VERTICAL_FLIP)
   {
-    m_dir = Direction::DOWN;
-    m_physic.set_velocity_y(::DART_SPEED);
+    auto velocity_y = ::DART_SPEED; 
+    if (m_dir == Direction::UP)
+    {
+      m_dir = Direction::DOWN;
+      m_physic.set_velocity_y(velocity_y);
+    }
+    else if (m_dir == Direction::DOWN)
+    {
+      m_dir = Direction::UP;
+      m_physic.set_velocity_y(-velocity_y);
+    }
   }
-  else if (m_dir == Direction::DOWN)
+  else if (m_flip == HORIZONTAL_FLIP)
   {
-    m_dir = Direction::UP;
-    m_physic.set_velocity_y(-::DART_SPEED);
+    auto velocity_x = m_physic.get_velocity_x();
+    if (m_dir == Direction::RIGHT)
+    {
+      m_dir = Direction::LEFT;
+    }
+    else if (m_dir == Direction::LEFT)
+    {
+      m_dir = Direction::RIGHT;
+    }
+    m_physic.set_velocity_x(-velocity_x);
   }
   else
   {

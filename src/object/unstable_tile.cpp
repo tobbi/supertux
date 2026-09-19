@@ -310,6 +310,13 @@ void
 UnstableTile::on_flip(const Sizef& size)
 {
   MovingObject::on_flip(size);
-  m_original_pos.y = size.height - m_original_pos.y - get_bbox().get_height();
+  if (m_flip == VERTICAL_FLIP)
+  {
+    m_original_pos.y = size.height - m_original_pos.y - get_bbox().get_height();
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    m_original_pos.x = size.width - m_original_pos.x - get_bbox().get_width();
+  }
   FlipLevelTransformer::transform_flip(m_flip);
 }

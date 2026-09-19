@@ -153,8 +153,7 @@ Background::Background() :
   m_target(DrawingTarget::COLORMAP),
   m_timer_color(),
   m_src_color(),
-  m_dst_color(),
-  m_flip(NO_FLIP)
+  m_dst_color()
 {
 }
 
@@ -178,8 +177,7 @@ Background::Background(const ReaderMapping& reader) :
   m_target(DrawingTarget::COLORMAP),
   m_timer_color(),
   m_src_color(),
-  m_dst_color(),
-  m_flip(NO_FLIP)
+  m_dst_color()
 {
   reader.get("fill", m_fill);
 
@@ -544,13 +542,25 @@ void
 Background::on_flip(const Sizef& size)
 {
   GameObject::on_flip(size);
-  std::swap(m_image_bottom, m_image_top);
-  m_pos.y = size.height - m_pos.y - static_cast<float>(m_image->get_height());
-  m_scroll_offset.y = -m_scroll_offset.y;
-  if (m_alignment == BOTTOM_ALIGNMENT)
-    m_alignment = TOP_ALIGNMENT;
-  else if (m_alignment == TOP_ALIGNMENT)
-    m_alignment = BOTTOM_ALIGNMENT;
+  if (m_flip == VERTICAL_FLIP)
+  {
+    std::swap(m_image_bottom, m_image_top);
+    m_pos.y = size.height - m_pos.y - static_cast<float>(m_image->get_height());
+    m_scroll_offset.y = -m_scroll_offset.y;
+    if (m_alignment == BOTTOM_ALIGNMENT)
+      m_alignment = TOP_ALIGNMENT;
+    else if (m_alignment == TOP_ALIGNMENT)
+      m_alignment = BOTTOM_ALIGNMENT;
+  }
+  else
+  {
+    m_pos.x = size.width - m_pos.x - static_cast<float>(m_image->get_width());
+    m_scroll_offset.x = -m_scroll_offset.x;
+    if (m_alignment == LEFT_ALIGNMENT)
+      m_alignment = RIGHT_ALIGNMENT;
+    else if (m_alignment == RIGHT_ALIGNMENT)
+      m_alignment = LEFT_ALIGNMENT;
+  }
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

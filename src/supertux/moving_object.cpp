@@ -108,7 +108,14 @@ MovingObject::on_flip(const Sizef& size)
     return;
 
   Vector pos = get_pos();
-  pos.y = size.height - pos.y - get_bbox().get_height();
+  if (m_flip == VERTICAL_FLIP)
+  {
+    pos.y = size.height - pos.y - get_bbox().get_height();
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    pos.x = size.width - pos.x - get_bbox().get_width();
+  }
   set_pos(pos);
 }
 

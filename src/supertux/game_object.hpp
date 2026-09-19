@@ -182,6 +182,9 @@ public:
 
   virtual void after_editor_set();
 
+  inline void set_flip(Flip flip) { m_flip = flip; }
+  inline Flip get_flip() const { return m_flip; }
+
   /** When level is flipped vertically */
   virtual void on_flip(const Sizef& size) {}
 
@@ -285,6 +288,11 @@ protected:
   /** Type of the GameObject. Used to provide special functionality,
       based on the child object. */
   int m_type;
+
+  /**
+   * Indicates the current flip state of this object
+   */
+  Flip m_flip;
 
   /** Fade Helpers are for easing/fading script functions */
   std::vector<std::unique_ptr<FadeHelper>> m_fade_helpers;

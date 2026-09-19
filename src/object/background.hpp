@@ -193,8 +193,6 @@ private:
   Timer m_timer_color;
   Color m_src_color, m_dst_color;
 
-  Flip m_flip;
-
 private:
   Background(const Background&) = delete;
   Background& operator=(const Background&) = delete;

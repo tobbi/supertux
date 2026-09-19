@@ -244,6 +244,7 @@ Path::is_valid() const
 void
 Path::on_flip(const Sizef& size)
 {
+  // TODO: Horizontal flipping support
   for (auto& node : m_nodes) {
     node.position.y = size.height - node.position.y;
     node.bezier_before.y = size.height - node.bezier_before.y;

@@ -221,9 +221,6 @@ public:
   /** Returns the Autotilesets associated with the given tile */
   std::vector<AutotileSet*> get_autotilesets(uint32_t tile) const;
 
-  inline void set_flip(Flip flip) { m_flip = flip; }
-  inline Flip get_flip() const { return m_flip; }
-
   /**
    * @scripting
    * @description Starts fading the tilemap to the opacity given by ""alpha"".
@@ -329,7 +326,6 @@ private:
 
   std::shared_ptr<CollisionGroundMovementManager> m_ground_movement_manager;
 
-  Flip m_flip;
   /**
    * @scripting
    * @description Determines the tilemap's current opacity.

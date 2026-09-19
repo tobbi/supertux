@@ -85,7 +85,14 @@ void
 CirclePlatform::on_flip(const Sizef& size)
 {
   MovingObject::on_flip(size);
-  start_position.y = size.height - start_position.y - get_bbox().get_height();
+  if (m_flip == VERTICAL_FLIP)
+  {
+    start_position.y = size.height - start_position.y - get_bbox().get_height();
+  }
+  else if (m_flip == HORIZONTAL_FLIP)
+  {
+    start_position.x = size.width - start_position.x - get_bbox().get_width();
+  }
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

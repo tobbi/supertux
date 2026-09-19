@@ -205,6 +205,9 @@ void
 Block::on_flip(const Sizef& size)
 {
   MovingObject::on_flip(size);
-  if (m_original_y != -1) m_original_y = size.height - m_original_y - get_bbox().get_height();
+  if (m_flip == VERTICAL_FLIP)
+  {
+    if (m_original_y != -1) m_original_y = size.height - m_original_y - get_bbox().get_height();
+  }
   FlipLevelTransformer::transform_flip(m_flip);
 }
