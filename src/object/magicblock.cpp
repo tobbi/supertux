@@ -207,9 +207,9 @@ MagicBlock::collision(MovingObject& /*other*/, const CollisionHit& /*hit*/)
 }
 
 void
-MagicBlock::on_flip(float height)
+MagicBlock::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
   m_center = m_col.m_bbox.get_middle();
 }

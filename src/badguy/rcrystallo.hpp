@@ -43,7 +43,7 @@ public:
   virtual void kill_fall() override;
 
   virtual void after_editor_set() override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 protected:
   enum RCrystalloState

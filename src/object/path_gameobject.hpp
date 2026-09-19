@@ -50,7 +50,7 @@ public:
 
   virtual void remove_me() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   virtual ObjectSettings get_settings() override;
 

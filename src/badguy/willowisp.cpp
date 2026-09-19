@@ -455,9 +455,9 @@ WillOWisp::get_allowed_directions() const
 }
 
 void
-WillOWisp::on_flip(float height)
+WillOWisp::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   PathObject::on_flip();
 }
 

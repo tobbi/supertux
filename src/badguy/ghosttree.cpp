@@ -478,8 +478,8 @@ GhostTree::get_allowed_directions() const
 }
 
 void
-GhostTree::on_flip(float height)
+GhostTree::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }

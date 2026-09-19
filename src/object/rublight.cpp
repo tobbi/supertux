@@ -147,8 +147,8 @@ RubLight::draw(DrawingContext& context)
 }
 
 void
-RubLight::on_flip(float height)
+RubLight::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }

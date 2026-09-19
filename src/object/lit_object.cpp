@@ -91,9 +91,9 @@ LitObject::after_editor_set()
 }
 
 void
-LitObject::on_flip(float height)
+LitObject::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
+  MovingObject::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

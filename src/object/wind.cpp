@@ -199,9 +199,9 @@ Wind::stop()
 }
 
 void
-Wind::on_flip(float height)
+Wind::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
+  MovingObject::on_flip(size);
   speed.y = -speed.y;
 }
 

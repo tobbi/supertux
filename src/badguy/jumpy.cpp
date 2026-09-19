@@ -137,9 +137,9 @@ Jumpy::active_update(float dt_sec)
 }
 
 void
-Jumpy::on_flip(float height)
+Jumpy::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   groundhit_pos_set = false;
 }
 

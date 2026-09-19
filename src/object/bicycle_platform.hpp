@@ -32,7 +32,7 @@ public:
   virtual void update(float dt_sec) override;
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
   virtual bool is_saveable() const override { return false; }
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   virtual void editor_delete() override;
 
@@ -60,7 +60,7 @@ public:
 
   virtual void draw(DrawingContext& context) override;
   virtual void update(float dt_sec) override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   static std::string class_name() { return "bicycle-platform"; }
   virtual std::string get_class_name() const override { return class_name(); }

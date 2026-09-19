@@ -170,9 +170,9 @@ Platform::move_to(const Vector& pos)
 }
 
 void
-Platform::on_flip(float height)
+Platform::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   PathObject::on_flip();
   FlipLevelTransformer::transform_flip(m_flip);
 }

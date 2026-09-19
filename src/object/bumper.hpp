@@ -39,7 +39,7 @@ public:
   virtual GameObjectClasses get_class_types() const override { return StickyObject::get_class_types().add(typeid(Bumper)); }
 
   virtual void after_editor_set() override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   Physic& get_physic();
 

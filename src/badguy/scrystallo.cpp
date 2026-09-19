@@ -185,9 +185,9 @@ SCrystallo::after_editor_set()
 }
 
 void
-SCrystallo::on_flip(float height)
+SCrystallo::on_flip(const Sizef& size)
 {
-  WalkingBadguy::on_flip(height);
+  WalkingBadguy::on_flip(size);
 
   if (m_state == SCRYSTALLO_SLEEPING || m_state == SCRYSTALLO_WAKING)
   {

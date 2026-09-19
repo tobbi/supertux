@@ -143,9 +143,9 @@ PushButton::collision(MovingObject& other, const CollisionHit& hit)
 }
 
 void
-PushButton::on_flip(float height)
+PushButton::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   m_dir = m_dir == Direction::UP ? Direction::DOWN : Direction::UP;
   set_action(m_state == OFF ? "off" : "on", m_dir);
 }

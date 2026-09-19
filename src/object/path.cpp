@@ -242,11 +242,11 @@ Path::is_valid() const
 }
 
 void
-Path::on_flip(float height)
+Path::on_flip(const Sizef& size)
 {
   for (auto& node : m_nodes) {
-    node.position.y = height - node.position.y;
-    node.bezier_before.y = height - node.bezier_before.y;
-    node.bezier_after.y = height - node.bezier_after.y;
+    node.position.y = size.height - node.position.y;
+    node.bezier_before.y = size.height - node.bezier_before.y;
+    node.bezier_after.y = size.height - node.bezier_after.y;
   }
 }

@@ -56,7 +56,7 @@ public:
 
   virtual ObjectSettings get_settings() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void set_gradient(const Color& top, const Color& bottom);
   void fade_gradient(const Color& top, const Color& bottom, float time);

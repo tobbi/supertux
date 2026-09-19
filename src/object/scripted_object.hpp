@@ -48,7 +48,7 @@ public:
 
   virtual ObjectSettings get_settings() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 #ifdef DOXYGEN_SCRIPTING
   /**

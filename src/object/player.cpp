@@ -2500,10 +2500,10 @@ Player::collision(MovingObject& other, const CollisionHit& hit)
 }
 
 void
-Player::on_flip(float height)
+Player::on_flip(const Sizef& size)
 {
   Vector pos = get_pos();
-  pos.y = height - pos.y - get_bbox().get_height();
+  pos.y = size.height - pos.y - get_bbox().get_height();
   set_pos_reset(pos);
 
   position_grabbed_object(true);

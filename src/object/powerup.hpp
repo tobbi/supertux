@@ -47,7 +47,7 @@ public:
   virtual void update(float dt_sec) override;
   virtual void draw(DrawingContext& context) override;
   virtual void collision_solid(const CollisionHit& hit) override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
 
   static std::string class_name() { return "powerup"; }

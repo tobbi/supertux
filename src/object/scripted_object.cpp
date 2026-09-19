@@ -148,9 +148,9 @@ ScriptedObject::collision(MovingObject& other, const CollisionHit& )
 }
 
 void
-ScriptedObject::on_flip(float height)
+ScriptedObject::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   if(!physic_enabled)
     FlipLevelTransformer::transform_flip(m_flip);
 }

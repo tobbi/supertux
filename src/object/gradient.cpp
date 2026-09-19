@@ -295,9 +295,9 @@ Gradient::is_saveable() const
 }
 
 void
-Gradient::on_flip(float height)
+Gradient::on_flip(const Sizef& size)
 {
-  GameObject::on_flip(height);
+  GameObject::on_flip(size);
   if (m_gradient_direction == VERTICAL || m_gradient_direction == VERTICAL_SECTOR)
     std::swap(m_gradient_top, m_gradient_bottom);
 }

@@ -58,7 +58,7 @@ public:
 
   virtual void move_to(const Vector& pos) override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void collect();
 
@@ -103,7 +103,7 @@ public:
   virtual ObjectSettings get_settings() override;
   virtual void after_editor_set() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 private:
   Physic m_physic;

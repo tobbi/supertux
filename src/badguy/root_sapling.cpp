@@ -394,9 +394,9 @@ next_tilemap:
 }
 
 void
-RootSapling::on_flip(float height)
+RootSapling::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
   m_dir = invert_dir(m_dir);
 }

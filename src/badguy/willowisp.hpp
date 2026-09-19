@@ -74,7 +74,7 @@ public:
   virtual ObjectSettings get_settings() override;
   virtual void move_to(const Vector& pos) override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   /** make WillOWisp vanish */
   void vanish();

@@ -72,7 +72,7 @@ public:
   virtual GameObjectTypes get_types() const override;
   std::string get_default_sprite_name() const override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   virtual void after_editor_set() override;
 

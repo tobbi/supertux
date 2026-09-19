@@ -44,7 +44,7 @@ public:
   virtual ObjectSettings get_settings() override;
   virtual GameObjectTypes get_types() const override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   /**
    * Starts blowing.

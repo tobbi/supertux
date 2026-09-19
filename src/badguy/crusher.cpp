@@ -840,11 +840,11 @@ Crusher::eye_position(bool right) const
 }
 
 void
-Crusher::on_flip(float height)
+Crusher::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   m_flipped = !m_flipped;
-  m_start_position.y = height - m_col.m_bbox.get_height() - m_start_position.y;
+  m_start_position.y = size.height - m_col.m_bbox.get_height() - m_start_position.y;
   FlipLevelTransformer::transform_flip(m_flip);
 
   if (m_dir == CrusherDirection::DOWN)

@@ -86,8 +86,8 @@ Flower::collision(MovingObject& other, const CollisionHit& )
 }
 
 void
-Flower::on_flip(float height)
+Flower::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
+  MovingObject::on_flip(size);
   FlipLevelTransformer::transform_flip(flip);
 }

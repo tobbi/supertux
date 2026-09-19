@@ -41,7 +41,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
   virtual GameObjectClasses get_class_types() const override { return Boss::get_class_types().add(typeid(GhostTree)); }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void willowisp_suck_finished(TreeWillOWisp* willowisp);
 

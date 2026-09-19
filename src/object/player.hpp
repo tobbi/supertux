@@ -87,7 +87,7 @@ public:
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
   virtual void collision_tile(uint32_t tile_attributes) override;
   virtual void update_hitbox() override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
   virtual bool is_saveable() const override { return false; }
   virtual bool is_singleton() const override { return false; }
   virtual bool has_object_manager_priority() const override { return true; }

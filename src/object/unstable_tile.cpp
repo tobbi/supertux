@@ -307,9 +307,9 @@ UnstableTile::draw(DrawingContext& context)
 }
 
 void
-UnstableTile::on_flip(float height)
+UnstableTile::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
-  m_original_pos.y = height - m_original_pos.y - get_bbox().get_height();
+  MovingObject::on_flip(size);
+  m_original_pos.y = size.height - m_original_pos.y - get_bbox().get_height();
   FlipLevelTransformer::transform_flip(m_flip);
 }

@@ -658,11 +658,11 @@ BadGuy::collision_solid(const CollisionHit& hit)
 }
 
 void
-BadGuy::on_flip(float height)
+BadGuy::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
+  MovingObject::on_flip(size);
   Vector pos = get_start_position();
-  pos.y = height - pos.y;
+  pos.y = size.height - pos.y;
   set_start_position(pos);
 }
 

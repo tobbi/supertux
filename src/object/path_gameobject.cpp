@@ -226,9 +226,9 @@ PathGameObject::is_saveable() const
 }
 
 void
-PathGameObject::on_flip(float height)
+PathGameObject::on_flip(const Sizef& size)
 {
-  m_path->on_flip(height);
+  m_path->on_flip(size);
 }
 
 void

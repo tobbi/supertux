@@ -41,7 +41,7 @@ public:
 
   virtual bool is_snipable() const override { return true; }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 protected:
   virtual std::vector<Direction> get_allowed_directions() const override;

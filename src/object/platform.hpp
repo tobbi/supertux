@@ -56,7 +56,7 @@ public:
 
   virtual void editor_update() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void save_state() override;
   void check_state() override;

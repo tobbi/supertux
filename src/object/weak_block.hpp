@@ -43,7 +43,7 @@ public:
   GameObjectTypes get_types() const override;
   std::string get_default_sprite_name() const override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void startBurning();
 

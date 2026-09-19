@@ -92,7 +92,7 @@ public:
 
   inline bool is_sideways() { return m_dir == CrusherDirection::HORIZONTAL || m_dir == CrusherDirection::LEFT || m_dir == CrusherDirection::RIGHT; }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 private:
   bool should_crush();

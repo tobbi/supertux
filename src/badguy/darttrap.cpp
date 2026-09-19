@@ -201,9 +201,9 @@ DartTrap::get_allowed_directions() const
 }
 
 void
-DartTrap::on_flip(float height)
+DartTrap::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   if (m_dir == Direction::DOWN || m_dir == Direction::UP)
   {
     m_dir = invert_dir(m_dir);

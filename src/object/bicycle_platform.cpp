@@ -81,9 +81,9 @@ void BicyclePlatformChild::editor_delete()
 }
 
 void
-BicyclePlatformChild::on_flip(float height)
+BicyclePlatformChild::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 
@@ -169,9 +169,9 @@ BicyclePlatform::update(float dt_sec)
 }
 
 void
-BicyclePlatform::on_flip(float height)
+BicyclePlatform::on_flip(const Sizef& size)
 {
-  m_center.y = height - m_center.y;
+  m_center.y = size.height - m_center.y;
 }
 
 void

@@ -390,14 +390,14 @@ Tarantula::is_snipable() const
 }
 
 void
-Tarantula::on_flip(float height)
+Tarantula::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   m_vertical_flip = !m_vertical_flip;
 
-  m_last_height = height - m_last_height;
-  m_target_height = height - m_target_height;
-  m_ground_height = height - m_ground_height;
+  m_last_height = size.height - m_last_height;
+  m_target_height = size.height - m_target_height;
+  m_ground_height = size.height - m_ground_height;
 
   if (!m_vertical_flip)
   {

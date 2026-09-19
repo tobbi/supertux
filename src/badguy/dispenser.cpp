@@ -458,9 +458,9 @@ Dispenser::get_default_sprite_name() const
 }
 
 void
-Dispenser::on_flip(float height)
+Dispenser::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   if (!m_gravity)
     FlipLevelTransformer::transform_flip(m_flip);
 }

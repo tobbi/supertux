@@ -81,7 +81,7 @@ public:
 
   virtual void editor_update() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   void parse_tiles(const ReaderMapping& reader);
   void write_tiles(Writer& writer) const;

@@ -34,7 +34,7 @@ public:
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
   virtual void update(float dt_sec) override;
   virtual void draw(DrawingContext& context) override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   static std::string class_name() { return "unstable_tile"; }
   virtual std::string get_class_name() const override { return class_name(); }

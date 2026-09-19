@@ -145,8 +145,8 @@ Switch::after_editor_set()
 }
 
 void
-Switch::on_flip(float height)
+Switch::on_flip(const Sizef& size)
 {
-  StickyTrigger::on_flip(height);
+  StickyTrigger::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }

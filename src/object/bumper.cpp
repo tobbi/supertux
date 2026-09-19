@@ -139,9 +139,9 @@ Bumper::after_editor_set()
 }
 
 void
-Bumper::on_flip(float height)
+Bumper::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

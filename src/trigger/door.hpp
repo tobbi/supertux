@@ -40,7 +40,7 @@ public:
 
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   inline bool is_locked() const { return m_locked; }
   void unlock();

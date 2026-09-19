@@ -80,7 +80,7 @@ public:
   virtual std::string get_default_sprite_name() const override;
   virtual void kill_fall() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
   virtual void on_type_change(int old_type) override;
 
   /**

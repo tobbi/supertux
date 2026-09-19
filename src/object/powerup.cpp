@@ -359,9 +359,9 @@ PowerUp::get_patches() const
 }
 
 void
-PowerUp::on_flip(float height)
+PowerUp::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   if (no_physics)
     FlipLevelTransformer::transform_flip(m_flip);
 }

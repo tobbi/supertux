@@ -202,9 +202,9 @@ Block::break_me()
 }
 
 void
-Block::on_flip(float height)
+Block::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
-  if (m_original_y != -1) m_original_y = height - m_original_y - get_bbox().get_height();
+  MovingObject::on_flip(size);
+  if (m_original_y != -1) m_original_y = size.height - m_original_y - get_bbox().get_height();
   FlipLevelTransformer::transform_flip(m_flip);
 }

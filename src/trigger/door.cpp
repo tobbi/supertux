@@ -261,9 +261,9 @@ Door::collision(MovingObject& other, const CollisionHit& hit_)
 }
 
 void
-Door::on_flip(float height)
+Door::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
+  MovingObject::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

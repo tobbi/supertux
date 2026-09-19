@@ -75,9 +75,9 @@ void PneumaticPlatformChild::editor_delete()
 }
 
 void
-PneumaticPlatformChild::on_flip(float height)
+PneumaticPlatformChild::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 
@@ -137,10 +137,10 @@ PneumaticPlatform::update(float dt_sec)
 }
 
 void
-PneumaticPlatform::on_flip(float height)
+PneumaticPlatform::on_flip(const Sizef& size)
 {
-  m_pos.y = height - m_pos.y - m_children[0]->m_col.m_bbox.get_height();
-  m_start_y = height - m_start_y - m_children[0]->m_col.m_bbox.get_height();
+  m_pos.y = size.height - m_pos.y - m_children[0]->m_col.m_bbox.get_height();
+  m_start_y = size.height - m_start_y - m_children[0]->m_col.m_bbox.get_height();
 }
 
 void

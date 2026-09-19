@@ -17,6 +17,7 @@
 #include "supertux/flip_level_transformer.hpp"
 
 #include "badguy/badguy.hpp"
+#include "math/sizef.hpp"
 #include "object/block.hpp"
 #include "object/camera.hpp"
 #include "object/decal.hpp"
@@ -30,13 +31,15 @@ void
 FlipLevelTransformer::transform_sector(Sector& sector)
 {
   float height = sector.get_height();
+  float width = sector.get_width();
+  Sizef sector_size = Sizef(width, height);
 
   for (auto& object : sector.get_objects())
   {
     if (!object->is_valid())
       return;
 
-    object->on_flip(height);
+    object->on_flip(sector_size);
   }
 
   sector.get_camera().reset(sector.get_players()[0]->get_pos());

@@ -131,9 +131,9 @@ Ispy::update(float dt_sec)
 }
 
 void
-Ispy::on_flip(float height)
+Ispy::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   if (m_dir == Direction::UP)
   {
     m_dir = Direction::DOWN;

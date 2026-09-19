@@ -220,9 +220,9 @@ RCrystallo::after_editor_set()
 }
 
 void
-RCrystallo::on_flip(float height)
+RCrystallo::on_flip(const Sizef& size)
 {
-  WalkingBadguy::on_flip(height);
+  WalkingBadguy::on_flip(size);
 
   auto& crystallo = Sector::get().add<Crystallo>(get_pos(), m_start_position, get_velocity_x(),
                                                  std::move(m_sprite), m_dir, m_radius, m_dead_script);

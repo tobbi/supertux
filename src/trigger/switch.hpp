@@ -36,7 +36,7 @@ public:
   virtual void event(Player& player, EventType type) override;
 
   virtual void after_editor_set() override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 private:
   enum SwitchState {

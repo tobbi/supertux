@@ -54,7 +54,7 @@ public:
   virtual void stop_looping_sounds() override;
   virtual void play_looping_sounds() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   inline void set_flip(Flip flip) { m_flip = flip; }
 

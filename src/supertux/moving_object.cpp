@@ -100,7 +100,7 @@ MovingObject::editor_select()
 }
 
 void
-MovingObject::on_flip(float height)
+MovingObject::on_flip(const Sizef& size)
 {
   auto portable = dynamic_cast<Portable*>(this);
   if (portable && portable->is_grabbed())
@@ -108,7 +108,7 @@ MovingObject::on_flip(float height)
     return;
 
   Vector pos = get_pos();
-  pos.y = height - pos.y - get_bbox().get_height();
+  pos.y = size.height - pos.y - get_bbox().get_height();
   set_pos(pos);
 }
 

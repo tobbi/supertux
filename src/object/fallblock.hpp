@@ -41,7 +41,7 @@ public:
   virtual std::string get_display_name() const override { return display_name(); }
   virtual GameObjectClasses get_class_types() const override { return MovingSprite::get_class_types().add(typeid(FallBlock)); }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 public:
   inline Physic& get_physic() { return m_physic; }

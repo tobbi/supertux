@@ -82,10 +82,10 @@ CirclePlatform::update(float dt_sec)
 }
 
 void
-CirclePlatform::on_flip(float height)
+CirclePlatform::on_flip(const Sizef& size)
 {
-  MovingObject::on_flip(height);
-  start_position.y = height - start_position.y - get_bbox().get_height();
+  MovingObject::on_flip(size);
+  start_position.y = size.height - start_position.y - get_bbox().get_height();
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

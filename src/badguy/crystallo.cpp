@@ -87,9 +87,9 @@ Crystallo::is_flammable() const
 }
 
 void
-Crystallo::on_flip(float height)
+Crystallo::on_flip(const Sizef& size)
 {
-  WalkingBadguy::on_flip(height);
+  WalkingBadguy::on_flip(size);
 
   Sector::get().add<RCrystallo>(get_pos(), m_start_position, get_velocity_x(),
                                 std::move(m_sprite), m_dir, m_radius, m_dead_script);

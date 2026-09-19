@@ -370,9 +370,9 @@ Coin::after_editor_set()
 }
 
 void
-Coin::on_flip(float height)
+Coin::on_flip(const Sizef& size)
 {
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
   PathObject::on_flip();
   FlipLevelTransformer::transform_flip(m_flip);
 }
@@ -396,9 +396,9 @@ HeavyCoin::after_editor_set()
 }
 
 void
-HeavyCoin::on_flip(float height)
+HeavyCoin::on_flip(const Sizef& size)
 {
   // Call on_flip from grandparent class MovingSprite to
   // avoid flipping of gravity-affected object HeavyCoin.
-  MovingSprite::on_flip(height);
+  MovingSprite::on_flip(size);
 }

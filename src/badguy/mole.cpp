@@ -186,9 +186,9 @@ Mole::get_allowed_directions() const
 }
 
 void
-Mole::on_flip(float height)
+Mole::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

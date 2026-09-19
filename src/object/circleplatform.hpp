@@ -26,7 +26,7 @@ public:
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
   virtual ObjectSettings get_settings() override;
   virtual void update(float dt_sec) override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
   virtual void draw(DrawingContext& context) override;
 
   static std::string class_name() { return "circleplatform"; }

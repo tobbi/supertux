@@ -39,7 +39,7 @@ public:
   virtual bool is_snipable() const override { return true; }
 
   virtual void after_editor_set() override;
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 protected:
   virtual bool collision_squished(MovingObject& object) override;

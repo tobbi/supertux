@@ -294,9 +294,9 @@ Zeekling::is_freezable() const
 }
 
 void
-Zeekling::on_flip(float height)
+Zeekling::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   m_start_position.y = get_pos().y;
 }
 

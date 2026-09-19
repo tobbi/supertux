@@ -37,7 +37,7 @@ public:
   virtual bool is_flammable() const override;
   virtual bool is_snipable() const override { return true; }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 protected:
   virtual bool collision_squished(MovingObject& object) override;

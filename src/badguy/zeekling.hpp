@@ -41,7 +41,7 @@ public:
   virtual GameObjectClasses get_class_types() const override { return BadGuy::get_class_types().add(typeid(Zeekling)); }
   virtual bool is_snipable() const override { return true; }
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 private:
   virtual bool collision_squished(MovingObject& object) override;

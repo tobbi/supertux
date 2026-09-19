@@ -244,8 +244,8 @@ Flame::get_allowed_directions() const
 }
 
 void
-Flame::on_flip(float height)
+Flame::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }

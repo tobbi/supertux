@@ -38,7 +38,7 @@ public:
 
   virtual HitResponse collision(MovingObject& other, const CollisionHit& hit) override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   virtual int get_layer() const override { return m_layer; }
 

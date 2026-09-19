@@ -497,7 +497,7 @@ TileMap::editor_update()
 }
 
 void
-TileMap::on_flip(float height)
+TileMap::on_flip(const Sizef& size)
 {
   for (int x = 0; x < get_width(); ++x) {
     for (int y = 0; y < get_height()/2; ++y) {
@@ -511,7 +511,7 @@ TileMap::on_flip(float height)
   }
   FlipLevelTransformer::transform_flip(m_flip);
   Vector offset = get_offset();
-  offset.y = height - offset.y - get_bbox().get_height();
+  offset.y = size.height - offset.y - get_bbox().get_height();
   set_offset(offset);
   PathObject::on_flip();
 }

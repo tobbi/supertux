@@ -35,7 +35,7 @@ public:
   virtual GameObjectClasses get_class_types() const override { return MovingSprite::get_class_types().add(typeid(RubLight)); }
   virtual ObjectSettings get_settings() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
 private:
   enum State {

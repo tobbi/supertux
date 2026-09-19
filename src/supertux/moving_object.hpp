@@ -113,7 +113,7 @@ public:
 
   virtual void editor_select() override;
 
-  virtual void on_flip(float height) override;
+  virtual void on_flip(const Sizef& size) override;
 
   virtual int get_layer() const = 0;
 

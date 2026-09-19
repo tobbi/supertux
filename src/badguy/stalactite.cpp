@@ -211,9 +211,9 @@ Stalactite::get_allowed_directions() const
 }
 
 void
-Stalactite::on_flip(float height)
+Stalactite::on_flip(const Sizef& size)
 {
-  BadGuy::on_flip(height);
+  BadGuy::on_flip(size);
   FlipLevelTransformer::transform_flip(m_flip);
 }
 

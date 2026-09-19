@@ -24,6 +24,7 @@
 
 #include "math/vector.hpp"
 #include "math/easing.hpp"
+#include "math/sizef.hpp"
 #include "util/gettext.hpp"
 
 template<typename T>
@@ -116,7 +117,7 @@ public:
                           cancelling the code that forces traveling bezier
                           curves at constant speed */
 
-  void on_flip(float height);
+  void on_flip(const Sizef& size);
 
 private:
   Path(const Path&) = delete;
