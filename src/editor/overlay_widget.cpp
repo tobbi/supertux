@@ -1508,22 +1508,29 @@ EditorOverlayWidget::draw_tile_grid(DrawingContext& context, int tile_size, bool
     context.color().draw_line(from, to, col, current_tm->get_layer());
   };
 
-  if (draw_shadow)
+  Vector viewport_scale = VideoSystem::current()->get_viewport().get_scale();
+  const Color shadow_colour(0.0f, 0.0f, 0.0f, 0.05f);
+  const Vector shadow_offset(1.0f / viewport_scale.x,
+    1.0f / viewport_scale.y);
+  int tile_size_idx = 0;
+  for (int i = static_cast<int>(start.x); i <= static_cast<int>(end.x); i++)
   {
-    Vector viewport_scale = VideoSystem::current()->get_viewport().get_scale();
-    const Color shadow_colour(0.0f, 0.0f, 0.0f, 0.05f);
-    const Vector shadow_offset(1.0f / viewport_scale.x,
-      1.0f / viewport_scale.y);
-    for (int i = static_cast<int>(start.x); i <= static_cast<int>(end.x); i++)
+    if (tile_size_idx % 32 == 0)
     {
       line_start = tile_screen_pos(Vector(static_cast<float>(i), 0.0f),
-        tile_size) + shadow_offset;
+                    tile_size) + shadow_offset;
       line_end = tile_screen_pos(Vector(static_cast<float>(i), end.y),
-        tile_size) + shadow_offset;
+                    tile_size) + shadow_offset;
       draw_line(line_start, line_end, shadow_colour);
     }
 
-    for (int i = static_cast<int>(start.y); i <= static_cast<int>(end.y); i++)
+    tile_size_idx += tile_size;
+  }
+
+  tile_size_idx = 0;
+  for (int i = static_cast<int>(start.y); i <= static_cast<int>(end.y); i++)
+  {
+    if (tile_size_idx % 32 == 0)
     {
       line_start = tile_screen_pos(Vector(0.0f, static_cast<float>(i)),
         tile_size) + shadow_offset;
@@ -1531,12 +1538,14 @@ EditorOverlayWidget::draw_tile_grid(DrawingContext& context, int tile_size, bool
         tile_size) + shadow_offset;
       draw_line(line_start, line_end, shadow_colour);
     }
+
+    tile_size_idx += tile_size;
   }
 
   const Color line_color(1.f, 1.f, 1.f, 0.2f);
   const Color line_color_tile(1.f, 1.f, 1.f, 0.4f);
 
-  int tile_size_idx = 0;
+  tile_size_idx = 0;
   for (int i = static_cast<int>(start.x); i <= static_cast<int>(end.x); i++)
   {
     line_start = tile_screen_pos(Vector(static_cast<float>(i), 0.0f), tile_size);
