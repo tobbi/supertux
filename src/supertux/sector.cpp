@@ -57,6 +57,7 @@
 #include "supertux/tile_manager.hpp"
 #include "util/file_system.hpp"
 #include "util/writer.hpp"
+#include "video/surface.hpp"
 #include "video/video_system.hpp"
 #include "video/viewport.hpp"
 
@@ -67,6 +68,7 @@ Sector::Sector(Level& parent) :
   m_level(parent),
   m_foremost_layer(),
   m_foremost_opaque_layer(),
+  m_checkerboard(Surface::from_file("images/engine/editor/checkerboard.png")),
   m_gravity(10.0f),
   m_collision_system(new CollisionSystem(*this)),
   m_text_object(add<TextObject>("Text")),
@@ -500,6 +502,30 @@ Sector::draw(DrawingContext& context)
   std::pair<Vector, float> transform = camera.get_predicted_transform(context.get_time_offset());
   context.set_translation(transform.first);
   context.scale(transform.second);
+
+  if (Editor::is_active())
+  {
+    auto bgr_rect = m_checkerboard->get_region();
+    auto rect = context.get_cliprect().moved(-transform.first);
+    std::vector<Rectf> srcrects;
+    std::vector<Rectf> destrects;
+
+    auto origin_x = rect.get_left();
+    auto origin_y = rect.get_top();
+    float grid_scale = transform.second * .5f;
+
+    for (int x = origin_x; x < origin_x + get_width(); x += bgr_rect.get_width())
+      for (int y = origin_y; y < origin_y + get_height(); y += bgr_rect.get_height())
+      {
+        srcrects.push_back(bgr_rect);
+        auto p1 = Vector(x, y) ;
+        auto p2 = p1 + bgr_rect.get_size().to_vector();
+        auto dest_rect = Rectf(p1 * grid_scale, p2 * grid_scale);
+        destrects.push_back(dest_rect);
+      }
+    context.color().draw_surface_batch(m_checkerboard, srcrects, destrects,
+                                       Color::WHITE, std::numeric_limits<int>::min());
+  }
 
   GameObjectManager::draw(context);
 
